@@ -1,0 +1,34 @@
+{
+    "name": "Input",
+    "maps": [
+        {
+            "name": "Computer Keyboard",
+            "id": "0ce47f7a-3871-4806-9146-4da5444bf733",
+            "actions": [
+                {
+                    "name": "Change",
+                    "type": "Button",
+                    "id": "cfff924a-b5f8-4c48-a438-026d8dc05c83",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2eae850a-b369-4d66-a5bb-7d22a1b7c474",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
