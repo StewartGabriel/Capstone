@@ -41,7 +41,7 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2eae850a-b369-4d66-a5bb-7d22a1b7c474"",
-                    ""path"": ""<Keyboard>/w"",
+                    ""path"": ""<MidiDevice>/note060"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
