@@ -19,8 +19,7 @@ public class RandomKeySpawn : MonoBehaviour
     {
         for (int i = 0; i < spawnCount; i++)
         {
-            // Call the SpawnRandomKey method from ObjectSpawner
-            spawnKeys.SpawnRandomKey();
+            // Call the SpawnRandomKey method from SpawnKeys
             
             // Wait for the specified interval before the next spawn
             yield return new WaitForSeconds(interval);
