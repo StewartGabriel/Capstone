@@ -48,6 +48,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Change"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f90c7ab3-614e-424b-9c5c-9f76c330679f"",
+                    ""path"": ""<MidiDevice>/note060"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
