@@ -16,6 +16,7 @@ public class PluginInit : MonoBehaviour
     {
         pluginInit = GameObject.Find("Canvas").GetComponent<PluginInit>();
         InitializePlugIn("com.example.test19.PlugInInstance");
+        Debug.Log("Instance Created");
     }
 
     // Update is called once per frame
