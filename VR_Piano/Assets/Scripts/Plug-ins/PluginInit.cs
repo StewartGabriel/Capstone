@@ -15,8 +15,16 @@ public class PluginInit : MonoBehaviour
     void Start()
     {
         pluginInit = GameObject.Find("Canvas").GetComponent<PluginInit>();
-        InitializePlugIn("com.example.test19.PlugInInstance");
-        Debug.Log("Instance Created");
+        InitializePlugIn("com.gabriel.midi.PlugInInstance"); //com.gabriel.miditest.PlugInInstance
+        if (_pluginInstance != null)
+        {
+            Debug.Log("Instance Created");
+            _pluginInstance.Call("CreateMidiManager");
+            if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null)
+            {
+                Debug.Log("MIDI Manager Created Somehow");
+            }
+        }
     }
 
     // Update is called once per frame
@@ -61,5 +69,12 @@ public class PluginInit : MonoBehaviour
             Debug.Log("Toast Fail");
         }
     }
+
+    /*public void CreateDevice()
+    {
+
+    }
+
+    */
 
 }
