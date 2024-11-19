@@ -6,7 +6,7 @@ public class SpawnKeys : MonoBehaviour
 {
     public GameObject Cube; //Key object 
     public Transform Plane; //Plane to spawn keys onto
-    public float spawnHeight = 0.1f; // Height above the plane to spawn keys to be played
+    public float spawnHeight = 0.01f; // Height above the plane to spawn keys to be played
     public float planeWidth = 0.76f;  // Width of the plane
 
     private int totalPositions = 76;
