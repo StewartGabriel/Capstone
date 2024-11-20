@@ -30,7 +30,7 @@ public class PluginInit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log("Devices Connected: " + _pluginInstance.Call<int>("getDevices"));
     }
 
     void InitializePlugIn(string pluginName)
