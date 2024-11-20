@@ -5,9 +5,12 @@ using UnityEditor;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
+
+
 public class SwitchScenes : MonoBehaviour
 {
-    [SerializeField] private SceneAsset playScene; // Assign a scene in the Inspector
+    //[SerializeField] private SceneAsset playScene; // Assign a scene in the Inspector
+    private string playScene = "SampleScene";
     private string playSceneName;
 
     [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
@@ -18,7 +21,7 @@ public class SwitchScenes : MonoBehaviour
         // Extract the scene name from the SceneAsset
         if (playScene != null)
         {
-            playSceneName = playScene.name;
+            playSceneName = playScene;
         }
     }
 
