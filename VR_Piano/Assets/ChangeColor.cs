@@ -15,6 +15,12 @@ public class PlayerInput : MonoBehaviour
     // use to cycle through our Materials
     private int _currentIndex = 0;
 
+    private TestSound testSound; // Reference to TestSound script
+    private void Awake()
+    {
+        testSound = GetComponent<TestSound>(); // Get the TestSound component
+     }
+
     public void OnChange()
     {
         Debug.Log("Change Color");
@@ -23,5 +29,11 @@ public class PlayerInput : MonoBehaviour
         if (_currentIndex >= Materials.Length) _currentIndex = 0;
 
         TargetRenderer.material = Materials[_currentIndex];
+
+        // Call the TestSound method
+        if (testSound != null)
+        {
+            testSound.OnChange();
+        }
     }
 }
