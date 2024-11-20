@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using MidiJack;
 using System.Collections.Generic;
 using System.Diagnostics;
