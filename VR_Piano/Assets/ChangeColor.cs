@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
 
     [Tooltip("Array of Materials to cycle through")]
     public Material[] Materials;
+    public int numberOfKeys;
 
     [Tooltip("Mesh Renderer to target")]
     public Renderer TargetRenderer;
@@ -23,5 +24,7 @@ public class PlayerInput : MonoBehaviour
         if (_currentIndex >= Materials.Length) _currentIndex = 0;
 
         TargetRenderer.material = Materials[_currentIndex];
+
+
     }
 }
