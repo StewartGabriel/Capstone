@@ -10,57 +10,60 @@ public class PluginInit : MonoBehaviour
     AndroidJavaObject _pluginInstance;
 
     PluginInit pluginInit;
-    PlayerInput playerInput;
-    int last_size;
+    int last_count;
 
     // Start is called before the first frame update
     void Start()
     {
-        pluginInit = GameObject.Find("Cube").GetComponent<PluginInit>();
-        playerInput = GameObject.Find("Cube").GetComponent<PlayerInput>();
-        InitializePlugIn("com.gabriel.midi.PlugInInstance"); //com.gabriel.miditest.PlugInInstance
-        last_size = 0;
+        pluginInit = GameObject.Find("Plugin").GetComponent<PluginInit>();
+        InitializePlugIn("com.gabriel.midi.PlugInInstance"); // com.gabriel.miditest.PlugInInstance
         if (_pluginInstance != null)
         {
             Debug.Log("Instance Created");
-            _pluginInstance.Call("CreateMidiManager");
-            if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null)
+            _pluginInstance.Call("createMidiManager");
+            if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null) // Manager created
             {
                 Debug.Log("MIDI Manager Created Somehow");
             }
         }
+        last_count = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Devices Connected: " + _pluginInstance.Call<int>("getDeviceAmount"));
-        if (_pluginInstance.Call<int>("getDeviceAmount") != last_size) //Changes the cube's color if a device is connected or disconnected
+        if (last_count == 0 && _pluginInstance.Call<int>("getDeviceAmount") != last_count) // Devices array is updated
         {
-            last_size = _pluginInstance.Call<int>("getDeviceAmount");
-            playerInput.OnChange();
-            //Create a reciever
-            //_pluginInstance.Call("createReciever");
+            Debug.Log("Updating devices connected");
+            last_count = 1;
+            Debug.Log("Attempting to create port");
+            _pluginInstance.Call("createPort"); // createPort is a void method now
+                                                // _pluginInstance.Call("Toast", _pluginInstance.Call<string>("createPort"));
         }
     }
 
-    void InitializePlugIn(string pluginName) //Initialize the plug-in
+    private void InitializePlugIn(string pluginName)
     {
-        unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"); //Represents the User as a UnityPlayer
-        unityActivity = unityClass.GetStatic<AndroidJavaObject>("currentActivity"); //Represents the User's activity in the app, the one thing they should be interacting with
-        _pluginInstance = new AndroidJavaObject(pluginName); //Initiallizes the plug-in 
+        unityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        unityActivity = unityClass.GetStatic<AndroidJavaObject>("currentActivity");
+        _pluginInstance = new AndroidJavaObject(pluginName);
         if (_pluginInstance == null)
         {
             Debug.Log("Plugin Instance Error");
         }
-        _pluginInstance.CallStatic("receiveUnityActivity", unityActivity); // Calls the plug-in
+        _pluginInstance.CallStatic("receiveUnityActivity", unityActivity);
+
     }
 
+    public void ReceiveMIDI(string msg)
+    {
+        PlayerInput playerInput = GameObject.Find("Cube").GetComponent<PlayerInput>();
+        playerInput.OnChange();
+        Debug.Log(msg);
+    }
 
-
-
-    // TABLET DEBUG METHODS
-    // public void Add() //Test Script to add numbers and log them
+    //TABLET DEBUG METHODS
+    // public void Add()
     // {
     //     if (_pluginInstance != null)
     //     {
@@ -73,7 +76,7 @@ public class PluginInit : MonoBehaviour
     //     }
     // }
 
-    // public void Toast() //Test Script to show a message to the screen
+    // public void Toast()
     // {
     //     if (_pluginInstance != null)
     //     {
@@ -84,5 +87,12 @@ public class PluginInit : MonoBehaviour
     //         Debug.Log("Toast Fail");
     //     }
     // }
+
+    /*public void CreateDevice()
+    {
+
+    }
+
+    */
 
 }
