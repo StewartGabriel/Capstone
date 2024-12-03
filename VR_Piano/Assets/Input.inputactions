@@ -19,7 +19,7 @@
                 {
                     "name": "",
                     "id": "2eae850a-b369-4d66-a5bb-7d22a1b7c474",
-                    "path": "<Keyboard>/w",
+                    "path": "<MidiDevice>/note060",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -29,9 +29,20 @@
                 },
                 {
                     "name": "",
-                    "id": "3176d450-e8e8-4a93-a4ac-f7fe4be92b8e",
+                    "id": "a93e29ff-39bb-410a-8e8b-bad9fbd67ddd",
+                    "path": "<Keyboard>/w",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Change",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f90c7ab3-614e-424b-9c5c-9f76c330679f",
                     "path": "<MidiDevice>/note060",
-                    "interactions": "",
+                    "interactions": "Press(behavior=2)",
                     "processors": "",
                     "groups": "",
                     "action": "Change",

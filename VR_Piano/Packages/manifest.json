@@ -9,6 +9,7 @@
     }
   ],
   "dependencies": {
+    "jp.keijiro.minis": "1.0.10",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.development": "1.0.1",
     "com.unity.inputsystem": "1.11.0",
