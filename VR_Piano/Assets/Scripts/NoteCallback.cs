@@ -51,7 +51,7 @@ public class NoteCallback : MonoBehaviour
     {
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            KeySet[0].KeyDown();
+            KeySet[0].KeyDown(Random.Range(0, 128));
         }
 
         if (Keyboard.current.wKey.wasReleasedThisFrame)
