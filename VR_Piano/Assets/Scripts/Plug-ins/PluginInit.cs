@@ -55,44 +55,12 @@ public class PluginInit : MonoBehaviour
 
     }
 
-    public void ReceiveMIDI(string msg)
+    private void ReceiveMIDI(string msg) //receives the note information from the plug-in
     {
-        PlayerInput playerInput = GameObject.Find("Cube").GetComponent<PlayerInput>();
-        playerInput.OnChange();
-        Debug.Log(msg);
+        string[] callback = msg.Split(" ");
+        NoteCallback noteCallback = GameObject.Find("Cube").GetComponent<NoteCallback>();
+        noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
+        Debug.Log("---------------------------------------------------------------------------------> " + callback[1] + " " + callback[3] + " " + msg);
     }
-
-    //TABLET DEBUG METHODS
-    // public void Add()
-    // {
-    //     if (_pluginInstance != null)
-    //     {
-    //         var result = _pluginInstance.Call<int>("Add", 5, 6);
-    //         Debug.Log("Add result from Unity: " + result);
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("Add Fail");
-    //     }
-    // }
-
-    // public void Toast()
-    // {
-    //     if (_pluginInstance != null)
-    //     {
-    //         _pluginInstance.Call("Toast", "Hi! from Unity");
-    //     }
-    //     else
-    //     {
-    //         Debug.Log("Toast Fail");
-    //     }
-    // }
-
-    /*public void CreateDevice()
-    {
-
-    }
-
-    */
 
 }
