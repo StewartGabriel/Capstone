@@ -32,7 +32,7 @@ sealed class NoteCallback : MonoBehaviour
                     (note.device as Minis.MidiDevice)?.channel,
                     note.device.description.product
                 ));
-                if(note.noteNumber < KeyCount){KeySet[note.noteNumber].KeyDown();}
+                if(note.noteNumber < KeyCount){KeySet[note.noteNumber].KeyDown((int)velocity);}
             };
 
             midiDevice.onWillNoteOff += (note) => {
@@ -51,7 +51,7 @@ sealed class NoteCallback : MonoBehaviour
     {
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            KeySet[0].KeyDown();
+            KeySet[0].KeyDown(Random.Range(0, 128));
         }
 
         if (Keyboard.current.wKey.wasReleasedThisFrame)

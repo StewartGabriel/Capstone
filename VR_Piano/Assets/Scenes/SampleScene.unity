@@ -484,7 +484,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5210156649115047827, guid: 42d778a5865494f3987eaa1548ea5c6e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 4.27
       objectReference: {fileID: 0}
     - target: {fileID: 5210156649115047827, guid: 42d778a5865494f3987eaa1548ea5c6e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -713,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyPreFab: {fileID: 3101965913632677811, guid: bd03f546458884001b8498565c2bee96, type: 3}
-  KeyCount: 73
+  KeyCount: 88
   spacing: 0.01
 --- !u!1001 &453753817
 PrefabInstance:

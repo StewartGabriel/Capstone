@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
 
     public void OnChange()
     {
-        Debug.Log("Change Color");
+        //Debug.Log("Change Color");
         _currentIndex++;
 
         if (_currentIndex >= Materials.Length) _currentIndex = 0;
