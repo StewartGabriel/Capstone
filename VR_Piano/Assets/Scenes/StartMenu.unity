@@ -789,7 +789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 138631ee95d2bf44b9666eae889b6961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playScene: {fileID: 102900000, guid: 55daccc09a3b69647bbab145b54a3ab3, type: 3}
   leftHandAction: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightHandAction: {fileID: 3279264004350380116, guid: c348712bda248c246b8c49b3db54643f, type: 3}
 --- !u!4 &775600207

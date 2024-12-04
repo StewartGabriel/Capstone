@@ -95,7 +95,7 @@ public class NoteCallback : MonoBehaviour
         Debug.Log("Note Received From Library: " + note);
         if (velocity > 0)
         {
-            KeySet[note - 1].KeyDown();
+            KeySet[note - 1].KeyDown(velocity);
         }
         else
         {
