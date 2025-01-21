@@ -10,7 +10,7 @@ public class PluginInit : MonoBehaviour
     AndroidJavaObject _pluginInstance;
 
     PluginInit pluginInit;
-    int last_count;
+    private int last_count;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +38,6 @@ public class PluginInit : MonoBehaviour
             last_count = 1;
             Debug.Log("Attempting to create port");
             _pluginInstance.Call("createPort"); // createPort is a void method now
-                                                // _pluginInstance.Call("Toast", _pluginInstance.Call<string>("createPort"));
         }
     }
 
@@ -60,7 +59,7 @@ public class PluginInit : MonoBehaviour
         string[] callback = msg.Split(" ");
         NoteCallback noteCallback = GameObject.Find("Cube").GetComponent<NoteCallback>();
         noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
-        Debug.Log("---------------------------------------------------------------------------------> " + callback[1] + " " + callback[3] + " " + msg);
+        Debug.Log(callback[1] + " " + callback[3] + " " + msg);
     }
 
 }
