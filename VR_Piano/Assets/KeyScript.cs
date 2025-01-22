@@ -27,7 +27,9 @@ public class Key : MonoBehaviour
 
         thisKeysRenderer.material = Materials[1];
         Debug.Log(speed);
-        thisKeysRenderer.material.color = new Color((1f / 127f) * speed,0,0);
+        thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 
+    0f, 
+    0f);
         Note newNote = Instantiate(
                 NotePrefab,spawnPosition,
                 Quaternion.identity
