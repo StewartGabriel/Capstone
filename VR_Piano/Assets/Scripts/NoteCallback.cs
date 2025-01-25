@@ -4,9 +4,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Controls;
 
-// NoteCallback.cs - This script shows how to define a callback to get notified
-// on MIDI note-on/off events.
-
 public class NoteCallback : MonoBehaviour
 {
     //public GameObject KeyboardBase;
@@ -21,42 +18,9 @@ public class NoteCallback : MonoBehaviour
     {
         CreateBoard();
         InitializeKeyMappings();
-
-        InputSystem.onDeviceChange += (device, change) =>
-        {
-            if (change != InputDeviceChange.Added) return;
-
-            var midiDevice = device as Minis.MidiDevice;
-            if (midiDevice == null) return;
-
-            midiDevice.onWillNoteOn += (note, velocity) =>
-            {
-                Debug.Log(string.Format(
-                    "Note On #{0} ({1}) vel:{2:0.00} ch:{3} dev:'{4}'",
-                    note.noteNumber,
-                    note.shortDisplayName,
-                    velocity,
-                    (note.device as Minis.MidiDevice)?.channel,
-                    note.device.description.product
-                ));
-                if (note.noteNumber < KeyCount) { KeySet[note.noteNumber].KeyDown((int)velocity); }
-            };
-
-            midiDevice.onWillNoteOff += (note) =>
-            {
-                Debug.Log(string.Format(
-                    "Note Off #{0} ({1}) ch:{2} dev:'{3}'",
-                    note.noteNumber,
-                    note.shortDisplayName,
-                    (note.device as Minis.MidiDevice)?.channel,
-                    note.device.description.product
-                ));
-                if (note.noteNumber < KeyCount) { KeySet[note.noteNumber].KeyUp(); }
-            };
-        };
     }
 
-    void InitializeKeyMappings()
+    void InitializeKeyMappings() // For testing with a computer's keyboard rather than a midi keyboard
     {
         keyMappings = new Dictionary<KeyControl, int>
         {
@@ -88,18 +52,8 @@ public class NoteCallback : MonoBehaviour
     }
 
 
-    void Update()
+    void Update() // For testing with a computer's keyboard rather than a midi keyboard
     {
-        //if (Keyboard.current.wKey.wasPressedThisFrame)
-        //{
-        //    KeySet[0].KeyDown(Random.Range(0, 128));
-        //}
-
-        //if (Keyboard.current.wKey.wasReleasedThisFrame)
-        //{
-        //    KeySet[0].KeyUp();
-        //}
-
         foreach (var keyMapping in keyMappings)
         {
             var key = keyMapping.Key;
@@ -116,7 +70,8 @@ public class NoteCallback : MonoBehaviour
             }
         }
     }
-    void CreateBoard()
+
+    void CreateBoard() // Create the render of the keyboard
     {
         KeySet = new Key[KeyCount];
 
