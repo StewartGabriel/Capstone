@@ -24,31 +24,31 @@ public class NoteCallback : MonoBehaviour
     {
         keyMappings = new Dictionary<KeyControl, int>
         {
-            { Keyboard.current.qKey, 0},
-            { Keyboard.current.wKey, 1},
-            { Keyboard.current.eKey, 2},
-            { Keyboard.current.rKey, 3},
-            { Keyboard.current.tKey, 4},
-            { Keyboard.current.yKey, 5},
-            { Keyboard.current.uKey, 6},
-            { Keyboard.current.iKey, 7},
-            { Keyboard.current.oKey, 8},
-            { Keyboard.current.pKey, 9},
-            { Keyboard.current.aKey, 10},
-            { Keyboard.current.sKey, 11},
-            { Keyboard.current.dKey, 12},
-            { Keyboard.current.fKey, 13},
-            { Keyboard.current.gKey, 14},
-            { Keyboard.current.hKey, 15},
-            { Keyboard.current.jKey, 16},
-            { Keyboard.current.kKey, 17},
-            { Keyboard.current.lKey, 18},
-            { Keyboard.current.zKey, 19},
-            { Keyboard.current.xKey, 20},
-            { Keyboard.current.cKey, 21},
-            { Keyboard.current.vKey, 22},
-            { Keyboard.current.bKey, 23},
-    };
+            { Keyboard.current.qKey, 57},
+            { Keyboard.current.wKey, 59},
+            { Keyboard.current.eKey, 60},
+            { Keyboard.current.rKey, 62},
+            { Keyboard.current.tKey, 64},
+            { Keyboard.current.yKey, 65},
+            { Keyboard.current.uKey, 67},
+            { Keyboard.current.iKey, 69},
+            { Keyboard.current.oKey, 71},
+            { Keyboard.current.pKey, 74},
+            { Keyboard.current.aKey, 76},
+            { Keyboard.current.sKey, 77},
+            { Keyboard.current.dKey, 79},
+            { Keyboard.current.fKey, 80},
+            { Keyboard.current.gKey, 80},
+            { Keyboard.current.hKey, 80},
+            { Keyboard.current.jKey, 80},
+            { Keyboard.current.kKey, 80},
+            { Keyboard.current.lKey, 80},
+            { Keyboard.current.zKey, 80},
+            { Keyboard.current.xKey, 80},
+            { Keyboard.current.cKey, 80},
+            { Keyboard.current.vKey, 80},
+            { Keyboard.current.bKey, 80},
+        };
     }
 
 
@@ -99,35 +99,35 @@ public class NoteCallback : MonoBehaviour
             );
 
             // Assign pianoSound from SoundType to each key
-            if (i < 2)
+            if (i == 57 || i == 69)
             {
                 newKey.pianoSound = SoundType.aNOTES; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
             }
-            else if (i < 4)
+            else if (i == 59 || i == 71)
             {
                 newKey.pianoSound = SoundType.bNOTES;
             }
-            else if (i < 6)
+            else if (i == 60 || i == 72)
             {
                 newKey.pianoSound = SoundType.cNOTES;
             }
-            else if (i < 8)
+            else if (i == 62 || i == 74)
             {
                 newKey.pianoSound = SoundType.dNOTES;
             }
-            else if (i < 10)
+            else if (i == 64 || i == 76)
             {
                 newKey.pianoSound = SoundType.eNOTES;
             }
-            else if (i < 12)
+            else if (i == 65 || i == 77)
             {
                 newKey.pianoSound = SoundType.fNOTES;
             }
-            else if (i < 14)
+            else if (i == 67 || i == 79)
             {
                 newKey.pianoSound = SoundType.gNOTES;
             }
-            else if (i < 24)
+            else if (i >= 80) //I'll figure this out later
             {
                 newKey.pianoSound = (SoundType.SHARPS); // SHARPS
             }
