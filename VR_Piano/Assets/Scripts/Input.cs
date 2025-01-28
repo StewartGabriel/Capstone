@@ -41,6 +41,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2eae850a-b369-4d66-a5bb-7d22a1b7c474"",
+                    ""path"": ""<MidiDevice>/note060"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a93e29ff-39bb-410a-8e8b-bad9fbd67ddd"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": ""Press(behavior=2)"",
                     ""processors"": """",
@@ -54,6 +65,17 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""id"": ""f90c7ab3-614e-424b-9c5c-9f76c330679f"",
                     ""path"": ""<MidiDevice>/note060"",
                     ""interactions"": ""Press(behavior=2)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Change"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f01b1566-7381-425b-821c-db776510de5a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Change"",

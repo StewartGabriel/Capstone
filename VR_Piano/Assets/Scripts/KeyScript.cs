@@ -8,6 +8,7 @@ public class Key : MonoBehaviour
     public Renderer thisKeysRenderer;
     public Note NotePrefab; 
     public Material[] Materials;
+    public SoundType pianoSound;
     private Note currentnote;
     private bool isactive;
     void Start()
@@ -34,12 +35,18 @@ public class Key : MonoBehaviour
         currentnote = newNote;
         transform.Translate(Vector3.down * .05f, Space.Self);
 
+        // Play sound from the SoundManager
+        SoundManager.PlaySound(pianoSound, speed / 127f);
+
     }
     public void KeyUp()
     {
         //Debug.Log("KeyUp called");
         thisKeysRenderer.material = Materials[0];
-        currentnote.on = false;
+        if (currentnote != null)
+        {
+            currentnote.on = false;
+        }
         transform.Translate(Vector3.up * .05f, Space.Self);
     }
 }
