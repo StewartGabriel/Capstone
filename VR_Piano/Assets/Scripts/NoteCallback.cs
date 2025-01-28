@@ -61,10 +61,19 @@ sealed class NoteCallback : MonoBehaviour
         }
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
-            KeySet[2].KeyDown(Random.Range(0, 128));
+            KeySet[1].KeyDown(Random.Range(0, 128));
         }
 
         if (Keyboard.current.eKey.wasReleasedThisFrame)
+        {
+            KeySet[1].KeyUp();
+        }
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            KeySet[2].KeyDown(Random.Range(0, 128));
+        }
+
+        if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
             KeySet[2].KeyUp();
         }
@@ -107,7 +116,7 @@ sealed class NoteCallback : MonoBehaviour
 
             Key blackKey = Instantiate(
                 BlackKeyPreFab,
-                new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z), // Adjust y-position for black keys
+                new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
                 Quaternion.identity
             );
 
@@ -116,6 +125,7 @@ sealed class NoteCallback : MonoBehaviour
             blackKey.transform.localScale = blackScale;
             
             i++;
+            KeySet[i] = blackKey;
         }
         currentPosition += keyWidth + spacing;
     }
