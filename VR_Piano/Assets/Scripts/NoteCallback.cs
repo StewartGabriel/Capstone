@@ -66,7 +66,7 @@ sealed class NoteCallback : MonoBehaviour
     float currentPosition = transform.position.x - width / 2 + keyWidth / 2;
 
     for (int i = 0; i < KeyCount; i++)
-    {
+        {
         float yPosition = transform.position.y + height / 2;
 
         Key newKey = Instantiate(
@@ -81,24 +81,24 @@ sealed class NoteCallback : MonoBehaviour
 
         KeySet[i] = newKey;
 
-        if (i % 7 != 2 && i % 7 != 6)
-        {
-            float blackKeyOffset = keyWidth * 0.5f; 
+            if (i % 7 != 2 && i % 7 != 6)
+            {
+                float blackKeyOffset = keyWidth * 0.5f; 
 
-            Key blackKey = Instantiate(
-                BlackKeyPreFab,
-                new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
-                Quaternion.identity
-            );
+                Key blackKey = Instantiate(
+                    BlackKeyPreFab,
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
+                    Quaternion.identity
+                );
 
-            Vector3 blackScale = blackKey.transform.localScale;
-            blackScale.x = (keyWidth * 0.6f) / blackKey.GetComponent<BoxCollider>().size.x; // Black keys are narrower
-            blackKey.transform.localScale = blackScale;
+                Vector3 blackScale = blackKey.transform.localScale;
+                blackScale.x = (keyWidth * 0.6f) / blackKey.GetComponent<BoxCollider>().size.x; // Black keys are narrower
+                blackKey.transform.localScale = blackScale;
             
-            i++;
-            KeySet[i] = blackKey;
-        }
-        currentPosition += keyWidth + spacing;
+                i++;
+                KeySet[i] = blackKey;
+            }
+            currentPosition += keyWidth + spacing;
         
             // Assign pianoSound from SoundType to each key
             if (i == 57 || i == 69)
