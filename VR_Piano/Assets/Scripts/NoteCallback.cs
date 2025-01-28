@@ -19,84 +19,55 @@ sealed class NoteCallback : MonoBehaviour
     }
 
     void Update()
-    {
-        // if (Keyboard.current.wKey.wasPressedThisFrame)
-        // {
-        //     KeySet[0].KeyDown(Random.Range(0, 128));
-        // }
-
-        // if (Keyboard.current.wKey.wasReleasedThisFrame)
-        // {
-        //     KeySet[0].KeyUp();
-        // }
-        // if (Keyboard.current.eKey.wasPressedThisFrame)
-        // {
-        //     KeySet[1].KeyDown(Random.Range(0, 128));
-        // }
-
-        // if (Keyboard.current.eKey.wasReleasedThisFrame)
-        // {
-        //     KeySet[1].KeyUp();
-        // }
-        // if (Keyboard.current.rKey.wasPressedThisFrame)
-        // {
-        //     KeySet[2].KeyDown(Random.Range(0, 128));
-        // }
-
-        // if (Keyboard.current.rKey.wasReleasedThisFrame)
-        // {
-        //     KeySet[2].KeyUp();
-        // }
-
-    }
+    {}
 
     void CreateBoard()
     {
-    KeySet = new Key[KeyCount];
+        KeySet = new Key[KeyCount];
 
-    float width = 1f;
-    float height = 0f;
-    BoxCollider boxCollider = GetComponent<BoxCollider>();
-    width = boxCollider.size.x * transform.localScale.x;
-    height = boxCollider.size.y * transform.localScale.y;
+        float width = 1f;
+        float height = 0f;
+        BoxCollider boxCollider = GetComponent<BoxCollider>();
+        width = boxCollider.size.x * transform.localScale.x;
+        height = boxCollider.size.y * transform.localScale.y;
 
-    float totalSpacing = (KeyCount - 1) * spacing;
-    float keyWidth = (width - totalSpacing) / KeyCount;
+        float totalSpacing = (KeyCount - 1) * spacing;
+        float keyWidth = (width - totalSpacing) / KeyCount;
 
-    float currentPosition = transform.position.x - width / 2 + keyWidth / 2;
+        float currentPosition = transform.position.x - width / 2 + keyWidth / 2;
 
-    for (int i = 0; i < KeyCount; i++)
+        for (int i = 0; i < KeyCount; i++)
         {
-        float yPosition = transform.position.y + height / 2;
+            float yPosition = transform.position.y + height / 2;
 
-        Key newKey = Instantiate(
-            KeyPreFab,
-            new Vector3(currentPosition, yPosition, transform.position.z),
-            Quaternion.identity
-        );
+            Key newKey = Instantiate(
+                KeyPreFab,
+                new Vector3(currentPosition, yPosition, transform.position.z),
+                Quaternion.identity
+            );
 
-        Vector3 whiteScale = newKey.transform.localScale;
-        whiteScale.x = keyWidth / newKey.GetComponent<BoxCollider>().size.x;
-        newKey.transform.localScale = whiteScale;
+            Vector3 whiteScale = newKey.transform.localScale;
+            whiteScale.x = keyWidth / newKey.GetComponent<BoxCollider>().size.x;
+            newKey.transform.localScale = whiteScale;
 
-        KeySet[i] = newKey;
+            KeySet[i] = newKey;
 
             if (i % 7 != 2 && i % 7 != 6)
             {
-                float blackKeyOffset = keyWidth * 0.5f; 
+                    float blackKeyOffset = keyWidth * 0.5f; 
 
-                Key blackKey = Instantiate(
-                    BlackKeyPreFab,
-                    new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
-                    Quaternion.identity
-                );
+                    Key blackKey = Instantiate(
+                        BlackKeyPreFab,
+                        new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
+                        Quaternion.identity
+                    );
 
-                Vector3 blackScale = blackKey.transform.localScale;
-                blackScale.x = (keyWidth * 0.6f) / blackKey.GetComponent<BoxCollider>().size.x; // Black keys are narrower
-                blackKey.transform.localScale = blackScale;
-            
-                i++;
-                KeySet[i] = blackKey;
+                    Vector3 blackScale = blackKey.transform.localScale;
+                    blackScale.x = (keyWidth * 0.6f) / blackKey.GetComponent<BoxCollider>().size.x; // Black keys are narrower
+                    blackKey.transform.localScale = blackScale;
+
+                    i++;
+                    KeySet[i] = blackKey;
             }
             currentPosition += keyWidth + spacing;
         
