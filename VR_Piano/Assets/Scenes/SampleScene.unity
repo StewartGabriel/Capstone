@@ -1176,6 +1176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KeyPreFab: {fileID: 3101965913632677811, guid: bd03f546458884001b8498565c2bee96, type: 3}
+  BlackKeyPreFab: {fileID: 3101965913632677811, guid: 5346d43537b6343069bf2391b63fc1cf, type: 3}
   KeyCount: 128
   spacing: 0.01
 --- !u!114 &170974398

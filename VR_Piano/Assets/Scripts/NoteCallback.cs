@@ -19,7 +19,35 @@ sealed class NoteCallback : MonoBehaviour
     }
 
     void Update()
-    {}
+    {
+        if (Keyboard.current.wKey.wasPressedThisFrame)
+        {
+            KeySet[0].KeyDown(Random.Range(0, 128));
+        }
+
+        if (Keyboard.current.wKey.wasReleasedThisFrame)
+        {
+            KeySet[0].KeyUp();
+        }
+        if (Keyboard.current.eKey.wasPressedThisFrame)
+        {
+            KeySet[1].KeyDown(Random.Range(0, 128));
+        }
+
+        if (Keyboard.current.eKey.wasReleasedThisFrame)
+        {
+            KeySet[1].KeyUp();
+        }
+        if (Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            KeySet[2].KeyDown(Random.Range(0, 128));
+        }
+
+        if (Keyboard.current.rKey.wasReleasedThisFrame)
+        {
+            KeySet[2].KeyUp();
+        }
+    }
 
     void CreateBoard()
     {
@@ -71,42 +99,42 @@ sealed class NoteCallback : MonoBehaviour
             }
             currentPosition += keyWidth + spacing;
         
-            // Assign pianoSound from SoundType to each key
-            if (i == 57 || i == 69)
-            {
-                newKey.pianoSound = SoundType.aNOTES; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
-            }
-            else if (i == 59 || i == 71)
-            {
-                newKey.pianoSound = SoundType.bNOTES;
-            }
-            else if (i == 60 || i == 72)
-            {
-                newKey.pianoSound = SoundType.cNOTES;
-            }
-            else if (i == 62 || i == 74)
-            {
-                newKey.pianoSound = SoundType.dNOTES;
-            }
-            else if (i == 64 || i == 76)
-            {
-                newKey.pianoSound = SoundType.eNOTES;
-            }
-            else if (i == 65 || i == 77)
-            {
-                newKey.pianoSound = SoundType.fNOTES;
-            }
-            else if (i == 67 || i == 79)
-            {
-                newKey.pianoSound = SoundType.gNOTES;
-            }
-            else if (i >= 80) //I'll figure this out later
-            {
-                newKey.pianoSound = (SoundType.SHARPS); // SHARPS
-            }
-
-            KeySet[i] = newKey;
-            newKey.transform.SetParent(this.transform);
+            // // Assign pianoSound from SoundType to each key
+            // if (i == 57 || i == 69)
+            // {
+            //     newKey.pianoSound = SoundType.aNOTES; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
+            // }
+            // else if (i == 59 || i == 71)
+            // {
+            //     newKey.pianoSound = SoundType.bNOTES;
+            // }
+            // else if (i == 60 || i == 72)
+            // {
+            //     newKey.pianoSound = SoundType.cNOTES;
+            // }
+            // else if (i == 62 || i == 74)
+            // {
+            //     newKey.pianoSound = SoundType.dNOTES;
+            // }
+            // else if (i == 64 || i == 76)
+            // {
+            //     newKey.pianoSound = SoundType.eNOTES;
+            // }
+            // else if (i == 65 || i == 77)
+            // {
+            //     newKey.pianoSound = SoundType.fNOTES;
+            // }
+            // else if (i == 67 || i == 79)
+            // {
+            //     newKey.pianoSound = SoundType.gNOTES;
+            // }
+            // else if (i >= 80) //I'll figure this out later
+            // {
+            //     newKey.pianoSound = (SoundType.SHARPS); // SHARPS
+            // }
+            // KeySet[i] = newKey;
+            // newKey.transform.SetParent(this.transform);
+            
         }
     }
 
