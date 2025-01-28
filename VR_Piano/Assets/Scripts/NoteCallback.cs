@@ -79,7 +79,8 @@ sealed class NoteCallback : MonoBehaviour
             newKey.transform.localScale = whiteScale;
 
             KeySet[i] = newKey;
-
+            newKey.transform.SetParent(this.transform);
+            
             if (i % 7 != 2 && i % 7 != 6)
             {
                     float blackKeyOffset = keyWidth * 0.5f; 
@@ -96,6 +97,8 @@ sealed class NoteCallback : MonoBehaviour
 
                     i++;
                     KeySet[i] = blackKey;
+                    blackKey.transform.SetParent(this.transform);
+            
             }
             currentPosition += keyWidth + spacing;
         
@@ -133,8 +136,6 @@ sealed class NoteCallback : MonoBehaviour
             //     newKey.pianoSound = (SoundType.SHARPS); // SHARPS
             // }
             // KeySet[i] = newKey;
-            // newKey.transform.SetParent(this.transform);
-            
         }
     }
 
