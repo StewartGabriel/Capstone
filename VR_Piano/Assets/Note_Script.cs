@@ -7,6 +7,7 @@ public class Note : MonoBehaviour
     public float growRate; // Rate at which the object stretches
     public float stretchmulti; // Rate at which the object stretches
     public bool on  = true;
+    public int noteID;
     void Start()
     {
     }
