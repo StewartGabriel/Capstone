@@ -8,6 +8,7 @@ public class PianoAnchoringManager : MonoBehaviour
     private ARAnchor currentAnchor;
     private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
     private bool isMoveAllowed = false; // Controls when the player can move the object
+    private Quaternion savedRotation;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class PianoAnchoringManager : MonoBehaviour
         {
             grabInteractable.enabled = false; // Disable grabbing initially
             grabInteractable.selectExited.AddListener(OnRelease);
+            grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.VelocityTracking; // Prevent rotation while moving
         }
     }
 
@@ -34,6 +36,8 @@ public class PianoAnchoringManager : MonoBehaviour
         {
             isMoveAllowed = true;
             grabInteractable.enabled = true; // Enable grabbing
+            savedRotation = transform.rotation; // Save rotation before moving
+            grabInteractable.trackRotation = false; // Prevent rotation while moving
             Debug.Log("Player can move the keyboard.");
         }
     }
@@ -45,6 +49,7 @@ public class PianoAnchoringManager : MonoBehaviour
             PlaceAnchor();
             grabInteractable.enabled = false; // Disable grabbing after first move
             isMoveAllowed = false;
+            grabInteractable.trackRotation = true; // Re-enable rotation tracking after placement
             Debug.Log("Keyboard placed and locked.");
         }
     }
@@ -68,6 +73,9 @@ public class PianoAnchoringManager : MonoBehaviour
         {
             Debug.Log("Anchor already placed.");
         }
+
+        // Restore rotation after anchoring
+        transform.rotation = savedRotation;
     }
 
     public void RemoveAnchor()
