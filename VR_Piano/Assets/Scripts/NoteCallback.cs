@@ -105,35 +105,35 @@ sealed class NoteCallback : MonoBehaviour
             // // Assign pianoSound from SoundType to each key
             // if (i == 57 || i == 69)
             // {
-            //     newKey.pianoSound = SoundType.aNOTES; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
+            //     newKey.pianoSound = SoundType.OCTAVE; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
             // }
             // else if (i == 59 || i == 71)
             // {
-            //     newKey.pianoSound = SoundType.bNOTES;
+            //     newKey.pianoSound = SoundType.firstOCTAVE;
             // }
             // else if (i == 60 || i == 72)
             // {
-            //     newKey.pianoSound = SoundType.cNOTES;
+            //     newKey.pianoSound = SoundType.secondOCTAVE;
             // }
             // else if (i == 62 || i == 74)
             // {
-            //     newKey.pianoSound = SoundType.dNOTES;
+            //     newKey.pianoSound = SoundType.thirdOCTAVE;
             // }
             // else if (i == 64 || i == 76)
             // {
-            //     newKey.pianoSound = SoundType.eNOTES;
+            //     newKey.pianoSound = SoundType.fourthOCTAVE;
             // }
             // else if (i == 65 || i == 77)
             // {
-            //     newKey.pianoSound = SoundType.fNOTES;
+            //     newKey.pianoSound = SoundType.fifthOCTAVE;
             // }
             // else if (i == 67 || i == 79)
             // {
-            //     newKey.pianoSound = SoundType.gNOTES;
+            //     newKey.pianoSound = SoundType.sixthOCTAVE;
             // }
             // else if (i >= 80) //I'll figure this out later
             // {
-            //     newKey.pianoSound = (SoundType.SHARPS); // SHARPS
+            //     newKey.pianoSound = (SoundType.seventhOCTAVE); // seventhOCTAVE
             // }
             // KeySet[i] = newKey;
         }

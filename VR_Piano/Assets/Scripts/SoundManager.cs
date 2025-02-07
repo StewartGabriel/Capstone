@@ -5,14 +5,15 @@ using System;
 
 public enum SoundType
 {
-    aNOTES,
-    bNOTES,
-    cNOTES,
-    dNOTES,
-    eNOTES,
-    fNOTES,
-    gNOTES,
-    SHARPS
+    OCTAVE,
+    firstOCTAVE,
+    secondOCTAVE,
+    thirdOCTAVE,
+    fourthOCTAVE,
+    fifthOCTAVE,
+    sixthOCTAVE,
+    seventhOCTAVE,
+    eightOCTAVE,
     // MENU,
     // BACKGROUND,
     // SONGS,
