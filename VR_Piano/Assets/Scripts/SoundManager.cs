@@ -5,8 +5,6 @@ using System;
 
 public enum SoundType
 {
-    OCTAVE,
-    firstOCTAVE,
     secondOCTAVE,
     thirdOCTAVE,
     fourthOCTAVE,
@@ -14,6 +12,8 @@ public enum SoundType
     sixthOCTAVE,
     seventhOCTAVE,
     eightOCTAVE,
+    ninethOCTAVE,
+    tenthOCTAVE,
     // MENU,
     // BACKGROUND,
     // SONGS,

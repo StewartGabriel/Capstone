@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.Layouts;
 // NoteCallback.cs - This script shows how to define a callback to get notified
 // on MIDI note-on/off events.
 
-sealed class NoteCallback : MonoBehaviour
+public sealed class NoteCallback : MonoBehaviour
 {
     //public GameObject KeyboardBase;
     private Key[]KeySet;
@@ -101,39 +101,39 @@ sealed class NoteCallback : MonoBehaviour
             
             }
             currentPosition += keyWidth + spacing;
-        
+
             // // Assign pianoSound from SoundType to each key
-            // if (i == 57 || i == 69)
-            // {
-            //     newKey.pianoSound = SoundType.OCTAVE; // aNotes - gNotes, to be replaced by enum nOctaves from SoundManager in future implementations
-            // }
-            // else if (i == 59 || i == 71)
-            // {
-            //     newKey.pianoSound = SoundType.firstOCTAVE;
-            // }
-            // else if (i == 60 || i == 72)
+            // if (i >= 28 || i <= 35)
             // {
             //     newKey.pianoSound = SoundType.secondOCTAVE;
             // }
-            // else if (i == 62 || i == 74)
+            // else if (i >= 36 || i <= 47)
             // {
-            //     newKey.pianoSound = SoundType.thirdOCTAVE;
+            //     newKey.pianoSound = SoundType.firstOCTAVE;
             // }
-            // else if (i == 64 || i == 76)
+            // else if (i >= 48 || i <= 59)
             // {
             //     newKey.pianoSound = SoundType.fourthOCTAVE;
             // }
-            // else if (i == 65 || i == 77)
+            // else if (i >= 60 || i <= 71)
             // {
             //     newKey.pianoSound = SoundType.fifthOCTAVE;
             // }
-            // else if (i == 67 || i == 79)
+            // else if (i >= 72 || i <= 83)
             // {
             //     newKey.pianoSound = SoundType.sixthOCTAVE;
             // }
+            // else if (i >= 84 || i <= 95)
+            // {
+            //     newKey.pianoSound = SoundType.seventhOCTAVE;
+            // }
+            // else if (i >= 96 || i <= 103)
+            // {
+            //     newKey.pianoSound = SoundType.eightOCTAVE;
+            // }
             // else if (i >= 80) //I'll figure this out later
             // {
-            //     newKey.pianoSound = (SoundType.seventhOCTAVE); // seventhOCTAVE
+            //     newKey.pianoSound = (SoundType.ninethOCTAVE); // ninethOCTAVE
             // }
             // KeySet[i] = newKey;
         }
