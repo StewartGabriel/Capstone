@@ -26,7 +26,9 @@ public class MidiMessages : MonoBehaviour
     {
         if (Keyboard.current.enterKey.wasPressedThisFrame) // I'm guessing this will be replaced with Play > Song > from the menu
         {
-            string filePath = Application.dataPath + "/processedFurElise1Piano right.txt"; // if Play > Song condition then filePath should be adjusted to current file folder/selected song
+            string filePath = Application.dataPath + "/Sounds/Midi Files/FurElise/processedFurElise1Piano right.txt"; // if Play > Song condition then filePath should be adjusted to current file folder/selected song
+
+            // Assets/Sounds/Midi Files/FurElise/processedFurElise1Piano right.txt
 
             //string fileName = Path.GetFileNameWithoutExtension(filePath); // Gets the file name only         
             //string gameObjectName = "toRender: " + fileName; // To rename the created Game Object with the file name
