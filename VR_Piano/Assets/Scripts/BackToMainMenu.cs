@@ -7,11 +7,11 @@ using UnityEngine.InputSystem;
 
 
 
-public class SwitchScenes : MonoBehaviour
+public class sampleSceneSceneSwitcher : MonoBehaviour
 {
-    //[SerializeField] private SceneAsset songSelect; // Assign a scene in the Inspector
-    private string songSelect = "SongSelect";
-    private string songSelectName;
+    //[SerializeField] private SceneAsset sampleScene; // Assign a scene in the Inspector
+    private string sampleScene = "SampleScene";
+    private string sampleSceneName;
 
     [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
     [SerializeField] private InputActionReference rightHandAction; // Reference to the right hand action
@@ -19,9 +19,9 @@ public class SwitchScenes : MonoBehaviour
     private void Awake()
     {
         // Extract the scene name from the SceneAsset
-        if (songSelect != null)
+        if (sampleScene != null)
         {
-            songSelectName = songSelect;
+            sampleSceneName = sampleScene;
         }
     }
 
@@ -44,7 +44,7 @@ public class SwitchScenes : MonoBehaviour
         // Check if either action is triggered
         if (IsButtonPressed(leftHandAction) || IsButtonPressed(rightHandAction))
         {
-            SwitchTosongSelect();
+            SwitchTosampleScene();
         }
     }
 
@@ -54,11 +54,11 @@ public class SwitchScenes : MonoBehaviour
         return actionReference.action != null && actionReference.action.triggered;
     }
 
-    public void SwitchTosongSelect()
+    public void SwitchTosampleScene()
     {
-        if (!string.IsNullOrEmpty(songSelectName))
+        if (!string.IsNullOrEmpty(sampleSceneName))
         {
-            SceneManager.LoadScene(songSelectName);
+            SceneManager.LoadScene(sampleSceneName);
         }
         else
         {
