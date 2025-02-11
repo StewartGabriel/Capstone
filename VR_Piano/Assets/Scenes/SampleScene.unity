@@ -1368,6 +1368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toNoteCallback: {fileID: 0}
 --- !u!1 &193418512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,6 +2113,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306833980}
   m_CullTransparentMesh: 1
+--- !u!1 &354958240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 354958242}
+  - component: {fileID: 354958241}
+  m_Layer: 0
+  m_Name: Extracted Midi Data
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &354958241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354958240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toNoteCallback: {fileID: 170974397}
+--- !u!4 &354958242
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354958240}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.022264, y: -0.030109294, z: 3.0433457}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &400617629
 GameObject:
   m_ObjectHideFlags: 0
@@ -8869,11 +8915,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundList:
-  - name: OCTAVE
+  - name: secondOCTAVE
     sounds:
     - {fileID: 8300000, guid: b055e7cf12d19d54ebc29a72e3a054c8, type: 3}
     - {fileID: 8300000, guid: 62a886af95fa0694a86f1ba76be265a2, type: 3}
-  - name: firstOCTAVE
+  - name: thirdOCTAVE
     sounds:
     - {fileID: 8300000, guid: df1a5036cbdc44b42acbd71021b3e0e8, type: 3}
     - {fileID: 8300000, guid: c7de1722f77ee524d8b3a263ff16a965, type: 3}
@@ -8887,7 +8933,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b5954a80ea18b424f9aa249f9419404f, type: 3}
     - {fileID: 8300000, guid: cff9b4dcb60e72645a84d7c1fc0f8fd0, type: 3}
     - {fileID: 8300000, guid: 277d6a74009ef00498edb522648ac3f2, type: 3}
-  - name: secondOCTAVE
+  - name: fourthOCTAVE
     sounds:
     - {fileID: 8300000, guid: 028975a01d744b446a3308c76a4cd823, type: 3}
     - {fileID: 8300000, guid: f2e3b1535b7c2fb41816914fbe8122d5, type: 3}
@@ -8901,7 +8947,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 75bc7607441e03d4b8c119ebfad95ee9, type: 3}
     - {fileID: 8300000, guid: 69f4c847c70692d4d91b34e520757a2b, type: 3}
     - {fileID: 8300000, guid: 9b316808316cc854a966b5f155b94370, type: 3}
-  - name: thirdOCTAVE
+  - name: fifthOCTAVE
     sounds:
     - {fileID: 8300000, guid: 249f27a1d10f58447a992d437ab09783, type: 3}
     - {fileID: 8300000, guid: 85ad3e7c9a946574cb2b922a98a93cf5, type: 3}
@@ -8915,7 +8961,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 45ae118f512ab574f9187a9b11a83469, type: 3}
     - {fileID: 8300000, guid: 33c5c879c4e03cd40bef727e6e076003, type: 3}
     - {fileID: 8300000, guid: 15db74eb681133145a63c1c0037e27f6, type: 3}
-  - name: fourthOCTAVE
+  - name: sixthOCTAVE
     sounds:
     - {fileID: 8300000, guid: d940f776f35767a478434712d813a83d, type: 3}
     - {fileID: 8300000, guid: ab35d523d7d10cc48bd3ffa2ecc11639, type: 3}
@@ -8929,7 +8975,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 63e1d5c19184af14ea43c22f005558f9, type: 3}
     - {fileID: 8300000, guid: 1b220dccc16d226429c55e97859afb90, type: 3}
     - {fileID: 8300000, guid: 9b39a0b274304d44ab03f1706326b99b, type: 3}
-  - name: fifthOCTAVE
+  - name: seventhOCTAVE
     sounds:
     - {fileID: 8300000, guid: d5130605adf8a5349b2d34c74004ef1e, type: 3}
     - {fileID: 8300000, guid: 5e4f428651a4bb546adcaf42aa85fa66, type: 3}
@@ -8943,7 +8989,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: d60466107f4249a4587edf2dc4fa8aea, type: 3}
     - {fileID: 8300000, guid: 0b327fabb3973c745b610e35faea2e50, type: 3}
     - {fileID: 8300000, guid: 9b2ecf5e1e212554ebdf11c52f62e493, type: 3}
-  - name: sixthOCTAVE
+  - name: eightOCTAVE
     sounds:
     - {fileID: 8300000, guid: 5819191749c183044a6ff8d628fd8203, type: 3}
     - {fileID: 8300000, guid: 3b865afcdd9883d46a1d5262cc767e21, type: 3}
@@ -8957,7 +9003,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: eeda877ae0d22964e8a88761e6b58b8c, type: 3}
     - {fileID: 8300000, guid: 3a9eb595acf38f7439c42bae50ba0aaa, type: 3}
     - {fileID: 8300000, guid: d610ebd6c4997c444b0a9ae609ff6ef3, type: 3}
-  - name: seventhOCTAVE
+  - name: ninethOCTAVE
     sounds:
     - {fileID: 8300000, guid: c5ff77d336a80234dbd648431a0401cc, type: 3}
     - {fileID: 8300000, guid: 330338bfd0ecbf44ba3aa47668bf86a9, type: 3}
@@ -8971,7 +9017,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b673f2f9758edd142b7a0a408244d9a6, type: 3}
     - {fileID: 8300000, guid: 57c1fed83d3f1d548b7bc8910005344f, type: 3}
     - {fileID: 8300000, guid: e033ca607b31cf84f94ed9e5e61c3170, type: 3}
-  - name: eightOCTAVE
+  - name: tenthOCTAVE
     sounds:
     - {fileID: 8300000, guid: bfe218bfde4d47c4ba5f23952ebdc2ea, type: 3}
 --- !u!82 &1440052175
@@ -13172,3 +13218,4 @@ SceneRoots:
   - {fileID: 1440052176}
   - {fileID: 788415478}
   - {fileID: 651981193}
+  - {fileID: 354958242}
