@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using System.Text.RegularExpressions;
 
 public class PlaySceneSceneSwitcher : MonoBehaviour
 {
     private string playScene = "PlayScene";
     private int selectedSong = 1; // Default song
-
-    [SerializeField] private InputActionReference leftHandAction;  // XR Left Hand Input
-    [SerializeField] private InputActionReference rightHandAction; // XR Right Hand Input
 
     private void Awake()
     {
@@ -26,47 +24,13 @@ public class PlaySceneSceneSwitcher : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        // Enable XR input actions
-        leftHandAction.action.Enable();
-        rightHandAction.action.Enable();
-    }
-
-    private void OnDisable()
-    {
-        // Disable XR input actions
-        leftHandAction.action.Disable();
-        rightHandAction.action.Disable();
-    }
-
-    private void Update()
-    {
-        // Allow scene switching via XR input
-        if (IsButtonPressed(leftHandAction) || IsButtonPressed(rightHandAction))
-        {
-            SwitchToPlayScene();
-        }
-    }
-
-    private bool IsButtonPressed(InputActionReference actionReference)
-    {
-        // Check if an action is performed
-        return actionReference.action != null && actionReference.action.triggered;
-    }
-
-    
-    // Called by UI buttons. Extracts song number from the button name.
-    public void SelectSongFromButton(GameObject button)
+    // Called by UI buttons when clicked
+    public void OnSongButtonClicked(GameObject button)
     {
         int songNumber = ExtractSongNumber(button.name);
         if (songNumber > 0)
         {
-            selectedSong = songNumber;
-            PlayerPrefs.SetInt("SelectedSong", selectedSong);
-            PlayerPrefs.Save();
-            Debug.Log($"Song {selectedSong} selected. Loading PlayScene...");
-            SwitchToPlayScene();
+            SetSelectedSong(songNumber);
         }
         else
         {
@@ -77,20 +41,39 @@ public class PlaySceneSceneSwitcher : MonoBehaviour
     // Extracts the song number from button names like "Song3Button".
     private int ExtractSongNumber(string buttonName)
     {
-        string numberString = Regex.Match(buttonName, @"\d+").Value;
-        return int.TryParse(numberString, out int number) ? number : -1;
+        Match match = Regex.Match(buttonName, @"\d+");
+        return match.Success && int.TryParse(match.Value, out int number) ? number : -1;
     }
 
-    // Loads the play scene while keeping the selected song.
+    // Centralized method for setting the selected song
+    private void SetSelectedSong(int songNumber)
+    {
+        selectedSong = songNumber;
+        PlayerPrefs.SetInt("SelectedSong", selectedSong);
+        PlayerPrefs.Save();
+        Debug.Log($"Song {selectedSong} selected. Loading PlayScene...");
+        SwitchToPlayScene();
+    }
+
+    // Loads the play scene asynchronously while keeping the selected song.
     public void SwitchToPlayScene()
     {
         if (!string.IsNullOrEmpty(playScene))
         {
-            SceneManager.LoadScene(playScene);
+            StartCoroutine(LoadSceneAsync(playScene));
         }
         else
         {
             Debug.LogWarning("Scene name is empty. Make sure it is correctly assigned.");
+        }
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName)
+    {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
         }
     }
 

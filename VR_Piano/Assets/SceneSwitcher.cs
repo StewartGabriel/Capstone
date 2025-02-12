@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 public class SwitchScenes : MonoBehaviour
 {
     //[SerializeField] private SceneAsset songSelect; // Assign a scene in the Inspector
-    private string songSelect = "SongSelect";
+    private string songSelect = "SongSelectV2";
     private string songSelectName;
 
     [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
