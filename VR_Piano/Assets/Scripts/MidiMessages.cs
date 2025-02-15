@@ -25,8 +25,10 @@ public class MidiMessages : MonoBehaviour
     async void Update()
     {
         if (Keyboard.current.enterKey.wasPressedThisFrame) // I'm guessing this will be replaced with Play > Song > from the menu
-        {
-            string filePath = Application.dataPath + "/Sounds/Midi Files/FurElise/processedFurElise1Piano right.txt"; // if Play > Song condition then filePath should be adjusted to current file folder/selected song
+        { // if Play > Song condition then filePath should be adjusted to current file folder/selected song
+            string filePath = "Sounds/Midi Files/FurElise/processedFurElise1Piano right";
+            TextAsset midiMessages = Resources.Load<TextAsset>(filePath);
+            Debug.Log(midiMessages.text);
 
             // Assets/Sounds/Midi Files/FurElise/processedFurElise1Piano right.txt
 
@@ -41,7 +43,7 @@ public class MidiMessages : MonoBehaviour
 
 
             // Checks if the files exists
-            if (File.Exists(filePath))
+            if (midiMessages != null)
             {
                 //// Access the ExtractedData component
                 //ExtractedData extractedData = toRender.GetComponent<ExtractedData>(); // ** can be deleted
@@ -50,7 +52,7 @@ public class MidiMessages : MonoBehaviour
                 //extractedData.oldData.Clear(); // ** can be deleted
 
                 // Reads all the lines of the file
-                string[] lines = File.ReadAllLines(filePath);
+                string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
 
                 foreach (string line in lines)
                 {
