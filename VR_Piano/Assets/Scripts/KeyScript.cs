@@ -31,7 +31,9 @@ public class Key : MonoBehaviour
                 NotePrefab,spawnPosition,
                 Quaternion.identity
             );
-        //newNote.transform.SetParent(this.transform);
+        //newNote.transform.SetParent(this.transform.parent);
+        newNote.transform.SetParent(this.transform);
+        
         currentnote = newNote;
         transform.Translate(Vector3.down * .05f, Space.Self);
 

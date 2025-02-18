@@ -1,27 +1,49 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Note : MonoBehaviour
 {
-    public float growRate; // Rate at which the object stretches
-    public float stretchmulti; // Rate at which the object stretches
-    public bool on  = true;
+    public float growRate; // Rate at which the object moves
+    public bool on = true;
     public int noteID;
+    public float lifeTime; // Time after which the note gets destroyed
+
+    private float timer = 0f;
+    //private Transform parentTransform;
+    private Vector3 movementdirection;
     void Start()
     {
+        Transform parentTransform = transform.parent; // Get the parent object
+        movementdirection  =  parentTransform.forward;
+        transform.rotation = parentTransform.rotation;
+        Vector3 newscale = new Vector3 (parentTransform.lossyScale.x,parentTransform.lossyScale.x,.01f); 
+        transform.SetParent(null);
+        transform.localScale = newscale;
+        
     }
 
     void Update()
     {
         float growthAmount = growRate * Time.deltaTime;
-        // Adjust position to compensate for scaling (move backward by half the growth to keep rear edge fixed)
-        transform.Translate(Vector3.forward * growthAmount, Space.Self);
-        
-        if(on){
+
+        if (on)
+        {
+            transform.position += movementdirection * growthAmount;
+            transform.localScale += new Vector3 (0,0,growthAmount * 2);
             
-            // Scale the parent along the z-axis
-            transform.localScale += new Vector3(0, 0, growthAmount * stretchmulti);
         }
-   }
+        else // If note is "off"
+        {
+            transform.position += movementdirection * growthAmount * 2;
+
+            timer += Time.deltaTime;
+            if (timer >= lifeTime)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 }
