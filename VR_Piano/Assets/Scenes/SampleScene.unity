@@ -1136,7 +1136,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6620355903143692849, guid: 42d778a5865494f3987eaa1548ea5c6e, type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: KeyboardBase
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
