@@ -1,0 +1,7 @@
+Track 0: 
+MetaMessage('copyright', text='Copyright (c) xxxx Copyright Holder', time=0)
+MetaMessage('cue_marker', text='Created by Rosegarden', time=0)
+MetaMessage('cue_marker', text='http://www.rosegardenmusic.com/', time=0)
+MetaMessage('set_tempo', tempo=600000, time=0)
+MetaMessage('time_signature', numerator=4, denominator=4, clocks_per_click=24, notated_32nd_notes_per_beat=8, time=0)
+MetaMessage('end_of_track', time=0)

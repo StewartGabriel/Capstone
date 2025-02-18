@@ -1,68 +1,102 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
-
-
-public class SwitchScenes : MonoBehaviour
+public class SceneSwitcher : MonoBehaviour
 {
-    //[SerializeField] private SceneAsset playScene; // Assign a scene in the Inspector
-    private string playScene = "SampleScene";
-    private string playSceneName;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private Button quitButton;
+    
+    [SerializeField] private string songSelectSceneName = "SongSelectV2";
+    //[SerializeField] private string optionsSceneName = "MainOptions"; // Uncomment when implementing options
 
-    [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
-    [SerializeField] private InputActionReference rightHandAction; // Reference to the right hand action
-
-    private void Awake()
-    {
-        // Extract the scene name from the SceneAsset
-        if (playScene != null)
-        {
-            playSceneName = playScene;
-        }
-    }
+    // XR Hand Inputs for pinch gestures
+    [SerializeField] private InputActionReference leftHandSelectAction;
+    [SerializeField] private InputActionReference rightHandSelectAction;
 
     private void OnEnable()
     {
-        // Enable the input actions
-        leftHandAction.action.Enable();
-        rightHandAction.action.Enable();
+        if (leftHandSelectAction?.action != null)
+        {
+            leftHandSelectAction.action.Enable();
+            leftHandSelectAction.action.performed += OnLeftHandSelect;
+        }
+
+        if (rightHandSelectAction?.action != null)
+        {
+            rightHandSelectAction.action.Enable();
+            rightHandSelectAction.action.performed += OnRightHandSelect;
+        }
     }
 
     private void OnDisable()
     {
-        // Disable the input actions
-        leftHandAction.action.Disable();
-        rightHandAction.action.Disable();
-    }
-
-    private void Update()
-    {
-        // Check if either action is triggered
-        if (IsButtonPressed(leftHandAction) || IsButtonPressed(rightHandAction))
+        if (leftHandSelectAction?.action != null)
         {
-            SwitchToPlayScene();
+            leftHandSelectAction.action.performed -= OnLeftHandSelect;
+            leftHandSelectAction.action.Disable();
+        }
+
+        if (rightHandSelectAction?.action != null)
+        {
+            rightHandSelectAction.action.performed -= OnRightHandSelect;
+            rightHandSelectAction.action.Disable();
         }
     }
 
-    private bool IsButtonPressed(InputActionReference actionReference)
+    private void Start()
     {
-        // Check if the action is performed
-        return actionReference.action != null && actionReference.action.triggered;
+        if (playButton == null || quitButton == null)
+        {
+            Debug.LogError("One or more buttons are not assigned.");
+            return;
+        }
+
+        playButton.onClick.AddListener(StartGame);
+        //optionsButton.onClick.AddListener(OpenOptions); // Uncomment when implementing options
+        quitButton.onClick.AddListener(QuitGame);
     }
 
-    public void SwitchToPlayScene()
+    private void OnLeftHandSelect(InputAction.CallbackContext context)
     {
-        if (!string.IsNullOrEmpty(playSceneName))
-        {
-            SceneManager.LoadScene(playSceneName);
-        }
-        else
-        {
-            Debug.LogWarning("Scene name is empty. Make sure a scene is assigned in the Inspector.");
-        }
+        Debug.Log("Left Hand Pinch Detected!");
+        TriggerButtonClick();
+    }
+
+    private void OnRightHandSelect(InputAction.CallbackContext context)
+    {
+        Debug.Log("Right Hand Pinch Detected!");
+        TriggerButtonClick();
+    }
+
+    private void TriggerButtonClick()
+    {
+        // Assuming Unity XR UI system is handling the actual button interactions
+        Debug.Log("XR Hand Input Triggered - UI System should handle button press.");
+    }
+
+    public void StartGame()
+    {
+        Debug.Log("Loading Song Select Scene...");
+        SceneManager.LoadScene(songSelectSceneName);
+    }
+
+    /*
+    public void OpenOptions()
+    {
+        Debug.Log("Opening Options Menu...");
+        SceneManager.LoadScene(optionsSceneName);
+    }
+    */
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting Game...");
+        Application.Quit();
     }
 }

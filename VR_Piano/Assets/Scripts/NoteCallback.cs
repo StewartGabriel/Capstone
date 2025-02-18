@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Layouts;
 // NoteCallback.cs - This script shows how to define a callback to get notified
 // on MIDI note-on/off events.
 
-sealed class NoteCallback : MonoBehaviour
+public sealed class NoteCallback : MonoBehaviour
 {
     //public GameObject KeyboardBase;
     private Key[]KeySet;
@@ -94,7 +94,6 @@ sealed class NoteCallback : MonoBehaviour
                 
                 KeySet[i] = blackKey;
             }
-
             if (octavetracker == 11){
                 octavetracker = 0;
             }
