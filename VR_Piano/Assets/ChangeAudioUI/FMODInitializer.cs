@@ -10,7 +10,7 @@ public class OculusFMODInitializer : MonoBehaviour
         if (oculusFMODCallbackHandler != null)
         {
             FMOD.Studio.System studioSystem = RuntimeManager.StudioSystem;
-            oculusFMODCallbackHandler.PreInitialize(studioSystem, (result, message) =>
+            oculusFMODCallbackHandler.PreInitialize(studioSystem, (result, message) => // calls the SelectAudioDevices.cs script
             {
                 Debug.Log($"FMOD result: {result}, Message: {message}");
             });

@@ -27,7 +27,7 @@ public class OculusFMODCallbackHandler : FMODUnity.PlatformCallbackHandler
             //reportResult(result, $"coreSystem.getDriverInfo: rate = {rate}, channels = {channels}, guid = {guid}, mode = {mode}, name = {name}");
             audioDrivers[name] = guid;
         }
-        printDrivers();
+        printDrivers(); //Debugging function to check if things are in the hashmap properly
     }
 
     private void printDrivers()
@@ -38,7 +38,7 @@ public class OculusFMODCallbackHandler : FMODUnity.PlatformCallbackHandler
         }
     }
 
-    public Dictionary<string, System.Guid> getAudioDrivers()
+    public Dictionary<string, System.Guid> getAudioDrivers() //Not sure if this will need to be moved to somewhere else, not sure how things are called from the UI
     { //This should work for accessing the drivers after its been initialiized
         return audioDrivers;
     }
