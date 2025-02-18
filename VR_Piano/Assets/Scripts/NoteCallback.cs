@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Layouts;
@@ -49,58 +50,52 @@ public sealed class NoteCallback : MonoBehaviour
         }
     }
 
+  
     void CreateBoard()
     {
         KeySet = new Key[KeyCount];
 
-        float width = 1f;
-        float height = 0f;
         BoxCollider boxCollider = GetComponent<BoxCollider>();
-        width = boxCollider.size.x * transform.localScale.x;
-        height = boxCollider.size.y * transform.localScale.y;
+        float width = boxCollider.size.x * transform.localScale.x;
+        float height = boxCollider.size.y * transform.localScale.y;
+        float depth  = boxCollider.size.z * transform.localScale.z;
+        
+        float keyWidth = KeyPreFab.GetComponent<BoxCollider>().size.x * KeyPreFab.transform.lossyScale.x;
+        float keyDepth = KeyPreFab.GetComponent<BoxCollider>().size.z * KeyPreFab.transform.lossyScale.z;
+        float blackKeyDepth = BlackKeyPreFab.GetComponent<BoxCollider>().size.z * BlackKeyPreFab.transform.lossyScale.z;
 
-        float totalSpacing = (KeyCount - 1) * spacing;
-        float keyWidth = (width - totalSpacing) / KeyCount;
+        float currentPosition = transform.position.x - width / 2 - keyWidth / 2;
 
-        float currentPosition = transform.position.x - width / 2 + keyWidth / 2;
+        float yPosition = transform.position.y + height / 2;
+
+
+        int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
+        int octavetracker  = 3;
 
         for (int i = 0; i < KeyCount; i++)
         {
-            float yPosition = transform.position.y + height / 2;
-
-            Key newKey = Instantiate(
+            if (blackwhitepattern[octavetracker] == 1){
+                currentPosition += keyWidth + spacing;
+                Key newKey = Instantiate(
                 KeyPreFab,
                 new Vector3(currentPosition, yPosition, transform.position.z),
                 Quaternion.identity
-            );
-
-            Vector3 whiteScale = newKey.transform.localScale;
-            whiteScale.x = keyWidth / newKey.GetComponent<BoxCollider>().size.x;
-            newKey.transform.localScale = whiteScale;
-
-            KeySet[i] = newKey;
-            newKey.transform.SetParent(this.transform);
-            
-            if (i % 7 != 2 && i % 7 != 6)
-            {
-                    float blackKeyOffset = keyWidth * 0.5f; 
-
-                    Key blackKey = Instantiate(
-                        BlackKeyPreFab,
-                        new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, transform.position.z - whiteScale.z + transform.localScale.z), // Adjust y-position for black keys
-                        Quaternion.identity
-                    );
-
-                    Vector3 blackScale = blackKey.transform.localScale;
-                    blackScale.x = (keyWidth * 0.6f) / blackKey.GetComponent<BoxCollider>().size.x; // Black keys are narrower
-                    blackKey.transform.localScale = blackScale;
-
-                    i++;
-                    KeySet[i] = blackKey;
-                    blackKey.transform.SetParent(this.transform);
-            
+                );
+                KeySet[i] = newKey;
             }
-            currentPosition += keyWidth + spacing;
+            else
+            {
+                float blackKeyOffset = (keyWidth + spacing) * 0.5f;
+                Key blackKey = Instantiate(
+                    BlackKeyPreFab,
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
+                    Quaternion.identity
+                );
+                
+                KeySet[i] = blackKey;
+            }
+
+            
 
             // // Assign pianoSound from SoundType to each key
             //if (i >= 22 || i <= 109)
@@ -108,6 +103,29 @@ public sealed class NoteCallback : MonoBehaviour
             //     newKey.pianoSound = SoundType.pianoSounds;
             //}
             // KeySet[i] = newKey;
+
+            if (octavetracker == 11){
+                octavetracker = 0;
+            }
+            else{
+                octavetracker++;
+            }
+        }
+        float firstKeyX = KeySet[0].transform.position.x;
+        float lastKeyX = KeySet[KeySet.Length - 1].transform.position.x;
+        float newboardsize = (lastKeyX - firstKeyX) + keyWidth; // Include last key's width
+        float newboardcenter = firstKeyX - keyWidth/2 + newboardsize / 2;
+
+        // Correct position centering
+        this.transform.position = new Vector3(newboardcenter, transform.position.y, transform.position.z);
+
+        // Adjust scale correctly
+        Vector3 scale = transform.localScale;
+        scale.x = newboardsize / boxCollider.size.x; // Scale relative to original size
+        transform.localScale = scale;
+
+        for(int i  = 0; i< KeySet.Length; i++){
+            KeySet[i].transform.SetParent(this.transform);
         }
     }
 

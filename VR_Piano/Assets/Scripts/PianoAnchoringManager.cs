@@ -26,6 +26,7 @@ public class PianoAnchoringManager : MonoBehaviour
             grabInteractable.enabled = false; // Disable grabbing initially
             grabInteractable.selectExited.AddListener(OnRelease);
             grabInteractable.movementType = UnityEngine.XR.Interaction.Toolkit.Interactables.XRBaseInteractable.MovementType.VelocityTracking; // Prevent rotation while moving
+
         }
     }
 
@@ -73,7 +74,6 @@ public class PianoAnchoringManager : MonoBehaviour
         {
             Debug.Log("Anchor already placed.");
         }
-
         // Restore rotation after anchoring
         transform.rotation = savedRotation;
     }
