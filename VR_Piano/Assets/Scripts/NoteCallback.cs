@@ -94,6 +94,16 @@ public sealed class NoteCallback : MonoBehaviour
                 
                 KeySet[i] = blackKey;
             }
+
+            
+
+            // // Assign pianoSound from SoundType to each key
+            //if (i >= 22 || i <= 109)
+            //{
+            //     newKey.pianoSound = SoundType.pianoSounds;
+            //}
+            // KeySet[i] = newKey;
+
             if (octavetracker == 11){
                 octavetracker = 0;
             }

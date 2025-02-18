@@ -5,15 +5,7 @@ using System;
 
 public enum SoundType
 {
-    secondOCTAVE,
-    thirdOCTAVE,
-    fourthOCTAVE,
-    fifthOCTAVE,
-    sixthOCTAVE,
-    seventhOCTAVE,
-    eightOCTAVE,
-    ninethOCTAVE,
-    tenthOCTAVE,
+    pianoSounds,
     // MENU,
     // BACKGROUND,
     // SONGS,
