@@ -103,38 +103,10 @@ public sealed class NoteCallback : MonoBehaviour
             currentPosition += keyWidth + spacing;
 
             // // Assign pianoSound from SoundType to each key
-            // if (i >= 28 || i <= 35)
-            // {
-            //     newKey.pianoSound = SoundType.secondOCTAVE;
-            // }
-            // else if (i >= 36 || i <= 47)
-            // {
-            //     newKey.pianoSound = SoundType.firstOCTAVE;
-            // }
-            // else if (i >= 48 || i <= 59)
-            // {
-            //     newKey.pianoSound = SoundType.fourthOCTAVE;
-            // }
-            // else if (i >= 60 || i <= 71)
-            // {
-            //     newKey.pianoSound = SoundType.fifthOCTAVE;
-            // }
-            // else if (i >= 72 || i <= 83)
-            // {
-            //     newKey.pianoSound = SoundType.sixthOCTAVE;
-            // }
-            // else if (i >= 84 || i <= 95)
-            // {
-            //     newKey.pianoSound = SoundType.seventhOCTAVE;
-            // }
-            // else if (i >= 96 || i <= 103)
-            // {
-            //     newKey.pianoSound = SoundType.eightOCTAVE;
-            // }
-            // else if (i >= 80) //I'll figure this out later
-            // {
-            //     newKey.pianoSound = (SoundType.ninethOCTAVE); // ninethOCTAVE
-            // }
+            //if (i >= 22 || i <= 109)
+            //{
+            //     newKey.pianoSound = SoundType.pianoSounds;
+            //}
             // KeySet[i] = newKey;
         }
     }
