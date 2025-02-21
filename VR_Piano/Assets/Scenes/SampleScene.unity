@@ -2071,6 +2071,7 @@ MonoBehaviour:
   rightHandAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   wristMenuOffset: {x: 0, y: -0.35, z: 0.1}
   wristMenuRotationOffset: {x: 0, y: 0, z: 180}
+  LogAudioDevices: {fileID: 1277872331}
   audioDeviceDropdown: {fileID: 1153613928}
 --- !u!1 &404910164
 GameObject:

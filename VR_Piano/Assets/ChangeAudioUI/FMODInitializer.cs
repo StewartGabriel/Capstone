@@ -14,10 +14,6 @@ public class OculusFMODInitializer : MonoBehaviour
             {
                 Debug.Log($"FMOD result: {result}, Message: {message}");
             });
-            // Debug.Log(string.Join(", ", oculusFMODCallbackHandler.getAudioDrivers().Keys));
-            // foreach (int value in oculusFMODCallbackHandler.getAudioDrivers().Values){
-            //     Debug.Log(value);
-            // }
         }
         else
         {
