@@ -25,10 +25,13 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private Vector3 wristMenuOffset = new Vector3(0, 0.2f, 0); // Offset above the wrist (default: 20 cm above)
     [SerializeField] private Vector3 wristMenuRotationOffset = new Vector3(0, 0, 0); // Rotation offset for the menu in degrees
 
+// For audio handler from device
+    [SerializeField] private static GameObject LogAudioDevices;
+    private static OculusFMODCallbackHandler audioHandler = LogAudioDevices.GetComponent<OculusFMODCallbackHandler>();
 
 // For Audio Selection
     [SerializeField] private Dropdown audioDeviceDropdown; //reference to the UI dropdown for audio devices
-    private OculusFMODCallbackHandler audioHandler;
+    
 
 
     private GameObject currentActiveMenu; // Tracks the currently active menu
@@ -246,6 +249,13 @@ public class PauseMenuController : MonoBehaviour
         audioDeviceDropdown.onValueChanged.RemoveAllListeners();
         audioDeviceDropdown.ClearOptions();
         List<string> deviceNames = new List<string>(audioDrivers.Keys);
+
+        Debug.Log("listing device names into the dropdown menu");
+
+        foreach (string key in deviceNames){
+            Debug.Log("inserting " + key);
+        }
+
         audioDeviceDropdown.AddOptions(deviceNames);
 
         //Listen for user selection
