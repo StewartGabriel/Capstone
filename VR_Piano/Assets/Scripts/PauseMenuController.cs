@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+// For Audio Selection:
+using UnityEngine.UI;
+using FMODUnity;
+
+
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject settingsMenu; // Reference to the settings menu GameObject
@@ -18,6 +24,12 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private InputActionReference rightHandAction; // Reference to the right hand action
     [SerializeField] private Vector3 wristMenuOffset = new Vector3(0, 0.2f, 0); // Offset above the wrist (default: 20 cm above)
     [SerializeField] private Vector3 wristMenuRotationOffset = new Vector3(0, 0, 0); // Rotation offset for the menu in degrees
+
+
+// For Audio Selection
+    [SerializeField] private Dropdown audioDeviceDropdown; //reference to the UI dropdown for audio devices
+    private OculusFMODCallbackHandler audioHandler;
+
 
     private GameObject currentActiveMenu; // Tracks the currently active menu
 
@@ -43,6 +55,32 @@ public class PauseMenuController : MonoBehaviour
     {
         // Ensure all menus are inactive at the start
         CloseAllMenus();
+
+
+        //initialize audio device list
+        audioHandler = FindObjectOfType<OculusFMODCallbackHandler>();
+        if (audioHandler != null)
+        {
+            PopulateAudioDeviceDropdown();
+
+            // retrieve the last used audio device to be used again
+            string lastSelectedDevice = PlayerPrefs.GetString("SelectedAudioDevice", "");
+            if (!string.IsNullOrEmpty(lastSelectedDevice))
+            {
+                List<string> deviceNames = new List<string>(audioHandler.getAudioDrivers().Keys);
+                int index = deviceNames.IndexOf(lastSelectedDevice);
+                if (index >= 0)
+                {
+                    StartCoroutine(SetDropdownValue(index));
+                    OnAudioDeviceSelected(index);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("OculusFMODCallbackHandler not found!");
+            return;
+        }
     }
 
     private void Update()
@@ -82,6 +120,7 @@ public class PauseMenuController : MonoBehaviour
         else
         {
             Debug.LogWarning("Pause menu is not assigned in the Inspector.");
+            return;
         }
     }
 
@@ -98,6 +137,7 @@ public class PauseMenuController : MonoBehaviour
     public void OpenDeviceSetup()
     {
         OpenMenu(deviceSetup, "Device setup opened.");
+        PopulateAudioDeviceDropdown(); // Refresh List of devices
     }
 
     private void OpenMenu(GameObject menu, string logMessage)
@@ -195,4 +235,106 @@ public class PauseMenuController : MonoBehaviour
         currentActiveMenu = null;
         Debug.Log("All menus closed.");
     }
+
+    private void PopulateAudioDeviceDropdown(){
+        if (audioDeviceDropdown == null){
+            Debug.LogError("Audio Device Dropdown is not assigned");
+            return;
+        }
+
+        Dictionary<string, System.Guid> audioDrivers = audioHandler.getAudioDrivers();
+        audioDeviceDropdown.onValueChanged.RemoveAllListeners();
+        audioDeviceDropdown.ClearOptions();
+        List<string> deviceNames = new List<string>(audioDrivers.Keys);
+        audioDeviceDropdown.AddOptions(deviceNames);
+
+        //Listen for user selection
+        audioDeviceDropdown.onValueChanged.AddListener(delegate{OnAudioDeviceSelected(audioDeviceDropdown.value);});
+    }
+
+    private void OnAudioDeviceSelected(int index)
+    {
+        Dictionary<string, System.Guid> audioDrivers = audioHandler.getAudioDrivers();
+        List<string> deviceNames = new List<string>(audioDrivers.Keys);
+
+        if (index >= 0 && index < deviceNames.Count)
+        {
+            string selectedDevice = deviceNames[index];
+            System.Guid deviceGuid = audioDrivers[selectedDevice];
+
+            // save selected device for future use
+            PlayerPrefs.SetString("SelectedAudioDevice", selectedDevice);
+            PlayerPrefs.Save();
+
+            setAudioOutputDevice(deviceGuid);
+        }
+    }
+
+
+    private void setAudioOutputDevice(System.Guid deviceGuid)
+    {
+        FMOD.System coreSystem;
+        FMOD.RESULT result = RuntimeManager.StudioSystem.getCoreSystem(out coreSystem);
+        if (result != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to get FMOD core system: {result}");
+            return;
+        }
+
+        // Get the number of available audio drivers
+        int numDrivers;
+        result = coreSystem.getNumDrivers(out numDrivers);
+        if (result != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to get number of audio drivers: {result}");
+            return;
+        }
+
+        // Iterate through available drivers to find a match by GUID
+        for (int i = 0; i < numDrivers; i++)
+        {
+            int sampleRate, channels;
+            string driverName;
+            System.Guid foundGuid;
+            FMOD.SPEAKERMODE speakerMode;
+
+            // Retrieve driver info
+            result = coreSystem.getDriverInfo(i, out driverName, 256, out foundGuid, out sampleRate, out speakerMode, out channels);
+            if (result == FMOD.RESULT.OK)
+            {
+                Debug.Log($"Checking audio driver: {driverName}, GUID: {foundGuid}");
+            }
+            else
+            {
+                Debug.LogError($"Error getting driver info for index {i}: {result}");
+                continue;
+            }
+
+            // Compare GUIDs to find the correct driver
+            if (foundGuid == deviceGuid)
+            {
+                result = coreSystem.setDriver(i);
+                if (result == FMOD.RESULT.OK)
+                {
+                    Debug.Log($"Audio output switched to: {driverName} (Index: {i})");
+                }
+                else
+                {
+                    Debug.LogError($"Failed to switch audio output to: {driverName} (Index: {i}), FMOD Error: {result}");
+                }
+                return;
+            }
+        }
+
+        Debug.LogError("Failed to find the specified audio device GUID.");
+    }
+
+
+        private IEnumerator SetDropdownValue(int index)
+    {
+        yield return new WaitForEndOfFrame(); // Ensure UI is fully initialized before changing value
+        audioDeviceDropdown.value = index;
+        OnAudioDeviceSelected(index);
+    }
+
 }
