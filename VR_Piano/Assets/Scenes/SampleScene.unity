@@ -1498,8 +1498,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 6
-  m_fontSizeBase: 24
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 6
@@ -1800,9 +1800,9 @@ MonoBehaviour:
     m_FontSize: 6
     m_FontStyle: 0
     m_BestFit: 1
-    m_MinSize: 6
-    m_MaxSize: 10
-    m_Alignment: 4
+    m_MinSize: 0
+    m_MaxSize: 12
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2066,7 +2066,7 @@ MonoBehaviour:
   wristMenuAction: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   wristTransform: {fileID: 992203261}
   centerScreenTransform: {fileID: 655511394}
-  startScreenSceneName: StartMenu
+  startScreenSceneName: SongSelectV2
   leftHandAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightHandAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   wristMenuOffset: {x: 0, y: -0.35, z: 0.1}
@@ -6374,7 +6374,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Main Menu
+  m_text: Song Select
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

@@ -10,7 +10,7 @@ using UnityEngine.UI;
 using FMODUnity;
 
 
-public class PauseMenuController : MonoBehaviour
+public class StartPauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject settingsMenu; // Reference to the settings menu GameObject
     [SerializeField] private GameObject pauseMenu; // Reference to the pause menu GameObject
@@ -19,7 +19,7 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private InputActionReference wristMenuAction; // Wrist menu gesture input action reference
     [SerializeField] private Transform wristTransform; // Transform representing the user's wrist
     [SerializeField] private Transform centerScreenTransform; // Transform representing the center of the user's screen
-    [SerializeField] private string startScreenSceneName; // Name of the start screen scene
+    //[SerializeField] private string startScreenSceneName = "StartMenu"; // Name of the start screen scene
     [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
     [SerializeField] private InputActionReference rightHandAction; // Reference to the right hand action
     [SerializeField] private Vector3 wristMenuOffset = new Vector3(0, 0.2f, 0); // Offset above the wrist (default: 20 cm above)
@@ -182,12 +182,12 @@ public class PauseMenuController : MonoBehaviour
         Debug.Log("Game resumed.");
     }
 
-    public void GoToMainMenu()
-    {
-        CloseAllMenus(); // Ensure all menus are closed before switching scenes
-        Debug.Log("Switching to main menu.");
-        SceneManager.LoadScene(startScreenSceneName); // Load the main menu scene
-    }
+    // public void GoToMainMenu()
+    // {
+    //     CloseAllMenus(); // Ensure all menus are closed before switching scenes
+    //     Debug.Log("Switching to main menu.");
+    //     SceneManager.LoadScene(startScreenSceneName); // Load the main menu scene
+    // }
 
     private void PositionMenu(GameObject menu, Transform targetTransform)
     {
