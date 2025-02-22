@@ -7690,7 +7690,7 @@ MonoBehaviour:
   wristMenuAction: {fileID: -6395602842196007441, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   wristTransform: {fileID: 1512131080}
   centerScreenTransform: {fileID: 670713784}
-  startScreenSceneName: StartMenu
+  startScreenSceneName: StartMenuV2
   leftHandAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightHandAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   wristMenuOffset: {x: 0, y: -0.35, z: 0.1}
@@ -15127,7 +15127,7 @@ MonoBehaviour:
   - {fileID: 536801432}
   backButton: {fileID: 1731343703}
   sampleSceneName: SampleScene
-  startScreenSceneName: StartMenu
+  startScreenSceneName: StartMenuV2
   leftHandSelectAction: {fileID: -6131295136447488360, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   rightHandSelectAction: {fileID: 187161793506945269, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   leftHandTransform: {fileID: 734568406}

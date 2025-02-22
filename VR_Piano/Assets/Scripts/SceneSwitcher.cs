@@ -1,23 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private Button quitButton;
-    
+    [SerializeField] private GameObject startMenuPrefab; // Prefab of the Start Menu
+    private GameObject startMenuInstance; // The active instance of the Start Menu
+
     [SerializeField] private string songSelectSceneName = "SongSelectV2";
-    //[SerializeField] private string optionsSceneName = "MainOptions"; // Uncomment when implementing options
 
     // XR Hand Inputs for pinch gestures
     [SerializeField] private InputActionReference leftHandSelectAction;
     [SerializeField] private InputActionReference rightHandSelectAction;
+    [SerializeField] private Transform leftHandTransform;
+    [SerializeField] private Transform rightHandTransform;
+    [SerializeField] private float selectionRadius = 0.05f;
+
+    private Button playButton;
+    private Button quitButton;
 
     private void OnEnable()
     {
@@ -51,33 +54,77 @@ public class SceneSwitcher : MonoBehaviour
 
     private void Start()
     {
-        if (playButton == null || quitButton == null)
+        // Destroy old instances if any (shouldn't happen but just in case)
+        if (startMenuInstance != null)
         {
-            Debug.LogError("One or more buttons are not assigned.");
+            Destroy(startMenuInstance);
+        }
+
+        // Instantiate Start Menu from prefab
+        if (startMenuPrefab != null)
+        {
+            startMenuInstance = Instantiate(startMenuPrefab, new Vector3(0f, 1.3f, 1.5f), Quaternion.identity);
+            startMenuInstance.transform.localScale = Vector3.one * 0.01f;
+            startMenuInstance.SetActive(true);
+            Debug.Log("Start Menu instantiated at: " + startMenuInstance.transform.position);
+        }
+        else
+        {
+            Debug.LogError("Start Menu Prefab is not assigned!");
             return;
         }
 
-        playButton.onClick.AddListener(StartGame);
-        //optionsButton.onClick.AddListener(OpenOptions); // Uncomment when implementing options
-        quitButton.onClick.AddListener(QuitGame);
+        // Assign button references
+        playButton = startMenuInstance.transform.Find("PlayButton")?.GetComponent<Button>();
+        quitButton = startMenuInstance.transform.Find("QuitButton")?.GetComponent<Button>();
+
+        if (playButton != null) playButton.onClick.AddListener(StartGame);
+        if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
     }
 
     private void OnLeftHandSelect(InputAction.CallbackContext context)
     {
-        Debug.Log("Left Hand Pinch Detected!");
-        TriggerButtonClick();
+        SelectClosestButton(leftHandTransform);
     }
 
     private void OnRightHandSelect(InputAction.CallbackContext context)
     {
-        Debug.Log("Right Hand Pinch Detected!");
-        TriggerButtonClick();
+        SelectClosestButton(rightHandTransform);
     }
 
-    private void TriggerButtonClick()
+    private void SelectClosestButton(Transform handTransform)
     {
-        // Assuming Unity XR UI system is handling the actual button interactions
-        Debug.Log("XR Hand Input Triggered - UI System should handle button press.");
+        if (handTransform == null)
+        {
+            Debug.LogWarning("Hand Transform is not assigned.");
+            return;
+        }
+
+        Button closestButton = null;
+        float closestDistance = float.MaxValue;
+        Button[] buttons = { playButton, quitButton };
+
+        foreach (Button button in buttons)
+        {
+            if (button == null) continue;
+
+            float distance = Vector3.Distance(handTransform.position, button.transform.position);
+            if (distance < closestDistance && distance <= selectionRadius)
+            {
+                closestButton = button;
+                closestDistance = distance;
+            }
+        }
+
+        if (closestButton != null)
+        {
+            closestButton.onClick.Invoke();
+            Debug.Log("Selected: " + closestButton.name);
+        }
+        else
+        {
+            Debug.Log("No button selected. Move closer and try again.");
+        }
     }
 
     public void StartGame()
@@ -85,14 +132,6 @@ public class SceneSwitcher : MonoBehaviour
         Debug.Log("Loading Song Select Scene...");
         SceneManager.LoadScene(songSelectSceneName);
     }
-
-    /*
-    public void OpenOptions()
-    {
-        Debug.Log("Opening Options Menu...");
-        SceneManager.LoadScene(optionsSceneName);
-    }
-    */
 
     public void QuitGame()
     {

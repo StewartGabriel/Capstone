@@ -186,7 +186,7 @@ public class PauseMenuController : MonoBehaviour
     {
         CloseAllMenus(); // Ensure all menus are closed before switching scenes
         Debug.Log("Switching to main menu.");
-        SceneManager.LoadScene(startScreenSceneName); // Load the main menu scene
+        StartCoroutine(LoadStartMenu()); // Load the main menu scene
     }
 
     private void PositionMenu(GameObject menu, Transform targetTransform)
@@ -319,6 +319,12 @@ public class PauseMenuController : MonoBehaviour
         yield return new WaitForEndOfFrame(); // Ensure UI is fully initialized before changing value
         audioDeviceDropdown.value = index;
         OnAudioDeviceSelected(index);
+    }
+
+    private IEnumerator LoadStartMenu()
+    {
+        yield return new WaitForSeconds(0.5f); // Small delay to ensure stability
+        SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
     }
 
 }
