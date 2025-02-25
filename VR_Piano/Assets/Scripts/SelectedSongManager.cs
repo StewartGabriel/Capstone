@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlaySceneManager : MonoBehaviour
 {
     private int selectedSongIndex;
+    [SerializeField] private MidiMessages midiMessages; // create reference to MidiMesseges component
 
     void Start()
     {
@@ -18,7 +19,17 @@ public class PlaySceneManager : MonoBehaviour
 
     private void PlaySelectedSong()
     {
-        // Replace with actual logic to play a song from a list
-        Debug.Log("Playing song with index: " + selectedSongIndex);
+        // Checks that MidiMessages component is assigned
+        if (midiMessages != null)
+        {
+            // Song selections to made in MidiMessages
+            midiMessages.PlaySong(selectedSongIndex);
+        }
+        else
+        {
+            Debug.LogError("MidiMesseges component not assigned.");
+        }
+
+        // Debug.Log("Playing song with index: " + selectedSongIndex);
     }
 }
