@@ -10,7 +10,7 @@ public class MidiMessages : MonoBehaviour
 {
     // private GameObject toRender; // ** line can be deleted after figuring out where to send the data in Unity
 
-    public NoteCallback toNoteCallback; // create reference to NoteCallback
+    public TalkingBoard toNoteCallback; // create reference to NoteCallback
 
     // Start is called before the first frame update
     void Start()

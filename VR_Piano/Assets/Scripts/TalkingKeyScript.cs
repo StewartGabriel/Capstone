@@ -1,31 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 
-public class Key : MonoBehaviour
+public class TalkingKeyScript : Key
 {
-    public int keyID; 
-    public Renderer thisKeysRenderer;
-    public Note NotePrefab; 
-    public Material[] Materials;
-    public SoundType pianoSound;
-    protected Note currentnote;
-    protected bool isactive;
-    void Start()
+     public void KeyDown(int speed)
     {
-        thisKeysRenderer.material = Materials[0];
-    }
-
-    void Update()
-    {
+        //Debug.Log("KeyDown called: " + keyID);
         
-    }
-   public void KeyDown(int speed)
-    {
-        Debug.Log("KeyDown called: " + keyID);
-        
-        Vector3 spawnPosition = transform.position + transform.forward * (transform.localScale.z / 2);
+        Vector3 spawnPosition = transform.position - transform.forward * (transform.localScale.z / 2);
 
         thisKeysRenderer.material = Materials[1];
         Debug.Log(speed);
@@ -46,7 +29,7 @@ public class Key : MonoBehaviour
     }
     public void KeyUp()
     {
-        Debug.Log("KeyUp called: " + keyID);
+        //Debug.Log("KeyUp called: " + keyID);
         thisKeysRenderer.material = Materials[0];
         
         if (currentnote != null)

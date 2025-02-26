@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class Note : MonoBehaviour
 {
+    public float starttime;
+    public float endtime;
+    public Material[] notematerials;
+    public Renderer thisnotesrenderer;
     public float growRate; // Rate at which the object moves
     public bool on = true;
     public int noteID;
@@ -14,6 +18,7 @@ public class Note : MonoBehaviour
     private float timer = 0f;
     //private Transform parentTransform;
     private Vector3 movementdirection;
+    
     void Start()
     {
         Transform parentTransform = transform.parent; // Get the parent object
@@ -22,7 +27,8 @@ public class Note : MonoBehaviour
         Vector3 newscale = new Vector3 (parentTransform.lossyScale.x,parentTransform.lossyScale.x,.01f); 
         transform.SetParent(null);
         transform.localScale = newscale;
-        
+        thisnotesrenderer.material = notematerials[0];
+        on = true;
     }
 
     void Update()
@@ -31,13 +37,13 @@ public class Note : MonoBehaviour
 
         if (on)
         {
-            transform.position += movementdirection * growthAmount;
+            transform.position -= movementdirection * growthAmount;
             transform.localScale += new Vector3 (0,0,growthAmount * 2);
             
         }
         else // If note is "off"
         {
-            transform.position += movementdirection * growthAmount * 2;
+            transform.position -= movementdirection * growthAmount * 2;
 
             timer += Time.deltaTime;
             if (timer >= lifeTime)
@@ -45,5 +51,14 @@ public class Note : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+    public void activate(){
+        thisnotesrenderer.material = notematerials[1];
+    }
+    public void deactivate(){
+        thisnotesrenderer.material = notematerials[2];
+    }
+    public void correct(){
+        thisnotesrenderer.material = notematerials[3];
     }
 }
