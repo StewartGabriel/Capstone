@@ -10,7 +10,7 @@ public class PlaySceneManager : MonoBehaviour
     void Start()
     {
         // Retrieve the stored song index (default to 1 if not found)
-        selectedSongIndex = PlayerPrefs.GetInt("SelectedSongIndex", 1);
+        selectedSongIndex = PlayerPrefs.GetInt("SelectedSong", 1);
         Debug.Log("Now playing song number: " + selectedSongIndex);
 
         // Call function to play the selected song
