@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlaySound(SoundType sound, float volume = 1)
+    public static void PlaySound(SoundType sound, int note, float volume = 1)
     {
         Debug.Log("Playing sound: " + sound);
         AudioClip[] clips = instance.soundList[(int)sound].Sounds;
@@ -39,8 +39,15 @@ public class SoundManager : MonoBehaviour
             Debug.LogWarning("No audio clips assigned for: " + sound);
             return;
         }
-        AudioClip Clips = clips[UnityEngine.Random.Range(0, clips.Length)];
-        instance.audioSource.PlayOneShot(Clips, volume);
+
+        if (note < 0 || note >= clips.Length)
+        {
+            // In case we ever use a piano greater than 88 keys, runtime error purposes
+            Debug.LogWarning("noteIndex out of range: " + note);
+        }
+
+        AudioClip Clip = clips[note];
+        instance.audioSource.PlayOneShot(Clip, volume);
     }
 
 #if UNITY_EDITOR
