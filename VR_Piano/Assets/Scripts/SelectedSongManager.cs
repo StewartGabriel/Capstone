@@ -18,7 +18,7 @@ public class PlaySceneManager : MonoBehaviour
         PlaySelectedSong();
     }
 
-    private void PlaySelectedSong()
+    private async void  PlaySelectedSong()
     {
         // Checks that MidiMessages component is assigned
         if (midiMessages != null)
