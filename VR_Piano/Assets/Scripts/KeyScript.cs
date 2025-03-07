@@ -37,8 +37,8 @@ public class Key : MonoBehaviour
         currentnote = newNote;
         transform.Translate(Vector3.down * .05f, Space.Self);
 
-        // Play sound from the SoundManager
-        SoundManager.PlaySound(pianoSound, speed / 127f);
+        // Play sound from the SoundManager, using speed / 127f as the note
+        // SoundManager.PlaySound(pianoSound, speed);
 
     }
     public void KeyUp()
