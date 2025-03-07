@@ -95,15 +95,6 @@ public sealed class NoteCallback : MonoBehaviour
                 KeySet[i] = blackKey;
             }
 
-            
-
-            // // Assign pianoSound from SoundType to each key
-            //if (i >= 22 || i <= 109)
-            //{
-            //     newKey.pianoSound = SoundType.pianoSounds;
-            //}
-            // KeySet[i] = newKey;
-
             if (octavetracker == 11){
                 octavetracker = 0;
             }
@@ -134,6 +125,10 @@ public sealed class NoteCallback : MonoBehaviour
         Debug.Log("Note Received From Library: " + note);
         if (velocity > 0)
         {
+            // Map each midi note to it's designated sound clip from pianoSounds
+            float volume = velocity / 127.0f; // Volume
+            SoundManager.PlaySound(SoundType.pianoSounds, note, volume);
+            
             KeySet[note - 1].KeyDown(velocity);
         }
         else
