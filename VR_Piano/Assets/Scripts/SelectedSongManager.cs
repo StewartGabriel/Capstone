@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class PlaySceneManager : MonoBehaviour
 {
@@ -22,7 +23,8 @@ public class PlaySceneManager : MonoBehaviour
         // Checks that MidiMessages component is assigned
         if (midiMessages != null)
         {
-            // Song selections to made in MidiMessages
+            await Task.Delay(3000); // Waits for 2000 milliseconds (3 seconds)
+            // Plau the song selection from MidiMessages
             midiMessages.PlaySong(selectedSongIndex);
         }
         else
