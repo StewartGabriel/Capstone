@@ -261,10 +261,10 @@ public class PauseMenuController : MonoBehaviour
         audioDeviceDropdown.ClearOptions();
         List<string> deviceNames = new List<string>(audioDrivers.Keys);
 
-        Debug.Log("Listing device names into the dropdown menu");
+        Debug.Log("Available Audio Devices:");
         foreach (string key in deviceNames)
         {
-            Debug.Log("Inserting " + key);
+            Debug.Log($"Device: {key}");
         }
 
         audioDeviceDropdown.AddOptions(deviceNames);
@@ -273,7 +273,11 @@ public class PauseMenuController : MonoBehaviour
 
     private void OnAudioDeviceSelected(int index)
     {
-        if (fMODCallbackHandler == null) return;
+        if (fMODCallbackHandler == null)
+        {
+            Debug.LogError("Oculus FMOD callback handler not assigned!");
+            return;
+        }
 
         Dictionary<string, int> audioDrivers = fMODCallbackHandler.getAudioDrivers();
         List<string> deviceNames = new List<string>(audioDrivers.Keys);
@@ -283,13 +287,18 @@ public class PauseMenuController : MonoBehaviour
             string selectedDevice = deviceNames[index];
             int deviceIndex = audioDrivers[selectedDevice];
 
+            Debug.Log($"Attempting to switch audio output to: {selectedDevice} (Index: {deviceIndex})");
+
             PlayerPrefs.SetString("SelectedAudioDevice", selectedDevice);
             PlayerPrefs.Save();
 
             setAudioOutputDevice(deviceIndex);
         }
+        else
+        {
+            Debug.LogError("Selected index is out of bounds for available audio devices.");
+        }
     }
-
 
     private void setAudioOutputDevice(int deviceIndex)
     {
@@ -302,17 +311,34 @@ public class PauseMenuController : MonoBehaviour
             return;
         }
 
+        int currentDriver;
+        coreSystem.getDriver(out currentDriver);
+        Debug.Log($"Current FMOD Driver BEFORE change: {currentDriver}");
+
+        Debug.Log($"Attempting to switch FMOD driver to index: {deviceIndex}");
         result = coreSystem.setDriver(deviceIndex);
+
+        // Verify if FMOD acknowledges the switch
+        coreSystem.getDriver(out currentDriver);
+        Debug.Log($"Current FMOD Driver AFTER change: {currentDriver}");
+
         if (result == FMOD.RESULT.OK)
         {
-            Debug.Log($"Audio output switched to device index: {deviceIndex}");
+            Debug.Log($"Successfully switched FMOD output to device index: {deviceIndex}");
         }
         else
         {
-            Debug.LogError($"Failed to switch audio output to device index: {deviceIndex}, FMOD Error: {result}");
+            Debug.LogError($"Failed to switch FMOD output to device index: {deviceIndex}, FMOD Error: {result}");
         }
-    }
 
+        // Ensure FMOD applies the new driver
+        FMOD.Studio.System studioSystem = RuntimeManager.StudioSystem;
+        studioSystem.flushCommands();  // Force FMOD to update the audio output
+
+        // If the change isn't applying, restart FMOD’s mixer
+        RuntimeManager.CoreSystem.mixerSuspend();
+        RuntimeManager.CoreSystem.mixerResume();
+    }
 
     private IEnumerator SetDropdownValue(int index)
     {
