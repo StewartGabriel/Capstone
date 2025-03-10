@@ -5,12 +5,13 @@ using UnityEngine;
 public class PluginInit : MonoBehaviour
 {
 
-    AndroidJavaClass unityClass;
-    AndroidJavaObject unityActivity;
-    AndroidJavaObject _pluginInstance;
+    private AndroidJavaClass unityClass;
+    private AndroidJavaObject unityActivity;
+    private AndroidJavaObject _pluginInstance;
 
-    PluginInit pluginInit;
-    private bool searchingForDevices;
+    private PluginInit pluginInit;
+    private bool searchingForDevices = false;
+    private bool firstInitialize = false;
 
     // Start is called before the first frame update
     void Start()
@@ -30,27 +31,38 @@ public class PluginInit : MonoBehaviour
         {
             Debug.Log("No midi devices found, reset scene to initialize");
         }
-        searchingForDevices = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (searchingForDevices && _pluginInstance != null)
+        if (_pluginInstance != null)
         {
-            if (_pluginInstance.Call<int>("getDeviceAmount") != 0) // Devices array is updated
+            if (firstInitialize && _pluginInstance.Call<int>("getDeviceAmount") != 0)
             {
+                firstInitialize = false;
                 searchingForDevices = false;
                 Debug.Log("No longer searching for devices");
                 Debug.Log("Attempting to create port");
                 _pluginInstance.Call("createPort");
             }
-        }
-        else if (!searchingForDevices && _pluginInstance != null && _pluginInstance.Call<int>("getDeviceAmount") == 0)
-        {
-            Debug.Log("No devices connected");
-            searchingForDevices = true;
-            DisconnectDevices();
+
+            else if (searchingForDevices)
+            {
+                if (_pluginInstance.Call<int>("getDeviceAmount") != 0) // Devices array is updated
+                {
+                    searchingForDevices = false;
+                    Debug.Log("No longer searching for devices");
+                    Debug.Log("Attempting to create port");
+                    _pluginInstance.Call("createPort");
+                }
+            }
+            else if (!searchingForDevices && _pluginInstance.Call<int>("getDeviceAmount") == 0) // no devices currently connected
+            {
+                Debug.Log("No devices connected, starting search");
+                searchingForDevices = true;
+                DisconnectDevices();
+            }
         }
     }
 
@@ -76,7 +88,7 @@ public class PluginInit : MonoBehaviour
 
     public void DisconnectDevices()
     {
-        Debug.Log(_pluginInstance.Call<int>("disconnectDevices")); //1 for devices closed, 0 for no devices
+        Debug.Log("Trying to disconnect a device in from the Unity application: " + _pluginInstance.Call<int>("disconnectDevices")); //1 for devices closed, 0 for no devices
     }
 
 }
