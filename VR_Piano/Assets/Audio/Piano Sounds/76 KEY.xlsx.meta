@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream:VR_Piano/Assets/Audio/Piano Sounds/76 KEY.xlsx.meta
 guid: e743c1bb17395e345abebc1d85dd8b6e
 DefaultImporter:
+=======
+guid: 450231d3e018048b98cf2107b2832e2e
+PrefabImporter:
+>>>>>>> Stashed changes:VR_Piano/Assets/Prefabs/Cube.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
