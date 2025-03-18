@@ -4,37 +4,34 @@ using UnityEngine;
 
 public class TalkingKeyScript : Key
 {
-     public void KeyDown(int speed)
+    public Note NotePrefab; 
+    public override void KeyDown(int speed)
     {
-        //Debug.Log("KeyDown called: " + keyID);
-        
+        base.KeyDown(speed);
         Vector3 spawnPosition = transform.position - transform.forward * (transform.localScale.z / 2);
 
-        thisKeysRenderer.material = Materials[1];
-        Debug.Log(speed);
-        thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
+//        Debug.Log("Spawning new note");
         Note newNote = Instantiate(
                 NotePrefab,spawnPosition,
                 Quaternion.identity
             );
         newNote.transform.SetParent(this.transform);
         newNote.noteID = keyID;
-        newNote.starttime = Time.time;
-        
+        newNote.starttime = Time.time + noteManager.notedelay;
+        newNote.endtime = float.MaxValue;
         currentnote = newNote;
-        transform.Translate(Vector3.down * .05f, Space.Self);
-
+        noteManager.activenotes.Add(currentnote);
+        
         SoundManager.PlaySound(pianoSound, speed / 127f);
-
     }
-    public void KeyUp()
+    public override void KeyUp()
     {
         //Debug.Log("KeyUp called: " + keyID);
         thisKeysRenderer.material = Materials[0];
         
         if (currentnote != null)
         {
-            currentnote.endtime = Time.time;
+            currentnote.endtime = Time.time + noteManager.notedelay;
             currentnote.on = false;
             currentnote = null;
         }

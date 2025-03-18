@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 6978138584412117610}
   - component: {fileID: 4670001032625640499}
   m_Layer: 0
-  m_Name: Listening board 1
+  m_Name: Board Listening
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,14 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45609252c100146f5938060fa19a6c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KeyPreFab: {fileID: -6185906480463766166, guid: 87cb8b04cfb6c4057b1ff974dbc43aa1, type: 3}
-  BlackKeyPreFab: {fileID: -2627907033554849311, guid: 1e03e4cafe2bf4703ae7a42a5a840796, type: 3}
+  KeyPreFab: {fileID: 5535435079379609916, guid: 0bd3748abd8864075bfb04d197aa23bc, type: 3}
+  BlackKeyPreFab: {fileID: 4304863408526769446, guid: 35aed406b7bd4469294b1f11073d5378, type: 3}
   KeyCount: 88
   spacing: 0.005
   FirstNoteID: 0
+  notemanager: {fileID: 0}
   notedelay: 5
   talkingboard: {fileID: -7034667149640535721, guid: f9f6da7251ed7438fb13df3df6cd6698, type: 3}
-  activenotes: []
+  noteManager: {fileID: 0}
 --- !u!65 &6522101027117327228
 BoxCollider:
   m_ObjectHideFlags: 0

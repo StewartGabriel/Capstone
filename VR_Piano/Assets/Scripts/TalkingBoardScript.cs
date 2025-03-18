@@ -5,39 +5,23 @@ using UnityEngine.InputSystem;
 
 public class TalkingBoard : NoteCallback
 {
+    public List<Note> activenotes = new List<Note>();
+    
     void Start()
     {
         base.Start();
+        foreach(Key i in KeySet){
+            
+        }
     }
     void Update()
     {
-         if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            KeySet[0].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.wKey.wasReleasedThisFrame)
-        {
-            KeySet[0].KeyUp();
-        }
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            KeySet[1].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.eKey.wasReleasedThisFrame)
-        {
-            KeySet[1].KeyUp();
-        }
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            KeySet[2].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.rKey.wasReleasedThisFrame)
-        {
-            KeySet[2].KeyUp();
-        }
+        if (Keyboard.current.wKey.wasPressedThisFrame) KeySet[0].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.wKey.wasReleasedThisFrame) KeySet[0].KeyUp();
+        if (Keyboard.current.eKey.wasPressedThisFrame) KeySet[1].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.eKey.wasReleasedThisFrame) KeySet[1].KeyUp();
+        if (Keyboard.current.rKey.wasPressedThisFrame) KeySet[2].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.rKey.wasReleasedThisFrame)KeySet[2].KeyUp();
     }
     public void InterpretMidi(int note, int velocity)
     {

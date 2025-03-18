@@ -7,44 +7,29 @@ public class Key : MonoBehaviour
 {
     public int keyID; 
     public Renderer thisKeysRenderer;
-    public Note NotePrefab; 
+    
     public Material[] Materials;
     public SoundType pianoSound;
     protected Note currentnote;
     protected bool isactive;
+    public NoteManager noteManager;
     void Start()
     {
         thisKeysRenderer.material = Materials[0];
-    }
-
+    } 
     void Update()
     {
         
     }
-   public void KeyDown(int speed)
+    public virtual void KeyDown(int speed)
     {
-        Debug.Log("KeyDown called: " + keyID);
-        
-        Vector3 spawnPosition = transform.position + transform.forward * (transform.localScale.z / 2);
-
         thisKeysRenderer.material = Materials[1];
-        Debug.Log(speed);
+//        Debug.Log(speed);
         thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
-        Note newNote = Instantiate(
-                NotePrefab,spawnPosition,
-                Quaternion.identity
-            );
-        newNote.transform.SetParent(this.transform);
-        newNote.noteID = keyID;
-        newNote.starttime = Time.time;
-        
-        currentnote = newNote;
         transform.Translate(Vector3.down * .05f, Space.Self);
 
-        SoundManager.PlaySound(pianoSound, speed / 127f);
-
     }
-    public void KeyUp()
+    public virtual void KeyUp()
     {
         Debug.Log("KeyUp called: " + keyID);
         thisKeysRenderer.material = Materials[0];

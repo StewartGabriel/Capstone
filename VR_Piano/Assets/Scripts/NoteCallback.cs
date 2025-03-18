@@ -15,6 +15,7 @@ public class NoteCallback : MonoBehaviour
     public int KeyCount;
     public float spacing;
     public int FirstNoteID;
+    public NoteManager notemanager;
     
     public void Start()
     {
@@ -71,6 +72,7 @@ public class NoteCallback : MonoBehaviour
                 KeySet[i] = blackKey;
             }
             KeySet[i].keyID = i + FirstNoteID;
+            KeySet[i].noteManager = notemanager;
 
             if (octavetracker == 11){
                 octavetracker = 0;

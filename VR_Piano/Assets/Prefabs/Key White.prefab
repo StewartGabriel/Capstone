@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2662623609566340637}
   - component: {fileID: 4335465207232868423}
   - component: {fileID: 375363344023664013}
-  - component: {fileID: -6185906480463766166}
+  - component: {fileID: 1670113436334152184}
   m_Layer: 0
-  m_Name: Talking White Key
+  m_Name: Key White
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-6185906480463766166
+--- !u!114 &1670113436334152184
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,10 +115,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779329646186705147}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75b0c081f14d4d96acfa957786f5d38, type: 3}
+  m_Script: {fileID: 11500000, guid: bafc55b8782b44584b4d2e8a9d48bcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyID: 0
   thisKeysRenderer: {fileID: 4335465207232868423}
   NotePrefab: {fileID: 8282368421399493012, guid: 5259fe3083a7348b3aac64413603662c, type: 3}
   Materials:
