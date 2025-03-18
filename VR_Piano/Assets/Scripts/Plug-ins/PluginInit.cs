@@ -5,12 +5,13 @@ using UnityEngine;
 public class PluginInit : MonoBehaviour
 {
 
-    AndroidJavaClass unityClass;
-    AndroidJavaObject unityActivity;
-    AndroidJavaObject _pluginInstance;
+    private AndroidJavaClass unityClass;
+    private AndroidJavaObject unityActivity;
+    private AndroidJavaObject _pluginInstance;
 
-    PluginInit pluginInit;
-    private int last_count;
+    private PluginInit pluginInit;
+    private bool searchingForDevices = false;
+    private bool firstInitialize = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,21 +24,45 @@ public class PluginInit : MonoBehaviour
             _pluginInstance.Call("createMidiManager");
             if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null) // Manager created
             {
-                Debug.Log("MIDI Manager Created Somehow");
+                Debug.Log("MIDI Manager Created");
             }
         }
-        last_count = 0;
+        else
+        {
+            Debug.Log("No midi devices found, reset scene to initialize");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (last_count == 0 && _pluginInstance.Call<int>("getDeviceAmount") != last_count) // Devices array is updated
+        if (_pluginInstance != null)
         {
-            Debug.Log("Updating devices connected");
-            last_count = 1;
-            Debug.Log("Attempting to create port");
-            _pluginInstance.Call("createPort"); // createPort is a void method now
+            if (firstInitialize && _pluginInstance.Call<int>("getDeviceAmount") != 0)
+            {
+                firstInitialize = false;
+                searchingForDevices = false;
+                Debug.Log("No longer searching for devices");
+                Debug.Log("Attempting to create port");
+                _pluginInstance.Call("createPort");
+            }
+
+            else if (searchingForDevices)
+            {
+                if (_pluginInstance.Call<int>("getDeviceAmount") != 0) // Devices array is updated
+                {
+                    searchingForDevices = false;
+                    Debug.Log("No longer searching for devices");
+                    Debug.Log("Attempting to create port");
+                    _pluginInstance.Call("createPort");
+                }
+            }
+            else if (!searchingForDevices && _pluginInstance.Call<int>("getDeviceAmount") == 0) // no devices currently connected
+            {
+                Debug.Log("No devices connected, starting search");
+                searchingForDevices = true;
+                DisconnectDevices();
+            }
         }
     }
 
@@ -51,7 +76,6 @@ public class PluginInit : MonoBehaviour
             Debug.Log("Plugin Instance Error");
         }
         _pluginInstance.CallStatic("receiveUnityActivity", unityActivity);
-
     }
 
     private void ReceiveMIDI(string msg) //receives the note information from the plug-in
@@ -60,6 +84,11 @@ public class PluginInit : MonoBehaviour
         TalkingBoard noteCallback = GameObject.Find("Cube").GetComponent<TalkingBoard>();
         noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
         Debug.Log(callback[1] + " " + callback[3] + " " + msg);
+    }
+
+    public void DisconnectDevices()
+    {
+        Debug.Log("Trying to disconnect a device in from the Unity application: " + _pluginInstance.Call<int>("disconnectDevices")); //1 for devices closed, 0 for no devices
     }
 
 }

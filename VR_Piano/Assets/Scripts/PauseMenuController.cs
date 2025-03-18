@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
+// For Audio Selection:
+using UnityEngine.UI;
+using FMODUnity;
+
+
 public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private GameObject settingsMenu; // Reference to the settings menu GameObject
@@ -13,13 +19,20 @@ public class PauseMenuController : MonoBehaviour
     [SerializeField] private InputActionReference wristMenuAction; // Wrist menu gesture input action reference
     [SerializeField] private Transform wristTransform; // Transform representing the user's wrist
     [SerializeField] private Transform centerScreenTransform; // Transform representing the center of the user's screen
-    [SerializeField] private string startScreenSceneName = "StartMenu"; // Name of the start screen scene
+    [SerializeField] private string startScreenSceneName; // Name of the start screen scene
     [SerializeField] private InputActionReference leftHandAction;  // Reference to the left hand action
     [SerializeField] private InputActionReference rightHandAction; // Reference to the right hand action
     [SerializeField] private Vector3 wristMenuOffset = new Vector3(0, 0.2f, 0); // Offset above the wrist (default: 20 cm above)
     [SerializeField] private Vector3 wristMenuRotationOffset = new Vector3(0, 0, 0); // Rotation offset for the menu in degrees
 
-    private GameObject currentActiveMenu; // Tracks the currently active menu
+// For Audio Selection
+    [SerializeField] private GameObject LogAudioDevices;
+    private OculusFMODInitializer audioHandler;
+    private OculusFMODCallbackHandler fMODCallbackHandler;
+    
+    [SerializeField] private Dropdown audioDeviceDropdown; 
+
+    private GameObject currentActiveMenu;
 
     private void OnEnable()
     {
@@ -41,16 +54,47 @@ public class PauseMenuController : MonoBehaviour
 
     private void Start()
     {
-        // Ensure all menus are inactive at the start
         CloseAllMenus();
-    }
 
-    private void Update()
-    {
-        // Keep the pause menu locked to the wrist if it is active
-        if (pauseMenu != null && pauseMenu.activeSelf)
+        // Get the OculusFMODInitializer component from LogAudioDevices
+        if (LogAudioDevices != null)
         {
-            PositionMenuAboveWrist(pauseMenu);
+            audioHandler = LogAudioDevices.GetComponent<OculusFMODInitializer>();
+
+            if (audioHandler == null)
+            {
+                Debug.LogError("OculusFMODInitializer component is missing on LogAudioDevices!");
+            }
+            else
+            {
+                Debug.Log("Initializer was successfully assigned.");
+                fMODCallbackHandler = audioHandler.oculusFMODCallbackHandler; // Correctly reference ScriptableObject
+            }
+        }
+        else
+        {
+            Debug.LogError("LogAudioDevices not assigned in Inspector.");
+        }
+
+        if (fMODCallbackHandler == null)
+        {
+            Debug.LogError("OculusFMODCallbackHandler ScriptableObject not assigned!");
+            return;
+        }
+
+        PopulateAudioDeviceDropdown();
+
+        // Retrieve the last used audio device to be used again
+        string lastSelectedDevice = PlayerPrefs.GetString("SelectedAudioDevice", "");
+        if (!string.IsNullOrEmpty(lastSelectedDevice))
+        {
+            List<string> deviceNames = new List<string>(fMODCallbackHandler.getAudioDrivers().Keys);
+            int index = deviceNames.IndexOf(lastSelectedDevice);
+            if (index >= 0)
+            {
+                StartCoroutine(SetDropdownValue(index));
+                OnAudioDeviceSelected(index);
+            }
         }
     }
 
@@ -82,6 +126,7 @@ public class PauseMenuController : MonoBehaviour
         else
         {
             Debug.LogWarning("Pause menu is not assigned in the Inspector.");
+            return;
         }
     }
 
@@ -98,6 +143,7 @@ public class PauseMenuController : MonoBehaviour
     public void OpenDeviceSetup()
     {
         OpenMenu(deviceSetup, "Device setup opened.");
+        PopulateAudioDeviceDropdown(); // Refresh List of devices
     }
 
     private void OpenMenu(GameObject menu, string logMessage)
@@ -140,7 +186,7 @@ public class PauseMenuController : MonoBehaviour
     {
         CloseAllMenus(); // Ensure all menus are closed before switching scenes
         Debug.Log("Switching to main menu.");
-        SceneManager.LoadScene(startScreenSceneName); // Load the main menu scene
+        StartCoroutine(LoadStartMenu()); // Load the main menu scene
     }
 
     private void PositionMenu(GameObject menu, Transform targetTransform)
@@ -195,4 +241,116 @@ public class PauseMenuController : MonoBehaviour
         currentActiveMenu = null;
         Debug.Log("All menus closed.");
     }
+
+    private void PopulateAudioDeviceDropdown()
+    {
+        if (audioDeviceDropdown == null)
+        {
+            Debug.LogError("Audio Device Dropdown is not assigned");
+            return;
+        }
+
+        if (fMODCallbackHandler == null)
+        {
+            Debug.LogError("Oculus FMOD callback handler not assigned");
+            return;
+        }
+
+        Dictionary<string, int> audioDrivers = fMODCallbackHandler.getAudioDrivers();
+        audioDeviceDropdown.onValueChanged.RemoveAllListeners();
+        audioDeviceDropdown.ClearOptions();
+        List<string> deviceNames = new List<string>(audioDrivers.Keys);
+
+        Debug.Log("Available Audio Devices:");
+        foreach (string key in deviceNames)
+        {
+            Debug.Log($"Device: {key}");
+        }
+
+        audioDeviceDropdown.AddOptions(deviceNames);
+        audioDeviceDropdown.onValueChanged.AddListener(delegate { OnAudioDeviceSelected(audioDeviceDropdown.value); });
+    }
+
+    private void OnAudioDeviceSelected(int index)
+    {
+        if (fMODCallbackHandler == null)
+        {
+            Debug.LogError("Oculus FMOD callback handler not assigned!");
+            return;
+        }
+
+        Dictionary<string, int> audioDrivers = fMODCallbackHandler.getAudioDrivers();
+        List<string> deviceNames = new List<string>(audioDrivers.Keys);
+
+        if (index >= 0 && index < deviceNames.Count)
+        {
+            string selectedDevice = deviceNames[index];
+            int deviceIndex = audioDrivers[selectedDevice];
+
+            Debug.Log($"Attempting to switch audio output to: {selectedDevice} (Index: {deviceIndex})");
+
+            PlayerPrefs.SetString("SelectedAudioDevice", selectedDevice);
+            PlayerPrefs.Save();
+
+            setAudioOutputDevice(deviceIndex);
+        }
+        else
+        {
+            Debug.LogError("Selected index is out of bounds for available audio devices.");
+        }
+    }
+
+    private void setAudioOutputDevice(int deviceIndex)
+    {
+        FMOD.System coreSystem;
+        FMOD.RESULT result = RuntimeManager.StudioSystem.getCoreSystem(out coreSystem);
+
+        if (result != FMOD.RESULT.OK)
+        {
+            Debug.LogError($"Failed to get FMOD core system: {result}");
+            return;
+        }
+
+        int currentDriver;
+        coreSystem.getDriver(out currentDriver);
+        Debug.Log($"Current FMOD Driver BEFORE change: {currentDriver}");
+
+        Debug.Log($"Attempting to switch FMOD driver to index: {deviceIndex}");
+        result = coreSystem.setDriver(deviceIndex);
+
+        // Verify if FMOD acknowledges the switch
+        coreSystem.getDriver(out currentDriver);
+        Debug.Log($"Current FMOD Driver AFTER change: {currentDriver}");
+
+        if (result == FMOD.RESULT.OK)
+        {
+            Debug.Log($"Successfully switched FMOD output to device index: {deviceIndex}");
+        }
+        else
+        {
+            Debug.LogError($"Failed to switch FMOD output to device index: {deviceIndex}, FMOD Error: {result}");
+        }
+
+        // Ensure FMOD applies the new driver
+        FMOD.Studio.System studioSystem = RuntimeManager.StudioSystem;
+        studioSystem.flushCommands();  // Force FMOD to update the audio output
+
+        // If the change isn't applying, restart FMOD’s mixer
+        RuntimeManager.CoreSystem.mixerSuspend();
+        RuntimeManager.CoreSystem.mixerResume();
+    }
+
+    private IEnumerator SetDropdownValue(int index)
+    {
+        yield return new WaitForEndOfFrame(); // Ensure UI is fully initialized before changing value
+        audioDeviceDropdown.value = index;
+        OnAudioDeviceSelected(index);
+    }
+
+    private IEnumerator LoadStartMenu()
+    {
+        yield return new WaitForSeconds(0.5f); // Small delay to ensure stability
+        SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
+    }
+
 }

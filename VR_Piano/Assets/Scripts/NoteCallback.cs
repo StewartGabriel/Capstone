@@ -99,5 +99,20 @@ public class NoteCallback : MonoBehaviour
         }
     }
 
-    
+    public void InterpretMidi(int note, int velocity)
+    {
+        Debug.Log("Note Received From Library: " + note);
+        if (velocity > 0)
+        {
+            // Map each midi note to it's designated sound clip from pianoSounds
+            float volume = velocity / 127.0f; // Volume
+            SoundManager.PlaySound(SoundType.pianoSounds, note, volume);
+            
+            KeySet[note - 1].KeyDown(velocity);
+        }
+        else
+        {
+            KeySet[note - 1].KeyUp();
+        }
+    }
 }

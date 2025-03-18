@@ -27,7 +27,6 @@ public class Key : MonoBehaviour
 //        Debug.Log(speed);
         thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
         transform.Translate(Vector3.down * .05f, Space.Self);
-
     }
     public virtual void KeyUp()
     {

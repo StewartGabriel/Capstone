@@ -10,8 +10,8 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private GameObject songSelectMenu; // Reference to the Song Select Menu panel
     [SerializeField] private Button[] songButtons; // Array of 16 song buttons
     [SerializeField] private Button backButton; // Back button to return to StartMenu
-    [SerializeField] private string sampleSceneName = "SampleScene"; // Scene where the songs play
-    [SerializeField] private string startScreenSceneName = "StartMenu"; // Name of the start screen scene
+    [SerializeField] private string sampleSceneName; // Scene where the songs play
+    [SerializeField] private string startScreenSceneName; // Name of the start screen scene
 
     // XR Hand Inputs for pinch gestures (same method as pause menu)
     [SerializeField] private InputActionReference leftHandSelectAction;  // Left hand pinch gesture
@@ -139,6 +139,8 @@ public class SongSelectMenuController : MonoBehaviour
     private void ReturnToMainMenu()
     {
         Debug.Log("Returning to Start Menu.");
-        SceneManager.LoadScene(startScreenSceneName);
+        SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
     }
+
+
 }
