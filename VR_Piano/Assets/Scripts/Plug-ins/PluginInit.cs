@@ -11,9 +11,18 @@ public class PluginInit : MonoBehaviour
 
     private PluginInit pluginInit;
     private bool searchingForDevices = false;
-    private bool firstInitialize = false;
+    private bool firstInitialize = true;
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        if (GameObject.FindObjectsOfType<PluginInit>().Length > 1)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
     void Start()
     {
         pluginInit = GameObject.Find("Plugin").GetComponent<PluginInit>();
@@ -24,6 +33,7 @@ public class PluginInit : MonoBehaviour
             _pluginInstance.Call("createMidiManager");
             if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null) // Manager created
             {
+                DisconnectDevices(); //Ensure no devices are connected
                 Debug.Log("MIDI Manager Created");
             }
         }
@@ -61,7 +71,7 @@ public class PluginInit : MonoBehaviour
             {
                 Debug.Log("No devices connected, starting search");
                 searchingForDevices = true;
-                DisconnectDevices();
+                DisconnectDevices(); //Ensure no devices are connected
             }
         }
     }

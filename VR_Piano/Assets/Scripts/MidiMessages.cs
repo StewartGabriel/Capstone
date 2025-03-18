@@ -51,6 +51,7 @@ public class MidiMessages : MonoBehaviour
         {
             Debug.LogError("songIndex out of range: " + songIndex);
         }
+        Debug.Log("Pretend we're playing a song");
     }
 
     public async Task ExtractMidiData(TextAsset midiMessages)
