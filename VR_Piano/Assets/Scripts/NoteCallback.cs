@@ -6,52 +6,29 @@ using UnityEngine.InputSystem.Layouts;
 // NoteCallback.cs - This script shows how to define a callback to get notified
 // on MIDI note-on/off events.
 
-public sealed class NoteCallback : MonoBehaviour
+public class NoteCallback : MonoBehaviour
 {
     //public GameObject KeyboardBase;
-    private Key[]KeySet;
+    protected Key[]KeySet;
     public Key KeyPreFab;
     public Key BlackKeyPreFab; 
     public int KeyCount;
     public float spacing;
-    void Start()
+    public int FirstNoteID;
+    public NoteManager notemanager;
+    
+    public void Start()
     {
         CreateBoard();
     }
 
     void Update()
     {
-        if (Keyboard.current.wKey.wasPressedThisFrame)
-        {
-            KeySet[0].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.wKey.wasReleasedThisFrame)
-        {
-            KeySet[0].KeyUp();
-        }
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            KeySet[1].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.eKey.wasReleasedThisFrame)
-        {
-            KeySet[1].KeyUp();
-        }
-        if (Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            KeySet[2].KeyDown(Random.Range(0, 128));
-        }
-
-        if (Keyboard.current.rKey.wasReleasedThisFrame)
-        {
-            KeySet[2].KeyUp();
-        }
+       
     }
 
   
-    void CreateBoard()
+    protected void CreateBoard()
     {
         KeySet = new Key[KeyCount];
 
@@ -94,6 +71,8 @@ public sealed class NoteCallback : MonoBehaviour
                 
                 KeySet[i] = blackKey;
             }
+            KeySet[i].keyID = i + FirstNoteID;
+            KeySet[i].noteManager = notemanager;
 
             if (octavetracker == 11){
                 octavetracker = 0;
@@ -120,20 +99,5 @@ public sealed class NoteCallback : MonoBehaviour
         }
     }
 
-    public void InterpretMidi(int note, int velocity)
-    {
-        Debug.Log("Note Received From Library: " + note);
-        if (velocity > 0)
-        {
-            // Map each midi note to it's designated sound clip from pianoSounds
-            float volume = velocity / 127.0f; // Volume
-            SoundManager.PlaySound(SoundType.pianoSounds, note, volume);
-            
-            KeySet[note - 1].KeyDown(velocity);
-        }
-        else
-        {
-            KeySet[note - 1].KeyUp();
-        }
-    }
+    
 }

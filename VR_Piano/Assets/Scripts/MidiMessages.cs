@@ -10,7 +10,7 @@ public class MidiMessages : MonoBehaviour
 {
     [SerializeField] private TextAsset[] songFiles; // TextAsset songs array (extracted midi data)
 
-    public NoteCallback toNoteCallback; // create reference to NoteCallback
+    public TalkingBoard toNoteCallback; // create reference to NoteCallback
 
     // Start is called before the first frame update
     void Start()
