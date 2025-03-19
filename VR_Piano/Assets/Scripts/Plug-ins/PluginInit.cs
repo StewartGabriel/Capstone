@@ -11,9 +11,19 @@ public class PluginInit : MonoBehaviour
 
     private PluginInit pluginInit;
     private bool searchingForDevices = false;
-    private bool firstInitialize = false;
+    private bool firstInitialize = true;
 
-    // Start is called before the first frame update
+    // Awake is called before Start, which is called before the first frame update
+    void Awake()
+    {
+        if (GameObject.FindObjectsOfType<PluginInit>().Length > 1)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     void Start()
     {
         pluginInit = GameObject.Find("Plugin").GetComponent<PluginInit>();
@@ -24,6 +34,7 @@ public class PluginInit : MonoBehaviour
             _pluginInstance.Call("createMidiManager");
             if (_pluginInstance.Get<AndroidJavaObject>("midiManager") != null) // Manager created
             {
+                DisconnectDevices(); //Ensure no devices are connected
                 Debug.Log("MIDI Manager Created");
             }
         }
@@ -61,7 +72,7 @@ public class PluginInit : MonoBehaviour
             {
                 Debug.Log("No devices connected, starting search");
                 searchingForDevices = true;
-                DisconnectDevices();
+                DisconnectDevices(); //Ensure no devices are connected
             }
         }
     }
@@ -81,7 +92,7 @@ public class PluginInit : MonoBehaviour
     private void ReceiveMIDI(string msg) //receives the note information from the plug-in
     {
         string[] callback = msg.Split(" ");
-        TalkingBoard noteCallback = GameObject.Find("Cube").GetComponent<TalkingBoard>();
+        TalkingBoard noteCallback = GameObject.Find("Talking board(Clone)").GetComponent<ListeningBoard>();
         noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
         Debug.Log(callback[1] + " " + callback[3] + " " + msg);
     }
