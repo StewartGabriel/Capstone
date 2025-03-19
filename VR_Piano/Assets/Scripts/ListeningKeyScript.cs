@@ -14,7 +14,7 @@ public class ListeningKeyScript : Key
             thisKeysRenderer.material = Materials[2];
         }
 
-        SoundManager.PlaySound(pianoSound, speed / 127f);
+        SoundManager.PlaySound(pianoSound, keyID,speed / 127f);
 
     }
     public override void KeyUp()
@@ -29,7 +29,7 @@ public class ListeningKeyScript : Key
     private bool checkKeyHit(){
         foreach (Note i in noteManager.activenotes){
             if (i.starttime > Time.time - noteManager.notebuffer && i.starttime < Time.time + noteManager.notebuffer && i.noteID == keyID){
-                Debug.Log("HIT: " + Time.time + " : " + i.starttime);
+                Debug.Log("Note hit: HIT: " + Time.time + " : " + i.starttime);
                 thisKeysRenderer.material = Materials[2];
                 i.activate();
                 noteManager.pressednotes.Add(i);
@@ -37,19 +37,19 @@ public class ListeningKeyScript : Key
                 return true;
             }
         }
-        Debug.Log("MISS"+ Time.time);
+        Debug.Log("Note hit: MISS "+ Time.time);
         return false;
     }
     private bool checkKeyRelease(){
         foreach (Note i in noteManager.pressednotes){
             if (i.endtime > Time.time - noteManager.notebuffer && i.endtime < Time.time + noteManager.notebuffer && i.noteID == keyID){
-                Debug.Log("Rease HIT: " + Time.time + " : " + i.starttime);
+                Debug.Log("Note Release: HIT " + Time.time + " : " + i.starttime);
                 i.correct();
                 noteManager.pressednotes.Remove(i);
                 return true;   
             }
         }
-        Debug.Log("MISS"+ Time.time);
+        Debug.Log("Note Release: MISS "+ Time.time);
         return false;
     }
 }

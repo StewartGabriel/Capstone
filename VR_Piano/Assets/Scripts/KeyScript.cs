@@ -11,7 +11,7 @@ public class Key : MonoBehaviour
     public Material[] Materials;
     public SoundType pianoSound;
     protected Note currentnote;
-    protected bool isactive;
+    public bool black;
     public NoteManager noteManager;
     void Start()
     {

@@ -11,10 +11,10 @@ public class MidiMessages : MonoBehaviour
     [SerializeField] private TextAsset[] songFiles; // TextAsset songs array (extracted midi data)
 
     public TalkingBoard toNoteCallback; // create reference to NoteCallback
-
-    // Start is called before the first frame update
+    public ListeningBoard playerBoard;
     void Start()
     {
+        toNoteCallback = playerBoard.talkingboard;
         if (toNoteCallback == null)
         {
             Debug.LogError("NoteCallback not referenced correctly");
@@ -68,6 +68,7 @@ public class MidiMessages : MonoBehaviour
                     int note = int.Parse(index[1]);
                     int velocity = int.Parse(index[2]);
                     int timeDelay = int.Parse(index[3]);
+
                     // Thread.Sleep(timeDelay);
                     await Task.Delay(timeDelay);
 

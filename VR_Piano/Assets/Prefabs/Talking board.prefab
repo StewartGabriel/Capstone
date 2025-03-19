@@ -329,9 +329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441f7ef81568be04a85062fc46162f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Materials: []
-  numberOfKeys: 0
-  TargetRenderer: {fileID: 0}
 --- !u!114 &4670001032625640499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,12 +336,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704929758431985168}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  songFiles: []
   toNoteCallback: {fileID: 0}
+  playerBoard: {fileID: 0}
 --- !u!114 &-7034667149640535721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,4 +360,6 @@ MonoBehaviour:
   BlackKeyPreFab: {fileID: -2627907033554849311, guid: 1e03e4cafe2bf4703ae7a42a5a840796, type: 3}
   KeyCount: 88
   spacing: 0.005
-  FirstNoteID: 0
+  FirstNoteID: 28
+  notemanager: {fileID: 0}
+  activenotes: []

@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TalkingBoard : NoteCallback
+public class TalkingBoard : PianoKeyboard
 {
-    public List<Note> activenotes = new List<Note>();
     
-    void Start()
+    void Awake()
     {
-        base.Start();
-        foreach(Key i in KeySet){
-            
-        }
+        base.Awake();
     }
     void Update()
     {
@@ -25,14 +21,16 @@ public class TalkingBoard : NoteCallback
     }
     public void InterpretMidi(int note, int velocity)
     {
-        Debug.Log("Note Received From Library: " + note);
+        int t = note - 1 - FirstNoteID;
+        Debug.Log("Note Received From Library: " + note + ", " + t + "Array Size:" + KeySet.Length);
+        
         if (velocity > 0)
         {
-            KeySet[note - 1].KeyDown(velocity);
+            KeySet[note - 1 - FirstNoteID].KeyDown(velocity);
         }
         else
         {
-            KeySet[note - 1].KeyUp();
+            KeySet[note - 1 - FirstNoteID].KeyUp();
         }
     }
     

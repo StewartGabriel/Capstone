@@ -6,10 +6,10 @@ using UnityEngine.InputSystem.Layouts;
 // NoteCallback.cs - This script shows how to define a callback to get notified
 // on MIDI note-on/off events.
 
-public class NoteCallback : MonoBehaviour
+public class PianoKeyboard : MonoBehaviour
 {
     //public GameObject KeyboardBase;
-    protected Key[]KeySet;
+    public Key[]KeySet;
     public Key KeyPreFab;
     public Key BlackKeyPreFab; 
     public int KeyCount;
@@ -17,7 +17,7 @@ public class NoteCallback : MonoBehaviour
     public int FirstNoteID;
     public NoteManager notemanager;
     
-    public void Start()
+    public void Awake()
     {
         CreateBoard();
     }
@@ -58,6 +58,7 @@ public class NoteCallback : MonoBehaviour
                 new Vector3(currentPosition, yPosition, transform.position.z),
                 Quaternion.identity
                 );
+                newKey.black = false;
                 KeySet[i] = newKey;
             }
             else
@@ -68,7 +69,7 @@ public class NoteCallback : MonoBehaviour
                     new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
                     Quaternion.identity
                 );
-                
+                blackKey.black = true;
                 KeySet[i] = blackKey;
             }
             KeySet[i].keyID = i + FirstNoteID;

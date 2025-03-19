@@ -56,7 +56,10 @@ public class Note : MonoBehaviour
         thisnotesrenderer.material = notematerials[1];
     }
     public void deactivate(){
-        thisnotesrenderer.material = notematerials[2];
+        if(thisnotesrenderer != null){
+            thisnotesrenderer.material = notematerials[2];
+        }
+
     }
     public void correct(){
         thisnotesrenderer.material = notematerials[3];

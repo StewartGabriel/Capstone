@@ -14,15 +14,16 @@ public class TalkingKeyScript : Key
         Note newNote = Instantiate(
                 NotePrefab,spawnPosition,
                 Quaternion.identity
-            );
+            );    
         newNote.transform.SetParent(this.transform);
         newNote.noteID = keyID;
         newNote.starttime = Time.time + noteManager.notedelay;
         newNote.endtime = float.MaxValue;
         currentnote = newNote;
+        if (black){newNote.notematerials[0] = newNote.notematerials[4];}
         noteManager.activenotes.Add(currentnote);
         
-        SoundManager.PlaySound(pianoSound, speed / 127f);
+        SoundManager.PlaySound(pianoSound, keyID ,speed / 127f);
     }
     public override void KeyUp()
     {

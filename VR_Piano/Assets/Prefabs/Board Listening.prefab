@@ -104,15 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45609252c100146f5938060fa19a6c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  KeySet: []
   KeyPreFab: {fileID: 5535435079379609916, guid: 0bd3748abd8864075bfb04d197aa23bc, type: 3}
   BlackKeyPreFab: {fileID: 4304863408526769446, guid: 35aed406b7bd4469294b1f11073d5378, type: 3}
   KeyCount: 88
   spacing: 0.005
   FirstNoteID: 0
-  notemanager: {fileID: 0}
-  notedelay: 5
+  notemanager: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
+  notedelay: 10
   talkingboard: {fileID: -7034667149640535721, guid: f9f6da7251ed7438fb13df3df6cd6698, type: 3}
-  noteManager: {fileID: 0}
 --- !u!65 &6522101027117327228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -350,9 +350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441f7ef81568be04a85062fc46162f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Materials: []
-  numberOfKeys: 0
-  TargetRenderer: {fileID: 0}
 --- !u!114 &4670001032625640499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,4 +362,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  songFiles: []
   toNoteCallback: {fileID: 0}
+  playerBoard: {fileID: 0}
