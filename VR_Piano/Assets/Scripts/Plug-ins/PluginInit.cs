@@ -92,7 +92,7 @@ public class PluginInit : MonoBehaviour
     private void ReceiveMIDI(string msg) //receives the note information from the plug-in
     {
         string[] callback = msg.Split(" ");
-        TalkingBoard noteCallback = GameObject.Find("Talking board(Clone)").GetComponent<ListeningBoard>();
+        ListeningBoard noteCallback = GameObject.Find("Board Listening").GetComponent<ListeningBoard>();
         noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
         Debug.Log(callback[1] + " " + callback[3] + " " + msg);
     }

@@ -29,4 +29,19 @@ public class ListeningBoard : PianoKeyboard
         if (Keyboard.current.fKey.wasPressedThisFrame) KeySet[2].KeyDown(Random.Range(0, 128));
         if (Keyboard.current.fKey.wasReleasedThisFrame)KeySet[2].KeyUp();    
     }
+
+        public void InterpretMidi(int note, int velocity)
+    {
+        int t = note - 1 - FirstNoteID;
+        Debug.Log("Note Received From Library: " + note + ", " + t + "Array Size:" + KeySet.Length);
+
+        if (velocity > 0)
+        {
+            KeySet[note - 1 - FirstNoteID].KeyDown(velocity);
+        }
+        else
+        {
+            KeySet[note - 1 - FirstNoteID].KeyUp();
+        }
+    }
 }
