@@ -2000,8 +2000,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   songFiles:
-  - {fileID: 4900000, guid: b28f3fa00c26c6e40a235f5e313fdcfa, type: 3}
-  - {fileID: 4900000, guid: 3e73b8bec89b0ac449eedeb0d3ae0f89, type: 3}
+  - {fileID: 4900000, guid: 7f4092a2b94f7d945b2fbdf9786bd22f, type: 3}
+  - {fileID: 4900000, guid: bd5c92773dd909248bac7e0bc5343304, type: 3}
   - {fileID: 4900000, guid: 689fb949a61898e41b2fc8bb0263dc01, type: 3}
   - {fileID: 4900000, guid: 845fbb75c20aee34c864e68384650749, type: 3}
   - {fileID: 4900000, guid: 83bc120de07130743a58b7bfb262c4af, type: 3}
@@ -2032,6 +2032,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 4138cc426bde37844a9c40a331661d08, type: 3}
   - {fileID: 4900000, guid: b28f3fa00c26c6e40a235f5e313fdcfa, type: 3}
   - {fileID: 4900000, guid: 3e73b8bec89b0ac449eedeb0d3ae0f89, type: 3}
+  toNoteCallback: {fileID: 0}
   playerBoard: {fileID: 1363837518}
 --- !u!4 &354958242
 Transform:
