@@ -1414,6 +1414,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202447791}
   m_CullTransparentMesh: 1
+--- !u!114 &210236076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1841720115224589510, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+  m_PrefabInstance: {fileID: 1953198029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783fa72ab6b0548bc942a351c7214000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &222106184
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2043,7 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 4138cc426bde37844a9c40a331661d08, type: 3}
   - {fileID: 4900000, guid: b28f3fa00c26c6e40a235f5e313fdcfa, type: 3}
   - {fileID: 4900000, guid: 3e73b8bec89b0ac449eedeb0d3ae0f89, type: 3}
+  toNoteCallback: {fileID: 0}
   playerBoard: {fileID: 1363837518}
 --- !u!4 &354958242
 Transform:
@@ -3530,6 +3542,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &710060855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1841720115224589510, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+  m_PrefabInstance: {fileID: 1741463681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 783fa72ab6b0548bc942a351c7214000, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &717104837
 GameObject:
   m_ObjectHideFlags: 0
@@ -4417,6 +4440,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
+      propertyPath: lefthandle
+      value: 
+      objectReference: {fileID: 210236076}
+    - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: FirstNoteID
       value: 28
       objectReference: {fileID: 0}
@@ -4424,6 +4451,10 @@ PrefabInstance:
       propertyPath: notemanager
       value: 
       objectReference: {fileID: 884747383}
+    - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
+      propertyPath: righthandle
+      value: 
+      objectReference: {fileID: 710060855}
     - target: {fileID: 1704929758431985168, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: m_Name
       value: Board Listening
@@ -10175,6 +10206,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710296532}
   m_CullTransparentMesh: 1
+--- !u!1001 &1741463681
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458684074152050591, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_Name
+      value: Piano Handle (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
 --- !u!1 &1761168907
 GameObject:
   m_ObjectHideFlags: 0
@@ -11366,6 +11454,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1946448396}
   m_CullTransparentMesh: 1
+--- !u!1001 &1953198029
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898228472772670894, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8458684074152050591, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
+      propertyPath: m_Name
+      value: Piano Handle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 36d2de4c806404281859145e8c0d5640, type: 3}
 --- !u!1 &1958446801
 GameObject:
   m_ObjectHideFlags: 0
@@ -11781,3 +11926,5 @@ SceneRoots:
   - {fileID: 1033274541}
   - {fileID: 185524682}
   - {fileID: 808192604}
+  - {fileID: 1953198029}
+  - {fileID: 1741463681}
