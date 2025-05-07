@@ -15,20 +15,22 @@ public class ListeningBoard : PianoKeyboard
    void Awake()
     {
         notemanager.notedelay = notedelay;
-
-        // Pass data
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;
         talkingboard.notemanager = notemanager;
+        float PianoHandledimensions = KeyPreFab.transform.localScale.z/2;
+        lefthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
+        righthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
+
+        base.Awake();
 
         talkingboard = Instantiate(talkingboard);
         talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay);
         talkingboard.transform.rotation = Quaternion.identity;
-        talkingboard.transform.localScale = Vector3.one; // or whatever scale you want
+        //talkingboard.transform.localScale = Vector3.one; // or whatever scale you want
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
 
 
-        base.Awake();
     }
 
 
