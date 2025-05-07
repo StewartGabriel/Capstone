@@ -1,27 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FMODUnity;
 using FMOD.Studio;
 
+using Random = UnityEngine.Random;
+
+
 public class ListeningBoard : PianoKeyboard
 {
+    public PianoHandle lefthandle;
+    public PianoHandle righthandle;
     public float notedelay;
     public TalkingBoard talkingboard;
 
     private EventInstance pianoEvent; // For MIDI
     private string parameterName = "note"; // For laptop keyboard testing
+    
     void Awake()
     {
         notemanager.notedelay = notedelay;
-        Vector3 talkingboardspawnposition = transform.position;
-        talkingboardspawnposition.z += notedelay;
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;
         talkingboard.notemanager = notemanager;
-        talkingboard = Instantiate(talkingboard, talkingboardspawnposition, Quaternion.identity);
-        talkingboard.transform.parent = this.transform.parent;
+
+        float PianoHandledimensions = KeyPreFab.transform.localScale.z/2;
+        lefthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
+        righthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
 
         pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
 
@@ -31,10 +38,20 @@ public class ListeningBoard : PianoKeyboard
         }
 
         base.Awake();
+
+        talkingboard = Instantiate(talkingboard);
+        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay);
+        talkingboard.transform.rotation = Quaternion.identity;
+        //talkingboard.transform.localScale = Vector3.one; // or whatever scale you want
+        talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
+
+
     }
+
 
     void Update()
     {
+        // Test key inputs
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
             KeySet[0].KeyDown(Random.Range(0, 128));
@@ -61,25 +78,46 @@ public class ListeningBoard : PianoKeyboard
         }
 
         if (Keyboard.current.fKey.wasReleasedThisFrame)KeySet[2].KeyUp();    
+
+        // Position the board between the handles
+        Vector3 mid = (lefthandle.transform.position + righthandle.transform.position) / 2;
+        transform.position = mid;
+
+        // Resize to span the width between handles in X-Z plane
+        Vector3 flatLeft = new Vector3(lefthandle.transform.position.x, 0, lefthandle.transform.position.z);
+        Vector3 flatRight = new Vector3(righthandle.transform.position.x, 0, righthandle.transform.position.z);
+        float width = Vector3.Distance(flatLeft, flatRight);
+
+        Vector3 dim = transform.localScale;
+        dim.x = width;
+        transform.localScale = dim;
+
+        // Rotate board to face from left to right handle
+        Vector3 direction = flatRight - flatLeft;
+        if (direction != Vector3.zero)
+        transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
+
     }
 
-        public void InterpretMidi(int note, int velocity)
+    public void InterpretMidi(int note, int velocity)
     {
-        int t = note - 1 - FirstNoteID;
-        Debug.Log("Note Received: " + note + ", " + t + "Array Size:" + KeySet.Length);
+        int index = note - 1 - FirstNoteID;
+        Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
         pianoEvent.setParameterByName("note", note);
 
 
-        if (velocity > 0)
+        if (index >= 0 && index < KeySet.Length)
         {
-            KeySet[note - 1 - FirstNoteID].KeyDown(velocity);
-            pianoEvent.start();
+            if (velocity > 0)
+                KeySet[index].KeyDown(velocity);
+                pianoEvent.start();
+            else
+                KeySet[index].KeyUp();
         }
         else
         {
-            KeySet[note - 1 - FirstNoteID].KeyUp();
-
+            Debug.LogWarning($"Note {note} is out of range for KeySet.");
         }
     }
 }

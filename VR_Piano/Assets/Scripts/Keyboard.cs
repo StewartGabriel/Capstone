@@ -32,14 +32,22 @@ public class PianoKeyboard : MonoBehaviour
     {
         KeySet = new Key[KeyCount];
 
-        BoxCollider boxCollider = GetComponent<BoxCollider>();
-        float width = boxCollider.size.x * transform.localScale.x;
-        float height = boxCollider.size.y * transform.localScale.y;
-        float depth  = boxCollider.size.z * transform.localScale.z;
+        // BoxCollider boxCollider = GetComponent<BoxCollider>();
+        // float width = boxCollider.size.x * transform.localScale.x;
+        // float height = boxCollider.size.y * transform.localScale.y;
+        // float depth  = boxCollider.size.z * transform.localScale.z;
         
-        float keyWidth = KeyPreFab.GetComponent<BoxCollider>().size.x * KeyPreFab.transform.lossyScale.x;
-        float keyDepth = KeyPreFab.GetComponent<BoxCollider>().size.z * KeyPreFab.transform.lossyScale.z;
-        float blackKeyDepth = BlackKeyPreFab.GetComponent<BoxCollider>().size.z * BlackKeyPreFab.transform.lossyScale.z;
+        // float keyWidth = KeyPreFab.GetComponent<BoxCollider>().size.x * KeyPreFab.transform.lossyScale.x;
+        // float keyDepth = KeyPreFab.GetComponent<BoxCollider>().size.z * KeyPreFab.transform.lossyScale.z;
+        // float blackKeyDepth = BlackKeyPreFab.GetComponent<BoxCollider>().size.z * BlackKeyPreFab.transform.lossyScale.z;
+
+        transform.localScale = new Vector3(transform.localScale.x, KeyPreFab.transform.localScale.y *2, KeyPreFab.transform.localScale.z);
+
+        float width = transform.lossyScale.x;
+        float height = transform.lossyScale.y;
+        float keyDepth = KeyPreFab.transform.lossyScale.z;
+
+        float keyWidth  = KeyPreFab.transform.lossyScale.x;
 
         float currentPosition = transform.position.x - width / 2 - keyWidth / 2;
 
@@ -49,13 +57,14 @@ public class PianoKeyboard : MonoBehaviour
         int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
         int octavetracker  = 3;
 
+        
         for (int i = 0; i < KeyCount; i++)
         {
             if (blackwhitepattern[octavetracker] == 1){
                 currentPosition += keyWidth + spacing;
                 Key newKey = Instantiate(
                 KeyPreFab,
-                new Vector3(currentPosition, yPosition, transform.position.z),
+                new Vector3(currentPosition, yPosition + KeyPreFab.transform.lossyScale.y/2, transform.position.z),
                 Quaternion.identity
                 );
                 newKey.black = false;
@@ -66,7 +75,7 @@ public class PianoKeyboard : MonoBehaviour
                 float blackKeyOffset = (keyWidth + spacing) * 0.5f;
                 Key blackKey = Instantiate(
                     BlackKeyPreFab,
-                    new Vector3(currentPosition + blackKeyOffset, yPosition + 0.1f, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + BlackKeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
                     Quaternion.identity
                 );
                 blackKey.black = true;
@@ -92,7 +101,7 @@ public class PianoKeyboard : MonoBehaviour
 
         // Adjust scale correctly
         Vector3 scale = transform.localScale;
-        scale.x = newboardsize / boxCollider.size.x; // Scale relative to original size
+        scale.x = newboardsize / transform.lossyScale.x; // Scale relative to original size
         transform.localScale = scale;
 
         for(int i  = 0; i< KeySet.Length; i++){
