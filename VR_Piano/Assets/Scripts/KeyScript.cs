@@ -21,7 +21,7 @@ public class Key : MonoBehaviour
     {
         
     }
-    public virtual void KeyDown(int speed)
+    public virtual void KeyDown(int speed, bool hand)
     {
         thisKeysRenderer.material = Materials[1];
 //        Debug.Log(speed);
