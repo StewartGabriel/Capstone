@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class TalkingBoard : PianoKeyboard
-{
-    
+{    
     void Awake()
     {
         base.Awake();
+        UnityEngine.Vector3 targetscale = new UnityEngine.Vector3(
+            transform.lossyScale.x/transform.parent.lossyScale.x,
+            transform.localScale.y/transform.parent.lossyScale.y,
+            transform.localScale.z/transform.parent.lossyScale.z);
+        transform.localScale = targetscale;
     }
     void Update()
     {
