@@ -93,7 +93,7 @@ public class PluginInit : MonoBehaviour
     {
         string[] callback = msg.Split(" ");
         ListeningBoard noteCallback = GameObject.Find("Board Listening").GetComponent<ListeningBoard>();
-        noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]));
+        noteCallback.InterpretMidi(int.Parse(callback[1]), int.Parse(callback[3]),true);
         Debug.Log(callback[1] + " " + callback[3] + " " + msg);
     }
 

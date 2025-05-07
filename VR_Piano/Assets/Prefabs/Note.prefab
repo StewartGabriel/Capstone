@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.5}
-  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6673512464750730776}
@@ -118,7 +118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469e076911db4477fb4017b0955631d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headersize: 0.1
 --- !u!1 &3294726914187372282
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,8 +245,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 7dec81ad5be854bc5b926cd0c96a6fa2, type: 2}
   - {fileID: 2100000, guid: 45fc74e09d28e48cab1df86e7c01878c, type: 2}
   - {fileID: 2100000, guid: 2fb30049608004dc0a707d4047819e05, type: 2}
+  - {fileID: 2100000, guid: 5d6bb456f309f43ec9e4dfadb2177b06, type: 2}
+  - {fileID: 2100000, guid: 05041a6cf8139415f885fe5a708e3947, type: 2}
   thisnotesrenderer: {fileID: 2620904799351284362}
   growRate: 0.5
   on: 0
   noteID: 0
-  lifeTime: 20
+  lifeTime: 13

@@ -27,25 +27,22 @@ public class ListeningBoard : PianoKeyboard
         talkingboard = Instantiate(talkingboard);
         talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay);
         talkingboard.transform.rotation = Quaternion.identity;
-        //talkingboard.transform.localScale = Vector3.one; // or whatever scale you want
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
-
-
     }
 
 
     void Update()
     {
         // Test key inputs
-        if (Keyboard.current.sKey.wasPressedThisFrame) KeySet[0].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.sKey.wasPressedThisFrame) KeySet[0].KeyDown(Random.Range(0, 128),true);
         if (Keyboard.current.sKey.wasReleasedThisFrame) KeySet[0].KeyUp();
-        if (Keyboard.current.dKey.wasPressedThisFrame) KeySet[1].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.dKey.wasPressedThisFrame) KeySet[1].KeyDown(Random.Range(0, 128),true);
         if (Keyboard.current.dKey.wasReleasedThisFrame) KeySet[1].KeyUp();
-        if (Keyboard.current.fKey.wasPressedThisFrame) KeySet[2].KeyDown(Random.Range(0, 128));
+        if (Keyboard.current.fKey.wasPressedThisFrame) KeySet[2].KeyDown(Random.Range(0, 128),false);
         if (Keyboard.current.fKey.wasReleasedThisFrame) KeySet[2].KeyUp();
 
         // Position the board between the handles
-        Vector3 mid = (lefthandle.transform.position + righthandle.transform.position) / 2;
+        Vector3 mid = (lefthandle.transform.position + righthandle.transform.position)/2;
         transform.position = mid;
 
         // Resize to span the width between handles in X-Z plane
@@ -63,7 +60,7 @@ public class ListeningBoard : PianoKeyboard
         transform.rotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, -90, 0);
     }
 
-    public void InterpretMidi(int note, int velocity)
+    public void InterpretMidi(int note, int velocity, bool hand)
     {
         int index = note - 1 - FirstNoteID;
         Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
@@ -71,7 +68,7 @@ public class ListeningBoard : PianoKeyboard
         if (index >= 0 && index < KeySet.Length)
         {
             if (velocity > 0)
-                KeySet[index].KeyDown(velocity);
+                KeySet[index].KeyDown(velocity,hand);
             else
                 KeySet[index].KeyUp();
         }

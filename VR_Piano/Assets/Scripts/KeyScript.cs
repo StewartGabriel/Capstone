@@ -21,12 +21,12 @@ public class Key : MonoBehaviour
     {
         
     }
-    public virtual void KeyDown(int speed)
+    public virtual void KeyDown(int speed, bool hand)
     {
         thisKeysRenderer.material = Materials[1];
 //        Debug.Log(speed);
         thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
-        transform.Translate(Vector3.down * .05f, Space.Self);
+        transform.Translate(Vector3.down * transform.lossyScale.y, Space.Self);
 
     }
     public virtual void KeyUp()
@@ -40,6 +40,6 @@ public class Key : MonoBehaviour
             currentnote.on = false;
             currentnote = null;
         }
-        transform.Translate(Vector3.up * .05f, Space.Self);
+        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
     }
 }
