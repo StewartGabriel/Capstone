@@ -39,6 +39,6 @@ public class TalkingKeyScript : Key
             currentnote.on = false;
             currentnote = null;
         }
-        transform.Translate(Vector3.up * .05f, Space.Self);
+        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
     }
 }

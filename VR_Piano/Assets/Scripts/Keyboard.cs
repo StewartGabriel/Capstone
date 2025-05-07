@@ -46,7 +46,7 @@ public class PianoKeyboard : MonoBehaviour
 
 
         int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
-        int octavetracker  = 3;
+        int octavetracker  = 5;
 
         
         for (int i = 0; i < KeyCount; i++)

@@ -23,7 +23,7 @@ public class ListeningKeyScript : Key
         
         thisKeysRenderer.material = Materials[0];
         
-        transform.Translate(Vector3.up * .05f, Space.Self);
+        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
         checkKeyRelease();
     }
     private bool checkKeyHit(){

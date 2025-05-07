@@ -27,10 +27,7 @@ public class ListeningBoard : PianoKeyboard
         talkingboard = Instantiate(talkingboard);
         talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay);
         talkingboard.transform.rotation = Quaternion.identity;
-        //talkingboard.transform.localScale = Vector3.one; // or whatever scale you want
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
-
-
     }
 
 
@@ -45,7 +42,7 @@ public class ListeningBoard : PianoKeyboard
         if (Keyboard.current.fKey.wasReleasedThisFrame) KeySet[2].KeyUp();
 
         // Position the board between the handles
-        Vector3 mid = (lefthandle.transform.position + righthandle.transform.position) / 2;
+        Vector3 mid = (lefthandle.transform.position + righthandle.transform.position)/2;
         transform.position = mid;
 
         // Resize to span the width between handles in X-Z plane
