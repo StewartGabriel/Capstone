@@ -54,47 +54,48 @@ public class MidiMessages : MonoBehaviour
     }
 
     public async Task ExtractMidiData(TextAsset midiMessages)
-    { 
-            // Reads all the lines of the file
-            string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
+    {
+        // Reads all the lines of the file
+        string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
+        int i = 0;
+        foreach (string line in lines)
+        {
+            i++;
+            string[] index = line.Split(' ');
 
-            foreach (string line in lines)
+            if (index.Length > 0)
             {
-                string[] index = line.Split(' ');
+                string onOff = index[0];
+                int note = int.Parse(index[1]);
+                int velocity = int.Parse(index[2]);
+                int timeDelay = int.Parse(index[3]);
 
-                if (index.Length > 0)
+                // Thread.Sleep(timeDelay);
+                await Task.Delay(timeDelay);
+
+
+                // Sends the extracted data to NoteCallback component
+                if (toNoteCallback != null)
                 {
-                    string onOff = index[0];
-                    int note = int.Parse(index[1]);
-                    int velocity = int.Parse(index[2]);
-                    int timeDelay = int.Parse(index[3]);
-
-                    // Thread.Sleep(timeDelay);
-                    await Task.Delay(timeDelay);
-
-
-                    // Sends the extracted data to NoteCallback component
-                    if (toNoteCallback != null)
+                    if (onOff == "on")
                     {
-                        if (onOff == "on")
-                        {
-                            await Task.Delay(timeDelay);
-                            toNoteCallback.InterpretMidi(note, velocity); // KeyDown
-                        }
-
-                        else
-                        {
-                            await Task.Delay(timeDelay);
-                            toNoteCallback.InterpretMidi(note, 0); // KeyUp
-                        }
+                        await Task.Delay(timeDelay);
+                        toNoteCallback.InterpretMidi(note, velocity); // KeyDown
                     }
 
-                    // Debug Log string format
-                    string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {timeDelay}";
-
-                    Debug.Log(debugData);
+                    else
+                    {
+                        await Task.Delay(timeDelay);
+                        toNoteCallback.InterpretMidi(note, 0); // KeyUp
+                    }
                 }
+
+                // Debug Log string format
+                string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {timeDelay}, Line: {i}";
+
+                Debug.Log(debugData);
             }
+        }
     }
 
 }
