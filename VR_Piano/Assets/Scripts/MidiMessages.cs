@@ -37,8 +37,8 @@ public class MidiMessages : MonoBehaviour
 
                 Debug.Log($"Playing song: {leftPart.name} (Left) and {rightPart.name} (Right)");
 
-                Task leftTask = ExtractMidiData(leftPart);
-                Task rightTask = ExtractMidiData(rightPart);
+                Task leftTask = ExtractMidiData(leftPart, true);
+                Task rightTask = ExtractMidiData(rightPart, false);
 
                 await Task.WhenAll(leftTask, rightTask); // waits for both tasks to finish before moving to the next step
             }
@@ -53,7 +53,7 @@ public class MidiMessages : MonoBehaviour
         }
     }
 
-    public async Task ExtractMidiData(TextAsset midiMessages)
+    public async Task ExtractMidiData(TextAsset midiMessages,bool hand)
     {
         // Reads all the lines of the file
         string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
@@ -80,13 +80,13 @@ public class MidiMessages : MonoBehaviour
                     if (onOff == "on")
                     {
                         await Task.Delay(timeDelay);
-                        toNoteCallback.InterpretMidi(note, velocity); // KeyDown
+                        toNoteCallback.InterpretMidi(note, velocity,hand); // KeyDown
                     }
 
                     else
                     {
                         await Task.Delay(timeDelay);
-                        toNoteCallback.InterpretMidi(note, 0); // KeyUp
+                        toNoteCallback.InterpretMidi(note, 0, hand); // KeyUp
                     }
                 }
 

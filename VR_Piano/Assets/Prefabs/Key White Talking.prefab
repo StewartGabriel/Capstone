@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.337, z: 4.73}
-  m_LocalScale: {x: 0.093, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.093, y: 0.01, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -120,8 +120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyID: 0
   thisKeysRenderer: {fileID: 4335465207232868423}
-  NotePrefab: {fileID: 8282368421399493012, guid: 5259fe3083a7348b3aac64413603662c, type: 3}
   Materials:
   - {fileID: 2100000, guid: b91421e278b494d579b4344860c33559, type: 2}
   - {fileID: 2100000, guid: 99cec2a8a09eb4a0184afddf35924252, type: 2}
   pianoSound: 0
+  black: 0
+  noteManager: {fileID: 0}
+  NotePrefab: {fileID: 8282368421399493012, guid: 5259fe3083a7348b3aac64413603662c, type: 3}
