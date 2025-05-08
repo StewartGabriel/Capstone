@@ -26,7 +26,7 @@ public class TalkingKeyScript : Key
         
         noteManager.activenotes.Add(currentnote);
         
-        SoundManager.PlaySound(pianoSound, keyID ,speed / 127f);
+        //SoundManager.PlaySound(pianoSound, keyID ,speed / 127f); <---- This side shouldn't be playing sounds, so I commented it out. 
     }
     public override void KeyUp()
     {
