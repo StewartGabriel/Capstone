@@ -21,7 +21,7 @@ public class MidiMessages : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    // public async void PlaySong(int songIndex, bool left_enabled, bool right_enabled, int tempo_multiplier = 1)
     public async void PlaySong(int songIndex)
     {
         // Checks that song index is in range
@@ -30,6 +30,23 @@ public class MidiMessages : MonoBehaviour
             // Getter for TextAsset according to songIndex
             TextAsset leftPart = songFiles[(songIndex * 2) - 2]; // Left part, even index
             TextAsset rightPart = songFiles[(songIndex * 2) - 1]; // Right part, odd index
+
+
+            // if (left_enabled && leftPart != null){
+            //     Task leftTask = ExtractMidiData(leftPart, true, tempo_multiplier);
+            // }
+            //
+            // if (right_enabled && rightPart != null){
+            //     Task rightTask = ExtractMidiData(rightPart, false, tempo_multiplier);
+            // }
+            //
+            // await Task.WhenAll(leftTask, rightTask); <------- assuming this starts both tasks
+            // else {
+            //     Debug.LogError("TextAsset not found in index: " + songIndex);
+            // }
+
+
+
 
             // Checks if the files exists
             if (leftPart != null && rightPart != null)
@@ -52,7 +69,7 @@ public class MidiMessages : MonoBehaviour
             Debug.LogError("songIndex out of range: " + songIndex);
         }
     }
-
+    // public async Task ExtractMidiData(TextAsset midiMessages, bool hand, int tempo_multiplier)
     public async Task ExtractMidiData(TextAsset midiMessages,bool hand)
     {
         // Reads all the lines of the file
@@ -72,7 +89,7 @@ public class MidiMessages : MonoBehaviour
 
                 // Thread.Sleep(timeDelay);
                 await Task.Delay(timeDelay);
-
+                // await Task.Delay(timeDelay * 1/tempo_multiplier); 
 
                 // Sends the extracted data to NoteCallback component
                 if (toNoteCallback != null)

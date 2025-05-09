@@ -14,6 +14,11 @@ public class PlaySceneManager : MonoBehaviour
         selectedSongIndex = PlayerPrefs.GetInt("SelectedSong", 1);
         Debug.Log("Now playing song number: " + selectedSongIndex);
 
+        // Initialize the other parameters
+        // bool left_enabled = PlayerPrefs.GetBool("LeftEnabled", true);
+        // bool right_enabled = PlayerPrefs.GetBool("RightEnabled", true);
+        // int tempo_multiplier = PlayerPrefs.GetInt("TempoMultiplier", 1);
+
         // Call function to play the selected song
         PlaySelectedSong();
     }
@@ -24,8 +29,9 @@ public class PlaySceneManager : MonoBehaviour
         if (midiMessages != null)
         {
             await Task.Delay(3000); // Waits for 2000 milliseconds (3 seconds)
-            // Plau the song selection from MidiMessages
+            // Play the song selection from MidiMessages
             midiMessages.PlaySong(selectedSongIndex);
+            // midiMessages.PlaySong(selectedSongIndex, left_enabled, right_enabled, tempo_multiplier);
         }
         else
         {
