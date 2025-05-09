@@ -16,7 +16,7 @@ public class ListeningBoard : PianoKeyboard
     public float notedelay;
     public TalkingBoard talkingboard;
 
-    private EventInstance pianoEvent; // For MIDI
+
     private string parameterName = "note"; // For laptop keyboard testing
     
     void Awake()
@@ -30,12 +30,12 @@ public class ListeningBoard : PianoKeyboard
         lefthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
         righthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
 
-        pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+        //pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
 
-        if (!pianoEvent.isValid())
-        {
-            Debug.LogError("FMOD Event: Piano Sounds, not found.");
-        }
+        //if (!pianoEvent.isValid())
+        //{
+        //    Debug.LogError("FMOD Event: Piano Sounds, not found.");
+        //}
 
         base.Awake();
 
@@ -51,30 +51,39 @@ public class ListeningBoard : PianoKeyboard
         // Test key inputs
         if (Keyboard.current.sKey.wasPressedThisFrame)
         {
-            KeySet[0].KeyDown(Random.Range(0, 128));
-            pianoEvent.setParameterByName(parameterName, 0f);
-            pianoEvent.start();
+            KeySet[0].KeyDown(Random.Range(0, 128), true);
+            StartPianoEvent(0f);
         }
 
-        if (Keyboard.current.sKey.wasReleasedThisFrame) KeySet[0].KeyUp();
+        if (Keyboard.current.sKey.wasReleasedThisFrame)
+        {
+            KeySet[0].KeyUp();
+            StopPianoEvent();
+        }
 
         if (Keyboard.current.dKey.wasPressedThisFrame)
         {
-            KeySet[1].KeyDown(Random.Range(0, 128));
-            pianoEvent.setParameterByName(parameterName, 1f);
-            pianoEvent.start();
+            KeySet[1].KeyDown(Random.Range(0, 128), true);
+            StartPianoEvent(1f);
         }
 
-        if (Keyboard.current.dKey.wasReleasedThisFrame) KeySet[1].KeyUp();
+        if (Keyboard.current.dKey.wasReleasedThisFrame)
+        {
+            KeySet[1].KeyUp();
+            StopPianoEvent();
+        }
 
         if (Keyboard.current.fKey.wasPressedThisFrame)
         {
-            KeySet[2].KeyDown(Random.Range(0, 128));
-            pianoEvent.setParameterByName(parameterName, 2f);
-            pianoEvent.start();
+            KeySet[2].KeyDown(Random.Range(0, 128), false);
+            StartPianoEvent(2f);
         }
 
-        if (Keyboard.current.fKey.wasReleasedThisFrame)KeySet[2].KeyUp();    
+        if (Keyboard.current.fKey.wasReleasedThisFrame)
+        {
+            KeySet[2].KeyUp();
+            StopPianoEvent();
+        }
 
         // Position the board between the handles
         Vector3 mid = (lefthandle.transform.position + righthandle.transform.position)/2;
@@ -101,20 +110,39 @@ public class ListeningBoard : PianoKeyboard
         int index = note - 1 - FirstNoteID;
         Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
-        pianoEvent.setParameterByName("note", note);
-
-
         if (index >= 0 && index < KeySet.Length)
         {
             if (velocity > 0)
-                KeySet[index].KeyDown(velocity,hand);
-                pianoEvent.start();
+            {
+                KeySet[index].KeyDown(velocity, hand);
+                StartPianoEvent(note);
+            }
+
             else
+            {
                 KeySet[index].KeyUp();
+                StopPianoEvent();
+            }
+
         }
         else
         {
             Debug.LogWarning($"Note {note} is out of range for KeySet.");
         }
+    }
+
+    private void StartPianoEvent(float note)
+    {
+        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+        pianoEvent.setParameterByName("note", note);
+        pianoEvent.start();
+        pianoEvent.release();
+    }
+
+    private void StopPianoEvent()
+    {
+        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+        pianoEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        pianoEvent.release();
     }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EffectPreset" id="{45204928-b46b-4de3-bee9-c8665197dfd9}">
+		<property name="name">
+			<value>Convolution Reverb</value>
+		</property>
+		<relationship name="folder">
+			<destination>{81e32e0b-0b5d-407f-bf07-1ee8eebf0f04}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{608b96d8-abaf-4fd0-8e6b-ade7118055d3}</destination>
+		</relationship>
+	</object>
+	<object class="ConvolutionReverbEffect" id="{608b96d8-abaf-4fd0-8e6b-ade7118055d3}">
+		<property name="endFrame">
+			<value>1450091</value>
+		</property>
+		<property name="dryLevel">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
