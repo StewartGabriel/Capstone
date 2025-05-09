@@ -32,15 +32,6 @@ public class PianoKeyboard : MonoBehaviour
     {
         KeySet = new Key[KeyCount];
 
-        // BoxCollider boxCollider = GetComponent<BoxCollider>();
-        // float width = boxCollider.size.x * transform.localScale.x;
-        // float height = boxCollider.size.y * transform.localScale.y;
-        // float depth  = boxCollider.size.z * transform.localScale.z;
-        
-        // float keyWidth = KeyPreFab.GetComponent<BoxCollider>().size.x * KeyPreFab.transform.lossyScale.x;
-        // float keyDepth = KeyPreFab.GetComponent<BoxCollider>().size.z * KeyPreFab.transform.lossyScale.z;
-        // float blackKeyDepth = BlackKeyPreFab.GetComponent<BoxCollider>().size.z * BlackKeyPreFab.transform.lossyScale.z;
-
         transform.localScale = new Vector3(transform.localScale.x, KeyPreFab.transform.localScale.y *2, KeyPreFab.transform.localScale.z);
 
         float width = transform.lossyScale.x;
@@ -55,7 +46,7 @@ public class PianoKeyboard : MonoBehaviour
 
 
         int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
-        int octavetracker  = 3;
+        int octavetracker  = 5;
 
         
         for (int i = 0; i < KeyCount; i++)

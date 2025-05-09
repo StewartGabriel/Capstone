@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class ListeningKeyScript : Key
 {
-     public override void KeyDown(int speed)
+     public override void KeyDown(int speed,bool hand)
     {
         //Debug.Log("KeyDown called: " + keyID);
-        base.KeyDown(speed);
+        base.KeyDown(speed,hand);
         if(checkKeyHit()){
             thisKeysRenderer.material = Materials[2];
         }
@@ -23,7 +23,7 @@ public class ListeningKeyScript : Key
         
         thisKeysRenderer.material = Materials[0];
         
-        transform.Translate(Vector3.up * .05f, Space.Self);
+        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
         checkKeyRelease();
     }
     private bool checkKeyHit(){
@@ -42,7 +42,9 @@ public class ListeningKeyScript : Key
     }
     private bool checkKeyRelease(){
         foreach (Note i in noteManager.pressednotes){
-            if (i.endtime > Time.time - noteManager.notebuffer && i.endtime < Time.time + noteManager.notebuffer && i.noteID == keyID){
+            if (i.endtime > Time.time - noteManager.notebuffer 
+             && i.endtime < Time.time + noteManager.notebuffer 
+             && i.noteID == keyID){
                 Debug.Log("Note Release: HIT " + Time.time + " : " + i.starttime);
                 i.correct();
                 noteManager.pressednotes.Remove(i);

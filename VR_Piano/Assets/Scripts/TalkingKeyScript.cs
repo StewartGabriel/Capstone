@@ -5,9 +5,9 @@ using UnityEngine;
 public class TalkingKeyScript : Key
 {
     public Note NotePrefab; 
-    public override void KeyDown(int speed)
+    public override void KeyDown(int speed, bool hand)
     {
-        base.KeyDown(speed);
+        base.KeyDown(speed, hand);
         Vector3 spawnPosition = transform.position + transform.forward * (transform.lossyScale.z / 2);
 
 //        Debug.Log("Spawning new note");
@@ -20,10 +20,13 @@ public class TalkingKeyScript : Key
         newNote.starttime = Time.time + noteManager.notedelay;
         newNote.endtime = float.MaxValue;
         currentnote = newNote;
-        if (black){newNote.notematerials[0] = newNote.notematerials[4];}
+        if (black && hand){newNote.notematerials[0] = newNote.notematerials[4];}
+        if (!black && !hand ){newNote.notematerials[0] = newNote.notematerials[5];}
+        if (black && !hand){newNote.notematerials[0] = newNote.notematerials[6];}
+        
         noteManager.activenotes.Add(currentnote);
         
-        SoundManager.PlaySound(pianoSound, keyID ,speed / 127f);
+        //SoundManager.PlaySound(pianoSound, keyID ,speed / 127f); <---- This side shouldn't be playing sounds, so I commented it out. 
     }
     public override void KeyUp()
     {
@@ -36,6 +39,6 @@ public class TalkingKeyScript : Key
             currentnote.on = false;
             currentnote = null;
         }
-        transform.Translate(Vector3.up * .05f, Space.Self);
+        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
     }
 }
