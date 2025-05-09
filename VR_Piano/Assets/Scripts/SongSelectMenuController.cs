@@ -20,6 +20,10 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private Transform rightHandTransform; // Right hand position reference
     [SerializeField] private float selectionRadius = 0.05f; // Radius for detecting button selection
 
+    // For the Play Song Button    
+    [SerializeField] private Button playButton;
+    private int selectedSongNumber = -1; // No song selected by default
+
     private void OnEnable()
     {
         if (leftHandSelectAction?.action != null)
@@ -77,6 +81,14 @@ public class SongSelectMenuController : MonoBehaviour
             songButtons[i].onClick.AddListener(() => SelectSong(songNumber));
         }
 
+        if (playButton == null)
+        {
+            Debug.LogError("Play button is not assigned.");
+            return;
+        }
+
+        playButton.onClick.AddListener(PlaySelectedSong);
+
         backButton.onClick.AddListener(ReturnToMainMenu);
     }
 
@@ -127,13 +139,36 @@ public class SongSelectMenuController : MonoBehaviour
     private void SelectSong(int songNumber)
     {
         Debug.Log("Loading song " + songNumber);
-        
-        // Store the song number to be accessed in the next scene
-        PlayerPrefs.SetInt("SelectedSong", songNumber);
+        selectedSongNumber = songNumber;
+        Debug.Log("Selected song " + songNumber);
+
+        //Highlight the selected song for the user
+        HighlightSelectedButton(songNumber);
+    }
+
+    private void PlaySelectedSong()
+    {
+        if (selectedSongNumber < 1)
+        {
+            Debug.LogWarning("No song selected.");
+            return;
+        }
+
+        Debug.Log("Playing selected song " + selectedSongNumber);
+        PlayerPrefs.SetInt("SelectedSong", selectedSongNumber);
         PlayerPrefs.Save();
 
-        // Load the sample scene
         SceneManager.LoadScene(sampleSceneName);
+    }
+
+    private void HighlightSelectedButton(int songNumber)
+    {
+        for (int i = 0; i < songButtons.Length; i++)
+        {
+            ColorBlock colors = songButtons[i].colors;
+            colors.normalColor = (i + 1 == songNumber) ? Color.yellow : Color.white;
+            songButtons[i].colors = colors;
+        }
     }
 
     private void ReturnToMainMenu()
@@ -141,6 +176,5 @@ public class SongSelectMenuController : MonoBehaviour
         Debug.Log("Returning to Start Menu.");
         SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
     }
-
 
 }
