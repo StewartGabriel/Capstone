@@ -17028,6 +17028,9 @@ MonoBehaviour:
   rightHandTransform: {fileID: 716422332}
   selectionRadius: 0.05
   playButton: {fileID: 1144421073}
+  leftHandToggle: {fileID: 1138055608}
+  rightHandToggle: {fileID: 534167825}
+  tempoSlider: {fileID: 1472890740}
 --- !u!4 &2050964587
 Transform:
   m_ObjectHideFlags: 0

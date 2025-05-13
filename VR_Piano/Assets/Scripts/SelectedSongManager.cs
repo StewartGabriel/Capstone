@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 public class PlaySceneManager : MonoBehaviour
 {
     private int selectedSongIndex;
+    private bool left_enabled;
+    private bool right_enabled;
+    private int tempo_multiplier;
     [SerializeField] private MidiMessages midiMessages; // create reference to MidiMesseges component
 
     void Start()
@@ -15,9 +18,9 @@ public class PlaySceneManager : MonoBehaviour
         Debug.Log("Now playing song number: " + selectedSongIndex);
 
         // Initialize the other parameters
-        // bool left_enabled = PlayerPrefs.GetBool("LeftEnabled", true);
-        // bool right_enabled = PlayerPrefs.GetBool("RightEnabled", true);
-        // int tempo_multiplier = PlayerPrefs.GetInt("TempoMultiplier", 1);
+        left_enabled = PlayerPrefs.GetInt("LeftEnabled", 1) == 1;
+        right_enabled = PlayerPrefs.GetInt("RightEnabled", 1) == 1;
+        tempo_multiplier = PlayerPrefs.GetInt("TempoMultiplier", 1);
 
         // Call function to play the selected song
         PlaySelectedSong();
@@ -30,8 +33,7 @@ public class PlaySceneManager : MonoBehaviour
         {
             await Task.Delay(3000); // Waits for 2000 milliseconds (3 seconds)
             // Play the song selection from MidiMessages
-            midiMessages.PlaySong(selectedSongIndex);
-            // midiMessages.PlaySong(selectedSongIndex, left_enabled, right_enabled, tempo_multiplier);
+            midiMessages.PlaySong(selectedSongIndex, left_enabled, right_enabled, tempo_multiplier);
         }
         else
         {
