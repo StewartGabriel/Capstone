@@ -202,25 +202,34 @@ public class PauseMenuController : MonoBehaviour
     {
         if (menu != null && wristTransform != null)
         {
-            // Set the position on the open-hand side by using the forward vector
+            // Position the menu near the wrist
             Vector3 position = wristTransform.position +
-                               wristTransform.forward * wristMenuOffset.z +  // Forward (above the palm side)
-                               wristTransform.up * wristMenuOffset.y +       // Height above the wrist
-                               wristTransform.right * wristMenuOffset.x;     // Left/right offset
+                            wristTransform.forward * wristMenuOffset.z +
+                            wristTransform.up * wristMenuOffset.y +
+                            wristTransform.right * wristMenuOffset.x;
 
-            // Apply position
             menu.transform.position = position;
 
-            // Apply rotation with offset
-            Quaternion wristRotation = wristTransform.rotation;
-            Quaternion rotationOffset = Quaternion.Euler(wristMenuRotationOffset); // Convert offset to Quaternion
-            menu.transform.rotation = wristRotation * rotationOffset; // Combine wrist rotation with offset
+            // Make the menu face the user and stay upright
+            Vector3 forward = wristTransform.forward;
+            forward.y = 0; // Remove tilt
+            forward.Normalize();
+
+            if (forward == Vector3.zero)
+                forward = Vector3.forward;
+
+            // Compute rotation to face the user, upright
+            Quaternion uprightRotation = Quaternion.LookRotation(forward, Vector3.up);
+            menu.transform.rotation = uprightRotation * Quaternion.Euler(wristMenuRotationOffset + new Vector3(180, 180, 0));
+
         }
         else
         {
             Debug.LogWarning("Wrist Transform or menu is not assigned.");
         }
     }
+
+
 
     private void CloseAllMenusExcept(GameObject exception)
     {

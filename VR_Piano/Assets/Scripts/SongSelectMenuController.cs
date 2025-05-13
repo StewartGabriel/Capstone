@@ -24,6 +24,14 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private Button playButton;
     private int selectedSongNumber = -1; // No song selected by default
 
+    [SerializeField] private Toggle leftHandToggle;
+    [SerializeField] private Toggle rightHandToggle;
+    [SerializeField] private Slider tempoSlider;
+
+    // Keyboard Config
+    [SerializeField] private Button keyboardConfigButton;
+    [SerializeField] private string keyboardConfigSceneName; 
+
     private void OnEnable()
     {
         if (leftHandSelectAction?.action != null)
@@ -74,6 +82,12 @@ public class SongSelectMenuController : MonoBehaviour
             return;
         }
 
+        if (keyboardConfigButton == null)
+        {
+            Debug.LogError("Keyboard Config Button is not assigned.");
+            return;
+        }
+
         // Assign button listeners dynamically
         for (int i = 0; i < songButtons.Length; i++)
         {
@@ -90,6 +104,8 @@ public class SongSelectMenuController : MonoBehaviour
         playButton.onClick.AddListener(PlaySelectedSong);
 
         backButton.onClick.AddListener(ReturnToMainMenu);
+        
+        keyboardConfigButton.onClick.AddListener(OpenKeyboardConfig);
     }
 
     private void OnLeftHandSelect(InputAction.CallbackContext context)
@@ -156,10 +172,22 @@ public class SongSelectMenuController : MonoBehaviour
 
         Debug.Log("Playing selected song " + selectedSongNumber);
         PlayerPrefs.SetInt("SelectedSong", selectedSongNumber);
+
+        // Read from toggles and slider
+        bool left_enabled = leftHandToggle != null && leftHandToggle.isOn;
+        bool right_enabled = rightHandToggle != null && rightHandToggle.isOn;
+        int tempo_multiplier = tempoSlider != null ? Mathf.RoundToInt(tempoSlider.value) : 1;
+
+        // Store additional values in PlayerPrefs
+        PlayerPrefs.SetInt("LeftEnabled", left_enabled ? 1 : 0);
+        PlayerPrefs.SetInt("RightEnabled", right_enabled ? 1 : 0);
+        PlayerPrefs.SetInt("TempoMultiplier", tempo_multiplier);
+
         PlayerPrefs.Save();
 
         SceneManager.LoadScene(sampleSceneName);
     }
+
 
     private void HighlightSelectedButton(int songNumber)
     {
@@ -176,5 +204,13 @@ public class SongSelectMenuController : MonoBehaviour
         Debug.Log("Returning to Start Menu.");
         SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
     }
+
+
+    private void OpenKeyboardConfig()
+    {
+        Debug.Log("Switching to Keyboard Config scene.");
+        SceneManager.LoadScene(keyboardConfigSceneName, LoadSceneMode.Single);
+    }
+
 
 }

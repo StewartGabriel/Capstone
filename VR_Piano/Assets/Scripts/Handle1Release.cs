@@ -1,32 +1,42 @@
 using UnityEngine;
-
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class Handle1Release : MonoBehaviour
 {
-    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
+    private XRGrabInteractable grabInteractable;
     public bool triggerRelease = false;
 
     void Awake()
     {
-        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        grabInteractable = GetComponent<XRGrabInteractable>();
     }
 
     void Update()
     {
         if (triggerRelease && grabInteractable != null && grabInteractable.isSelected)
         {
-            if (grabInteractable.interactorsSelecting.Count > 0)
+            if (grabInteractable.interactorsSelecting.Count > 0 &&
+                grabInteractable.interactorsSelecting[0] is XRBaseInteractor interactor)
             {
-                // Cast to XRBaseInteractor
-                if (grabInteractable.interactorsSelecting[0] is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInteractor interactor)
-                {
-                    interactor.EndManualInteraction();
-                    Debug.Log("Object released by condition.");
-                }
-            }
+                interactor.EndManualInteraction();
+                Debug.Log("Handle1 released.");
 
-            Handle1PositionStorage.savedPosition = transform.position;
-            Handle1PositionStorage.hasSavedPosition = true;
+                // Save position and rotation to PlayerPrefs
+                Vector3 pos = transform.position;
+                Vector3 rot = transform.eulerAngles;
+
+                PlayerPrefs.SetFloat("Handle1_Pos_X", pos.x);
+                PlayerPrefs.SetFloat("Handle1_Pos_Y", pos.y);
+                PlayerPrefs.SetFloat("Handle1_Pos_Z", pos.z);
+
+                PlayerPrefs.SetFloat("Handle1_Rot_X", rot.x);
+                PlayerPrefs.SetFloat("Handle1_Rot_Y", rot.y);
+                PlayerPrefs.SetFloat("Handle1_Rot_Z", rot.z);
+
+                PlayerPrefs.SetInt("Handle1_HasTransform", 1);
+                PlayerPrefs.Save();
+            }
 
             triggerRelease = false;
         }
