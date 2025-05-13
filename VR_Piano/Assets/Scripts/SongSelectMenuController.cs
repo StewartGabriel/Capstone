@@ -28,6 +28,9 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private Toggle rightHandToggle;
     [SerializeField] private Slider tempoSlider;
 
+    // Keyboard Config
+    [SerializeField] private Button keyboardConfigButton;
+    [SerializeField] private string keyboardConfigSceneName; 
 
     private void OnEnable()
     {
@@ -79,6 +82,12 @@ public class SongSelectMenuController : MonoBehaviour
             return;
         }
 
+        if (keyboardConfigButton == null)
+        {
+            Debug.LogError("Keyboard Config Button is not assigned.");
+            return;
+        }
+
         // Assign button listeners dynamically
         for (int i = 0; i < songButtons.Length; i++)
         {
@@ -95,6 +104,8 @@ public class SongSelectMenuController : MonoBehaviour
         playButton.onClick.AddListener(PlaySelectedSong);
 
         backButton.onClick.AddListener(ReturnToMainMenu);
+        
+        keyboardConfigButton.onClick.AddListener(OpenKeyboardConfig);
     }
 
     private void OnLeftHandSelect(InputAction.CallbackContext context)
@@ -193,5 +204,13 @@ public class SongSelectMenuController : MonoBehaviour
         Debug.Log("Returning to Start Menu.");
         SceneManager.LoadScene(startScreenSceneName, LoadSceneMode.Single);
     }
+
+
+    private void OpenKeyboardConfig()
+    {
+        Debug.Log("Switching to Keyboard Config scene.");
+        SceneManager.LoadScene(keyboardConfigSceneName, LoadSceneMode.Single);
+    }
+
 
 }

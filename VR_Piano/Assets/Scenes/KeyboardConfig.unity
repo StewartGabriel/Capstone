@@ -441,7 +441,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piano Handle 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7830729660374921805, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -454,17 +455,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6371269950624051482, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
   m_PrefabInstance: {fileID: 45472914}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &45472916 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7830729660374921805, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
-  m_PrefabInstance: {fileID: 45472914}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45472915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783fa72ab6b0548bc942a351c7214000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &45472917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1684002b35f2f394eaf56c9f5313679d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerRelease: 0
 --- !u!1 &56219946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5171,7 +5162,7 @@ PrefabInstance:
     - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: lefthandle
       value: 
-      objectReference: {fileID: 45472916}
+      objectReference: {fileID: 0}
     - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: FirstNoteID
       value: 28
@@ -5183,7 +5174,7 @@ PrefabInstance:
     - target: {fileID: -3462080010695535922, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: righthandle
       value: 
-      objectReference: {fileID: 1608751583}
+      objectReference: {fileID: 0}
     - target: {fileID: 1704929758431985168, guid: a34194271de0b472f9b6c37919c25cea, type: 3}
       propertyPath: m_Name
       value: Board Listening
@@ -8582,7 +8573,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piano Handle 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7830729660374921805, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -8590,17 +8582,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1608751585}
   m_SourcePrefab: {fileID: 100100000, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
---- !u!114 &1608751583 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7830729660374921805, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
-  m_PrefabInstance: {fileID: 1608751582}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608751584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 783fa72ab6b0548bc942a351c7214000, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1608751584 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6371269950624051482, guid: 01937bd19028e492280b47c2cb5e643e, type: 3}
@@ -8618,6 +8599,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1360007587a30714baee64ef494aa06d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  triggerRelease: 0
 --- !u!1 &1640365130
 GameObject:
   m_ObjectHideFlags: 0
