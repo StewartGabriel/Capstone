@@ -176,12 +176,11 @@ public class SongSelectMenuController : MonoBehaviour
         // Read from toggles and slider
         bool left_enabled = leftHandToggle != null && leftHandToggle.isOn;
         bool right_enabled = rightHandToggle != null && rightHandToggle.isOn;
-        int tempo_multiplier = tempoSlider != null ? Mathf.RoundToInt(tempoSlider.value) : 1;
+        float tempo_multiplier = tempoSlider != null ? Mathf.RoundToInt(tempoSlider.value) : 1;
 
-        // Store additional values in PlayerPrefs
         PlayerPrefs.SetInt("LeftEnabled", left_enabled ? 1 : 0);
         PlayerPrefs.SetInt("RightEnabled", right_enabled ? 1 : 0);
-        PlayerPrefs.SetInt("TempoMultiplier", tempo_multiplier);
+        PlayerPrefs.SetFloat("TempoMultiplier", tempo_multiplier);
 
         PlayerPrefs.Save();
 
