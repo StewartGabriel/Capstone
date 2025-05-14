@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class SongSelectMenuController : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class SongSelectMenuController : MonoBehaviour
     // Keyboard Config
     [SerializeField] private Button keyboardConfigButton;
     [SerializeField] private string keyboardConfigSceneName; 
+
+    // Song Info Display 
+    [SerializeField] private TMP_Text titleText;
+    [SerializeField] private TMP_Text composerText;
+    [SerializeField] private TMP_Text descriptionText;
+    private Dictionary<int, Song> songInfo = new Dictionary<int, Song>();
 
     private void OnEnable()
     {
@@ -64,6 +71,24 @@ public class SongSelectMenuController : MonoBehaviour
 
     private void Start()
     {
+
+        songInfo[1] = new Song("Octave Test", "Composer A", "Used to test hand input.");
+        songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven", "Originally written as the ode “An die Freude” (1785) by German playwright and historian Friedrich Schiller, Ode to Joy was later adapted into a musical piece and immortalized by Ludwig van Beethoven. It appears as the choral finale—the 4th and final movement—of his Symphony No. 9, composed between 1822 and 1824. The symphony was first performed in Vienna on May 7, 1824.");
+        // SongInfo[3] = new Song("", "", "")
+        // SongInfo[4] = new Song("", "", "")
+        // SongInfo[5] = new Song("", "", "")
+        // SongInfo[6] = new Song("", "", "")
+        // SongInfo[7] = new Song("", "", "")
+        // SongInfo[8] = new Song("", "", "")
+        // SongInfo[9] = new Song("", "", "")
+        // SongInfo[10] = new Song("", "", "")
+        // SongInfo[11] = new Song("", "", "")
+        // SongInfo[12] = new Song("", "", "")
+        // SongInfo[13] = new Song("", "", "")
+        // SongInfo[14] = new Song("", "", "")
+        // SongInfo[15] = new Song("", "", "")
+        // SongInfo[16] = new Song("", "", "")
+
         if (songSelectMenu == null)
         {
             Debug.LogError("Song Select Menu is not assigned.");
@@ -106,6 +131,21 @@ public class SongSelectMenuController : MonoBehaviour
         backButton.onClick.AddListener(ReturnToMainMenu);
         
         keyboardConfigButton.onClick.AddListener(OpenKeyboardConfig);
+    }
+
+    [System.Serializable]
+    public class Song
+    {
+        public string title;
+        public string composer;
+        public string description;
+
+        public Song(string title, string composer, string description)
+        {
+            this.title = title;
+            this.composer = composer;
+            this.description = description;
+        }
     }
 
     private void OnLeftHandSelect(InputAction.CallbackContext context)
@@ -160,6 +200,21 @@ public class SongSelectMenuController : MonoBehaviour
 
         //Highlight the selected song for the user
         HighlightSelectedButton(songNumber);
+
+          if (songInfo.TryGetValue(songNumber, out Song song))
+        {
+            titleText.text = song.title;
+            composerText.text = song.composer;
+            descriptionText.text = song.description;
+        }
+
+        else
+        {
+            titleText.text = "Unknown Title";
+            composerText.text = "Unknown Composer";
+            descriptionText.text = "No description available.";
+        }
+
     }
 
     private void PlaySelectedSong()
