@@ -37,6 +37,7 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text composerText;
     [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text TempoText;
     private Dictionary<int, Song> songInfo = new Dictionary<int, Song>();
 
     private void OnEnable()
@@ -71,6 +72,13 @@ public class SongSelectMenuController : MonoBehaviour
 
     private void Start()
     {
+
+        if (tempoSlider != null)
+        {
+            tempoSlider.onValueChanged.AddListener(UpdateTempoDisplay);
+            UpdateTempoDisplay(tempoSlider.value); // Show initial value
+        }
+
 
         songInfo[1] = new Song("Octave Test", "Composer A", "Used to test hand input.");
         songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven", "Originally written as the ode “An die Freude” (1785) by German playwright and historian Friedrich Schiller, Ode to Joy was later adapted into a musical piece and immortalized by Ludwig van Beethoven. It appears as the choral finale—the 4th and final movement—of his Symphony No. 9, composed between 1822 and 1824. The symphony was first performed in Vienna on May 7, 1824.");
@@ -132,6 +140,15 @@ public class SongSelectMenuController : MonoBehaviour
         
         keyboardConfigButton.onClick.AddListener(OpenKeyboardConfig);
     }
+
+   private void UpdateTempoDisplay(float value)
+    {
+        if (TempoText != null)
+        {
+            TempoText.text = value.ToString("0.0") + "x";  // Shows 1 decimal place
+        }
+    }
+
 
     [System.Serializable]
     public class Song
