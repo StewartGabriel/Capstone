@@ -2,14 +2,16 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class Handle1Release : MonoBehaviour
+public class HandleRelease : MonoBehaviour
 {
     private XRGrabInteractable grabInteractable;
     public bool triggerRelease = false;
+    private string objectName;
 
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
+        objectName = gameObject.name; // Use the GameObject's name to prefix PlayerPrefs keys
     }
 
     void Update()
@@ -20,21 +22,21 @@ public class Handle1Release : MonoBehaviour
                 grabInteractable.interactorsSelecting[0] is XRBaseInteractor interactor)
             {
                 interactor.EndManualInteraction();
-                Debug.Log("Handle1 released.");
+                Debug.Log(objectName + " released.");
 
-                // Save position and rotation to PlayerPrefs
+                // Save position and rotation to PlayerPrefs with objectName as prefix
                 Vector3 pos = transform.position;
                 Vector3 rot = transform.eulerAngles;
 
-                PlayerPrefs.SetFloat("Handle1_Pos_X", pos.x);
-                PlayerPrefs.SetFloat("Handle1_Pos_Y", pos.y);
-                PlayerPrefs.SetFloat("Handle1_Pos_Z", pos.z);
+                PlayerPrefs.SetFloat(objectName + "_Pos_X", pos.x);
+                PlayerPrefs.SetFloat(objectName + "_Pos_Y", pos.y);
+                PlayerPrefs.SetFloat(objectName + "_Pos_Z", pos.z);
 
-                PlayerPrefs.SetFloat("Handle1_Rot_X", rot.x);
-                PlayerPrefs.SetFloat("Handle1_Rot_Y", rot.y);
-                PlayerPrefs.SetFloat("Handle1_Rot_Z", rot.z);
+                PlayerPrefs.SetFloat(objectName + "_Rot_X", rot.x);
+                PlayerPrefs.SetFloat(objectName + "_Rot_Y", rot.y);
+                PlayerPrefs.SetFloat(objectName + "_Rot_Z", rot.z);
 
-                PlayerPrefs.SetInt("Handle1_HasTransform", 1);
+                PlayerPrefs.SetInt(objectName + "_HasTransform", 1);
                 PlayerPrefs.Save();
             }
 
