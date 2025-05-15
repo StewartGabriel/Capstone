@@ -1,104 +1,97 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using UnityEngine.InputSystem;
-using System.Threading;
 using System.Threading.Tasks;
 
 public class MidiMessages : MonoBehaviour
 {
-    [SerializeField] private TextAsset[] songFiles; // TextAsset songs array (extracted midi data)
-
-    public TalkingBoard toNoteCallback; // create reference to NoteCallback
+    [SerializeField] private TextAsset[] songFiles; // MIDI-like text files
+    public TalkingBoard toNoteCallback;
     public ListeningBoard playerBoard;
+    public ScoreVisualizer scoreVisualizer;
+    public MidiScoreGenerator midiParser;
+
     void Start()
     {
         toNoteCallback = playerBoard.talkingboard;
         if (toNoteCallback == null)
-        {
             Debug.LogError("NoteCallback not referenced correctly");
-        }
     }
 
     public async void PlaySong(int songIndex, bool left_enabled, bool right_enabled, float tempo_multiplier)
     {
-        if (songIndex >= 1 && songIndex * 2 <= songFiles.Length)
+        if (songIndex < 1 || songIndex * 2 > songFiles.Length)
         {
-            TextAsset leftPart = songFiles[(songIndex * 2) - 2]; // Even index
-            TextAsset rightPart = songFiles[(songIndex * 2) - 1]; // Odd index
+            Debug.LogError("Song index out of range: " + songIndex);
+            return;
+        }
 
-            List<Task> playTasks = new List<Task>();
+        TextAsset leftPart = songFiles[(songIndex * 2) - 2];
+        TextAsset rightPart = songFiles[(songIndex * 2) - 1];
 
-            if (left_enabled && leftPart != null)
-            {
-                playTasks.Add(ExtractMidiData(leftPart, true, tempo_multiplier));
-            }
+        List<MidiScoreGenerator.MidiNote> combinedNotes = new();
 
-            if (right_enabled && rightPart != null)
-            {
-                playTasks.Add(ExtractMidiData(rightPart, false, tempo_multiplier));
-            }
+        if (left_enabled && leftPart != null)
+            combinedNotes.AddRange(midiParser.GenerateScoreFromFile(leftPart));
 
-            if (playTasks.Count > 0)
-            {
-                Debug.Log($"Playing song {songIndex} with tempo x{tempo_multiplier}. Left: {left_enabled}, Right: {right_enabled}");
-                await Task.WhenAll(playTasks);
-            }
-            else
-            {
-                Debug.LogError("No valid hand parts enabled or files missing.");
-            }
+        if (right_enabled && rightPart != null)
+            combinedNotes.AddRange(midiParser.GenerateScoreFromFile(rightPart));
+
+        // Sort notes by startTime to sync playback
+        combinedNotes.Sort((a, b) => a.startTime.CompareTo(b.startTime));
+
+        // Render full score
+        scoreVisualizer.RenderScore(combinedNotes);
+
+        // Begin playback per hand
+        List<Task> playTasks = new();
+        if (left_enabled && leftPart != null)
+            playTasks.Add(ExtractMidiData(leftPart, true, tempo_multiplier));
+        if (right_enabled && rightPart != null)
+            playTasks.Add(ExtractMidiData(rightPart, false, tempo_multiplier));
+
+        if (playTasks.Count > 0)
+        {
+            Debug.Log($"Playing song {songIndex} | Tempo x{tempo_multiplier} | L: {left_enabled} R: {right_enabled}");
+            await Task.WhenAll(playTasks);
         }
         else
         {
-            Debug.LogError("Song index out of range: " + songIndex);
+            Debug.LogError("No valid hand parts enabled or files missing.");
         }
     }
 
     public async Task ExtractMidiData(TextAsset midiMessages, bool hand, float tempo_multiplier)
     {
-        // Reads all the lines of the file
         string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
-        int i = 0;
+        float currentTime = 0f;
+
         foreach (string line in lines)
         {
-            i++;
-            string[] index = line.Split(' ');
+            string[] parts = line.Split(' ');
+            if (parts.Length < 4) continue;
 
-            if (index.Length >= 4)
+            string onOff = parts[0];
+            if (!int.TryParse(parts[1], out int note) ||
+                !int.TryParse(parts[2], out int velocity) ||
+                !int.TryParse(parts[3], out int delay))
+                continue;
+
+            currentTime += delay;
+            float adjustedDelay = delay / tempo_multiplier;
+
+            await Task.Delay((int)adjustedDelay);
+
+            // Highlight current time
+            scoreVisualizer?.UpdatePlaybackHighlight(currentTime);
+
+            if (toNoteCallback != null)
             {
-                string onOff = index[0];
-                int note = int.Parse(index[1]);
-                int velocity = int.Parse(index[2]);
-                int timeDelay = int.Parse(index[3]);
-
-                // Scale delay by tempo multiplier
-                float adjustedDelay = timeDelay / tempo_multiplier;
-                await Task.Delay((int)adjustedDelay); // This might be the cause of our sound delay issues?
-
-                // Sends the extracted data to NoteCallback component
-                if (toNoteCallback != null)
-                {
-                    if (onOff == "on")
-                    {
-                        //await Task.Delay(adjustedDelay);
-                        toNoteCallback.InterpretMidi(note, velocity,hand); // KeyDown
-                    }
-
-                    else
-                    {
-                        //await Task.Delay(adjustedDelay);
-                        toNoteCallback.InterpretMidi(note, 0, hand); // KeyUp
-                    }
-                }
-
-                // Debug Log string format
-                string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
-
-                Debug.Log(debugData);
+                if (onOff == "on")
+                    toNoteCallback.InterpretMidi(note, velocity, hand); // KeyDown
+                else
+                    toNoteCallback.InterpretMidi(note, 0, hand);        // KeyUp
             }
         }
     }
-
 }
