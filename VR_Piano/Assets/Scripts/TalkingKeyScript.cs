@@ -31,7 +31,10 @@ public class TalkingKeyScript : Key
     public override void KeyUp()
     {
         //Debug.Log("KeyUp called: " + keyID);
-        thisKeysRenderer.material = Materials[0];
+        if(black)
+            thisKeysRenderer.material = Materials[1];
+        else
+            thisKeysRenderer.material = Materials[0]; 
         
         if (currentnote != null)
         {

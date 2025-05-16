@@ -118,9 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bafc55b8782b44584b4d2e8a9d48bcaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyID: 0
   thisKeysRenderer: {fileID: 4335465207232868423}
-  NotePrefab: {fileID: 8282368421399493012, guid: 5259fe3083a7348b3aac64413603662c, type: 3}
   Materials:
   - {fileID: 2100000, guid: b91421e278b494d579b4344860c33559, type: 2}
+  - {fileID: 2100000, guid: 1d79e997cd5ce42fa8dbd2fd1248b09f, type: 2}
   - {fileID: 2100000, guid: 99cec2a8a09eb4a0184afddf35924252, type: 2}
+  KeyDimensions: []
   pianoSound: 0
+  black: 0
+  noteManager: {fileID: 0}

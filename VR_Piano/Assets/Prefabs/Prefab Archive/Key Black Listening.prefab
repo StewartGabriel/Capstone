@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 2662623609566340637}
   - component: {fileID: 4335465207232868423}
   - component: {fileID: 375363344023664013}
-  - component: {fileID: 5535435079379609916}
+  - component: {fileID: 4304863408526769446}
   m_Layer: 0
-  m_Name: Key White Listening
+  m_Name: Key Black Listening
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.337, z: 4.73}
-  m_LocalScale: {x: 0.093, y: 0.01, z: 0.1}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.06}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -106,7 +106,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5535435079379609916
+--- !u!114 &4304863408526769446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,9 +121,12 @@ MonoBehaviour:
   keyID: 0
   thisKeysRenderer: {fileID: 4335465207232868423}
   Materials:
-  - {fileID: 2100000, guid: b91421e278b494d579b4344860c33559, type: 2}
+  - {fileID: 2100000, guid: 1d79e997cd5ce42fa8dbd2fd1248b09f, type: 2}
   - {fileID: 2100000, guid: 99cec2a8a09eb4a0184afddf35924252, type: 2}
   - {fileID: 2100000, guid: 45fc74e09d28e48cab1df86e7c01878c, type: 2}
+  - {fileID: 2100000, guid: 7dec81ad5be854bc5b926cd0c96a6fa2, type: 2}
+  KeyDimensions: []
   pianoSound: 0
   black: 0
   noteManager: {fileID: 0}
+  labelText: {fileID: 0}
