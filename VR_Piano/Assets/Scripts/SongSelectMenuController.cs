@@ -14,7 +14,7 @@ public class SongSelectMenuController : MonoBehaviour
     [SerializeField] private string sampleSceneName; // Scene where the songs play
     [SerializeField] private string startScreenSceneName; // Name of the start screen scene
 
-    // XR Hand Inputs for pinch gestures (same method as pause menu)
+    // XR Hand Inputs for pinch gestures
     [SerializeField] private InputActionReference leftHandSelectAction;  // Left hand pinch gesture
     [SerializeField] private InputActionReference rightHandSelectAction; // Right hand pinch gesture
     [SerializeField] private Transform leftHandTransform; // Left hand position reference
@@ -36,7 +36,6 @@ public class SongSelectMenuController : MonoBehaviour
     // Song Info Display 
     [SerializeField] private TMP_Text titleText;
     [SerializeField] private TMP_Text composerText;
-    [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private TMP_Text TempoText;
     private Dictionary<int, Song> songInfo = new Dictionary<int, Song>();
 
@@ -80,8 +79,8 @@ public class SongSelectMenuController : MonoBehaviour
         }
 
 
-        songInfo[1] = new Song("Octave Test", "Composer A", "Used to test hand input.");
-        songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven", "Originally written as the ode “An die Freude” (1785) by German playwright and historian Friedrich Schiller, Ode to Joy was later adapted into a musical piece and immortalized by Ludwig van Beethoven. It appears as the choral finale—the 4th and final movement—of his Symphony No. 9, composed between 1822 and 1824. The symphony was first performed in Vienna on May 7, 1824.");
+        songInfo[1] = new Song("Octave Test", "Composer A");
+        songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven");
         // SongInfo[3] = new Song("", "", "")
         // SongInfo[4] = new Song("", "", "")
         // SongInfo[5] = new Song("", "", "")
@@ -155,13 +154,11 @@ public class SongSelectMenuController : MonoBehaviour
     {
         public string title;
         public string composer;
-        public string description;
 
-        public Song(string title, string composer, string description)
+        public Song(string title, string composer)
         {
             this.title = title;
             this.composer = composer;
-            this.description = description;
         }
     }
 
@@ -222,14 +219,12 @@ public class SongSelectMenuController : MonoBehaviour
         {
             titleText.text = song.title;
             composerText.text = song.composer;
-            descriptionText.text = song.description;
         }
 
         else
         {
             titleText.text = "Unknown Title";
             composerText.text = "Unknown Composer";
-            descriptionText.text = "No description available.";
         }
 
     }

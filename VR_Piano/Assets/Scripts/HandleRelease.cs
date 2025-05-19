@@ -73,6 +73,12 @@ public class HandleRelease : MonoBehaviour
                     Debug.Log($"Saved MIDI address for Piano Handle 1: {midiNoteCaptured.Value}");
                 }
 
+                if (objectName == "Piano Handle 2" && midiNoteCaptured.HasValue)
+                {
+                    PlayerPrefs.SetInt("PianoHandle2_RightmostNote", midiNoteCaptured.Value);
+                    Debug.Log($"Saved MIDI address for Piano Handle 2: {midiNoteCaptured.Value}");
+                }
+
                 PlayerPrefs.Save();
             }
 
