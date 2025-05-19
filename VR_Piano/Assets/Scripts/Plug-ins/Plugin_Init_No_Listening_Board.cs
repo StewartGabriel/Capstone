@@ -22,7 +22,6 @@ public class Plugin_Init_No_Listening_Board : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        DontDestroyOnLoad(this.gameObject);
     }
 
 

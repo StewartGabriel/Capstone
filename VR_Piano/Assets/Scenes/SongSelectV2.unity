@@ -17293,7 +17293,6 @@ MonoBehaviour:
   keyboardConfigSceneName: KeyboardConfig
   titleText: {fileID: 541235133}
   composerText: {fileID: 270434101}
-  descriptionText: {fileID: 0}
   TempoText: {fileID: 1561737115}
 --- !u!4 &2050964587
 Transform:
