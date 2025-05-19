@@ -46,7 +46,7 @@ public class PianoKeyboard : MonoBehaviour
 
 
         int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
-        int octavetracker  = 5;
+        int octavetracker  = 7;
 
         
         for (int i = 0; i < KeyCount; i++)
@@ -67,7 +67,7 @@ public class PianoKeyboard : MonoBehaviour
                 float blackKeyOffset = (keyWidth + spacing) * 0.5f;
                 Key blackKey = Instantiate(
                     KeyPreFab,
-                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + BlackKeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + KeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
                     Quaternion.identity
                 );
                 blackKey.Initiallize(true);

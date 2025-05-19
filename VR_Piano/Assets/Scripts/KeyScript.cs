@@ -31,7 +31,7 @@ public class Key : MonoBehaviour
     }
     void Start()
     {
-        thisKeysRenderer.material = Materials[0];
+        
     } 
 
     void Update()

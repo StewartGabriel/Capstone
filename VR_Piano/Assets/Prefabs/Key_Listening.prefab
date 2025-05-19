@@ -122,9 +122,9 @@ MonoBehaviour:
   keyID: 0
   thisKeysRenderer: {fileID: 4335465207232868423}
   Materials:
-  - {fileID: 2100000, guid: b91421e278b494d579b4344860c33559, type: 2}
-  - {fileID: 2100000, guid: 1d79e997cd5ce42fa8dbd2fd1248b09f, type: 2}
-  - {fileID: 2100000, guid: 99cec2a8a09eb4a0184afddf35924252, type: 2}
+  - {fileID: 2100000, guid: e5aa5e2e4377f42c5a2ae0f6914c4027, type: 2}
+  - {fileID: 2100000, guid: 907bc89f0297a4cd2960ef23b0020c82, type: 2}
+  - {fileID: 2100000, guid: 63985cda2e6d04c54ae0145d3ce6f801, type: 2}
   - {fileID: 2100000, guid: 45fc74e09d28e48cab1df86e7c01878c, type: 2}
   KeyDimensions:
   - {x: 0.093, y: 0.01, z: 0.1}
