@@ -390,14 +390,14 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: Assets/Audio/FMOD Audio/Piano/Piano.fspro
-  sourceBankPath: Assets/Audio/FMOD Audio/Piano/Build
+  sourceProjectPath: 
+  sourceBankPath: 
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
-  AutomaticEventLoading: 0
+  AutomaticEventLoading: 1
   BankLoadType: 0
-  AutomaticSampleLoading: 1
+  AutomaticSampleLoading: 0
   EncryptionKey: 
   ImportType: 0
   TargetAssetPath: FMODBanks
@@ -412,24 +412,22 @@ MonoBehaviour:
   VirtualChannelSettings: []
   RealChannelSettings: []
   Plugins: []
-  MasterBanks:
-  - Master
+  MasterBanks: []
   Banks: []
-  BanksToLoad:
-  - Master
+  BanksToLoad: []
   LiveUpdatePort: 9264
-  EnableMemoryTracking: 1
+  EnableMemoryTracking: 0
   AndroidUseOBB: 0
   AndroidPatchBuild: 0
   MeterChannelOrdering: 0
   StopEventsOutsideMaxDistance: 0
   BoltUnitOptionsBuildPending: 0
-  EnableErrorCallback: 1
+  EnableErrorCallback: 0
   SharedLibraryUpdateStage: 0
   SharedLibraryTimeSinceStart: 0
   CurrentVersion: 131847
-  HideSetupWizard: 0
-  LastEventReferenceScanVersion: 131847
+  HideSetupWizard: 1
+  LastEventReferenceScanVersion: 131622
   Platforms:
   - {fileID: -8997185969187920510}
   - {fileID: -3124253207151252703}
