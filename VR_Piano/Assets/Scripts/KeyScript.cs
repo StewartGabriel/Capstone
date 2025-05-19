@@ -9,21 +9,38 @@ public class Key : MonoBehaviour
     public Renderer thisKeysRenderer;
     
     public Material[] Materials;
+    public Vector3[] KeyDimensions;
     public SoundType pianoSound;
     protected Note currentnote;
     public bool black;
     public NoteManager noteManager;
+
+    public void Initiallize(bool isblack)
+    {
+        black = isblack;
+        if (isblack)
+        {
+            transform.localScale = KeyDimensions[1];
+            thisKeysRenderer.material = Materials[1];
+        }
+        else
+        {
+            transform.localScale = KeyDimensions[0];
+            thisKeysRenderer.material = Materials[0];
+        }
+    }
     void Start()
     {
-        thisKeysRenderer.material = Materials[0];
+        
     } 
+
     void Update()
     {
         
     }
     public virtual void KeyDown(int speed, bool hand)
     {
-        thisKeysRenderer.material = Materials[1];
+        thisKeysRenderer.material = Materials[2];
 //        Debug.Log(speed);
         thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
         transform.Translate(Vector3.down * transform.lossyScale.y, Space.Self);
