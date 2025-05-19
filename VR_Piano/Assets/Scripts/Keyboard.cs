@@ -46,32 +46,34 @@ public class PianoKeyboard : MonoBehaviour
 
 
         int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
-        int octavetracker  = 5;
+        int octavetracker  = 7;
 
         
         for (int i = 0; i < KeyCount; i++)
         {
-            if (blackwhitepattern[octavetracker] == 1){
-                currentPosition += keyWidth + spacing;
+            if (blackwhitepattern[octavetracker] == 1)
+            {
+                    currentPosition += keyWidth + spacing;
                 Key newKey = Instantiate(
-                KeyPreFab,
-                new Vector3(currentPosition, yPosition + KeyPreFab.transform.lossyScale.y/2, transform.position.z),
-                Quaternion.identity
+                    KeyPreFab,
+                    new Vector3(currentPosition, yPosition + KeyPreFab.transform.lossyScale.y/2, transform.position.z),
+                    Quaternion.identity
                 );
-                newKey.black = false;
-                KeySet[i] = newKey;
+                newKey.Initiallize(false);
+                KeySet[i] = newKey;    
             }
             else
             {
                 float blackKeyOffset = (keyWidth + spacing) * 0.5f;
                 Key blackKey = Instantiate(
-                    BlackKeyPreFab,
-                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + BlackKeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
+                    KeyPreFab,
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + KeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
                     Quaternion.identity
                 );
-                blackKey.black = true;
+                blackKey.Initiallize(true);
                 KeySet[i] = blackKey;
             }
+            
             KeySet[i].keyID = i + FirstNoteID;
             KeySet[i].noteManager = notemanager;
 

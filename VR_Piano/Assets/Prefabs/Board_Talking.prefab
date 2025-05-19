@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2500237277267574518}
   - component: {fileID: 2117681247579952058}
   - component: {fileID: 6522101027117327228}
-  - component: {fileID: 2302999714558474702}
   - component: {fileID: 2564566964107520285}
   - component: {fileID: 4765332804247553651}
   - component: {fileID: 1395092210236982222}
@@ -20,8 +19,9 @@ GameObject:
   - component: {fileID: 8706779969778468839}
   - component: {fileID: 6978138584412117610}
   - component: {fileID: 4670001032625640499}
+  - component: {fileID: -7034667149640535721}
   m_Layer: 0
-  m_Name: KeyboardBase
+  m_Name: Board_Talking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,25 +113,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2302999714558474702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704929758431985168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef80b44c05b194c4c8d2a3405558a3c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  KeySet: []
-  KeyPreFab: {fileID: 1670113436334152184, guid: 3eb743746c9c4468d8c7fd4c5fbe06a6, type: 3}
-  BlackKeyPreFab: {fileID: 1670113436334152184, guid: 3b1a4a779ff044bdd9704ecf2840b2b8, type: 3}
-  KeyCount: 88
-  spacing: 0.005
-  FirstNoteID: 0
-  notemanager: {fileID: 0}
 --- !u!114 &2564566964107520285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -355,7 +336,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704929758431985168}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
   m_Name: 
@@ -363,3 +344,22 @@ MonoBehaviour:
   songFiles: []
   toNoteCallback: {fileID: 0}
   playerBoard: {fileID: 0}
+--- !u!114 &-7034667149640535721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704929758431985168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97c7767d862d4faa872e94b4c5211bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeySet: []
+  KeyPreFab: {fileID: -6185906480463766166, guid: 87cb8b04cfb6c4057b1ff974dbc43aa1, type: 3}
+  BlackKeyPreFab: {fileID: -6185906480463766166, guid: 87cb8b04cfb6c4057b1ff974dbc43aa1, type: 3}
+  KeyCount: 88
+  spacing: 0.005
+  FirstNoteID: 28
+  notemanager: {fileID: 0}

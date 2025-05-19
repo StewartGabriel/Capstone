@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6447226642636053003}
   - component: {fileID: 2500237277267574518}
   - component: {fileID: 2117681247579952058}
+  - component: {fileID: -3462080010695535922}
   - component: {fileID: 6522101027117327228}
-  - component: {fileID: 2302999714558474702}
   - component: {fileID: 2564566964107520285}
   - component: {fileID: 4765332804247553651}
   - component: {fileID: 1395092210236982222}
@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 6978138584412117610}
   - component: {fileID: 4670001032625640499}
   m_Layer: 0
-  m_Name: KeyboardBase 1
+  m_Name: Board_Listening
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-3462080010695535922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704929758431985168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45609252c100146f5938060fa19a6c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeySet: []
+  KeyPreFab: {fileID: 5535435079379609916, guid: 0bd3748abd8864075bfb04d197aa23bc, type: 3}
+  BlackKeyPreFab: {fileID: 5535435079379609916, guid: 0bd3748abd8864075bfb04d197aa23bc, type: 3}
+  KeyCount: 88
+  spacing: 0.005
+  FirstNoteID: 0
+  notemanager: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
+  lefthandle: {fileID: 0}
+  righthandle: {fileID: 0}
+  notedelay: 10
+  talkingboard: {fileID: -7034667149640535721, guid: f9f6da7251ed7438fb13df3df6cd6698, type: 3}
 --- !u!65 &6522101027117327228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,22 +136,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2302999714558474702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1704929758431985168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef80b44c05b194c4c8d2a3405558a3c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  KeyPreFab: {fileID: 1670113436334152184, guid: 3eb743746c9c4468d8c7fd4c5fbe06a6, type: 3}
-  BlackKeyPreFab: {fileID: 1670113436334152184, guid: 3b1a4a779ff044bdd9704ecf2840b2b8, type: 3}
-  KeyCount: 88
-  spacing: 0.005
 --- !u!114 &2564566964107520285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -345,9 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441f7ef81568be04a85062fc46162f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Materials: []
-  numberOfKeys: 0
-  TargetRenderer: {fileID: 0}
 --- !u!114 &4670001032625640499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,4 +364,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa70d02c3e3f39946997053c85f00326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toNoteCallback: {fileID: 2302999714558474702}
+  songFiles: []
+  toNoteCallback: {fileID: 0}
+  playerBoard: {fileID: 0}
