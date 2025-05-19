@@ -7,11 +7,41 @@ public class HandleRelease : MonoBehaviour
     private XRGrabInteractable grabInteractable;
     public bool triggerRelease = false;
     private string objectName;
+    private int? midiNoteCaptured = null;
 
     void Awake()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
-        objectName = gameObject.name; // Use the GameObject's name to prefix PlayerPrefs keys
+        objectName = gameObject.name;
+
+        Plugin_Init_No_Listening_Board plugin = GameObject.Find("Plugin").GetComponent<Plugin_Init_No_Listening_Board>();
+        if (plugin != null)
+        {
+            plugin.OnMidiInput += OnMidiKeyPress;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Plugin_Init_No_Listening_Board plugin = GameObject.Find("Plugin").GetComponent<Plugin_Init_No_Listening_Board>();
+        if (plugin != null)
+        {
+            plugin.OnMidiInput -= OnMidiKeyPress;
+        }
+    }
+
+    private void OnMidiKeyPress(int note, int velocity)
+    {
+        if (velocity > 0 && grabInteractable != null && grabInteractable.isSelected && midiNoteCaptured == null)
+        {
+            if (objectName == "Piano Handle 1")
+            {
+                midiNoteCaptured = note;
+                Debug.Log($"Captured leftmost MIDI note: {note}");
+            }
+
+            triggerRelease = true;
+        }
     }
 
     void Update()
@@ -22,9 +52,8 @@ public class HandleRelease : MonoBehaviour
                 grabInteractable.interactorsSelecting[0] is XRBaseInteractor interactor)
             {
                 interactor.EndManualInteraction();
-                Debug.Log(objectName + " released.");
+                Debug.Log(objectName + " released due to MIDI input.");
 
-                // Save position and rotation to PlayerPrefs with objectName as prefix
                 Vector3 pos = transform.position;
                 Vector3 rot = transform.eulerAngles;
 
@@ -37,10 +66,24 @@ public class HandleRelease : MonoBehaviour
                 PlayerPrefs.SetFloat(objectName + "_Rot_Z", rot.z);
 
                 PlayerPrefs.SetInt(objectName + "_HasTransform", 1);
+
+                if (objectName == "Piano Handle 1" && midiNoteCaptured.HasValue)
+                {
+                    PlayerPrefs.SetInt("PianoHandle1_LeftmostNote", midiNoteCaptured.Value);
+                    Debug.Log($"Saved MIDI address for Piano Handle 1: {midiNoteCaptured.Value}");
+                }
+
+                if (objectName == "Piano Handle 2" && midiNoteCaptured.HasValue)
+                {
+                    PlayerPrefs.SetInt("PianoHandle2_RightmostNote", midiNoteCaptured.Value);
+                    Debug.Log($"Saved MIDI address for Piano Handle 2: {midiNoteCaptured.Value}");
+                }
+
                 PlayerPrefs.Save();
             }
 
             triggerRelease = false;
+            midiNoteCaptured = null;
         }
     }
 }
