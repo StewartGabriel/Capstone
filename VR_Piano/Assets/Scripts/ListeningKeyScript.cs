@@ -31,7 +31,7 @@ public class ListeningKeyScript : Key
             thisKeysRenderer.material = Materials[3];
         }
 
-        SoundManager.PlaySound(pianoSound, keyID, speed / 127f);
+        // SoundManager.PlaySound(pianoSound, keyID,speed / 127f); // old sound func
 
     }
     public override void KeyUp()
