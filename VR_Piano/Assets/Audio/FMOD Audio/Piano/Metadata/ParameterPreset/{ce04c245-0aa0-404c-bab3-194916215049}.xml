@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{ce04c245-0aa0-404c-bab3-194916215049}">
+		<property name="name">
+			<value>Parameter 1</value>
+		</property>
+		<relationship name="folder">
+			<destination>{08c2be7a-5410-48aa-8d9f-3af3416e4217}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{710f055e-5e4a-4b8c-b586-e63a4d2963f0}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{710f055e-5e4a-4b8c-b586-e63a4d2963f0}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>88</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>21</value>
+			<value>22</value>
+			<value>23</value>
+			<value>24</value>
+			<value>25</value>
+			<value>26</value>
+			<value>27</value>
+			<value>28</value>
+			<value>29</value>
+			<value>30</value>
+			<value>31</value>
+			<value>32</value>
+			<value>33</value>
+			<value>34</value>
+			<value>35</value>
+			<value>36</value>
+			<value>37</value>
+			<value>38</value>
+			<value>39</value>
+			<value>40</value>
+			<value>41</value>
+			<value>42</value>
+			<value>43</value>
+			<value>44</value>
+			<value>45</value>
+			<value>46</value>
+			<value>47</value>
+			<value>48</value>
+			<value>49</value>
+			<value>50</value>
+			<value>51</value>
+			<value>52</value>
+			<value>53</value>
+			<value>54</value>
+			<value>55</value>
+			<value>56</value>
+			<value>57</value>
+			<value>58</value>
+			<value>59</value>
+			<value>60</value>
+			<value>61</value>
+			<value>62</value>
+			<value>63</value>
+			<value>64</value>
+			<value>65</value>
+			<value>66</value>
+			<value>67</value>
+			<value>68</value>
+			<value>69</value>
+			<value>70</value>
+			<value>71</value>
+			<value>72</value>
+			<value>73</value>
+			<value>74</value>
+			<value>75</value>
+			<value>76</value>
+			<value>77</value>
+			<value>78</value>
+			<value>79</value>
+			<value>80</value>
+			<value>81</value>
+			<value>82</value>
+			<value>83</value>
+			<value>84</value>
+			<value>85</value>
+			<value>86</value>
+			<value>87</value>
+			<value>88</value>
+			<value>89</value>
+			<value>90</value>
+			<value>91</value>
+			<value>92</value>
+			<value>93</value>
+			<value>94</value>
+			<value>95</value>
+			<value>96</value>
+			<value>97</value>
+			<value>98</value>
+			<value>99</value>
+			<value>100</value>
+			<value>101</value>
+			<value>102</value>
+			<value>103</value>
+			<value>104</value>
+			<value>105</value>
+			<value>106</value>
+			<value>107</value>
+			<value>108</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

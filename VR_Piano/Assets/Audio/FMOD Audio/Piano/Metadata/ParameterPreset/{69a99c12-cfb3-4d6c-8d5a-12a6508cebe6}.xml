@@ -19,6 +19,7 @@
 			<value>88</value>
 		</property>
 		<property name="enumerationLabels">
+			<value>21</value>
 			<value>22</value>
 			<value>23</value>
 			<value>24</value>
@@ -106,10 +107,9 @@
 			<value>106</value>
 			<value>107</value>
 			<value>108</value>
-			<value>109</value>
 		</property>
 		<property name="initialValue">
-			<value>0</value>
+			<value>1</value>
 		</property>
 	</object>
 </objects>
