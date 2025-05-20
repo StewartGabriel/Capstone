@@ -21,7 +21,7 @@ public class NoteManager : MonoBehaviour
     {
         foreach (Note i in activenotes)
         {
-            if (i.endtime < Time.time)
+            if (i.endtime < Time.time -notebuffer)
             {
                 Debug.Log("Deactivating note: " + i.noteID + ", " + i.endtime);
                 i.deactivate();

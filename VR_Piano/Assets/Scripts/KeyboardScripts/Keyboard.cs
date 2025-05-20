@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +18,7 @@ public class PianoKeyboard : MonoBehaviour
     public float spacing;
     public int FirstNoteID;
     public NoteManager notemanager;
+    protected List<float> fretlocations = new List<float>();
     
     public void Awake()
     {
@@ -53,21 +56,24 @@ public class PianoKeyboard : MonoBehaviour
         {
             if (blackwhitepattern[octavetracker] == 1)
             {
-                    currentPosition += keyWidth + spacing;
+                currentPosition += keyWidth + spacing;
                 Key newKey = Instantiate(
                     KeyPreFab,
-                    new Vector3(currentPosition, yPosition + KeyPreFab.transform.lossyScale.y/2, transform.position.z),
+                    new Vector3(currentPosition, yPosition + KeyPreFab.transform.lossyScale.y / 2, transform.position.z),
                     Quaternion.identity
                 );
                 newKey.Initiallize(false);
-                KeySet[i] = newKey;    
+                KeySet[i] = newKey;
+                if (octavetracker == 0)
+                fretlocations.Add(currentPosition - KeyPreFab.transform.lossyScale.x / 2 - spacing / 2);
+   
             }
             else
             {
                 float blackKeyOffset = (keyWidth + spacing) * 0.5f;
                 Key blackKey = Instantiate(
                     KeyPreFab,
-                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + KeyPreFab.transform.lossyScale.y/2, this.transform.position.z + keyDepth * 1/5),//the math wasnt working out so the 1/5 value is a brute force solution
+                    new Vector3(currentPosition + blackKeyOffset, yPosition + KeyPreFab.transform.lossyScale.y + KeyPreFab.transform.lossyScale.y / 2, this.transform.position.z + keyDepth * 1 / 5),//the math wasnt working out so the 1/5 value is a brute force solution
                     Quaternion.identity
                 );
                 blackKey.Initiallize(true);

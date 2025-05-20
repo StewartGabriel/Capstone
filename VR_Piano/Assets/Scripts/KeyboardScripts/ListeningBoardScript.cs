@@ -13,12 +13,14 @@ public class ListeningBoard : PianoKeyboard
 {
     public PianoHandle lefthandle;
     public PianoHandle righthandle;
+    public NoteBoard noteboard;
     public float notedelay;
     public TalkingBoard talkingboard;
+    
 
 
     private string parameterName = "note"; // For laptop keyboard testing
-    
+
     void Awake()
     {
         notemanager.notedelay = notedelay;
@@ -26,9 +28,9 @@ public class ListeningBoard : PianoKeyboard
         talkingboard.KeyCount = KeyCount;
         talkingboard.notemanager = notemanager;
 
-        float PianoHandledimensions = KeyPreFab.transform.localScale.z/2;
-        lefthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
-        righthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
+        float PianoHandledimensions = KeyPreFab.transform.localScale.z / 2;
+        lefthandle.transform.localScale = new Vector3(PianoHandledimensions, PianoHandledimensions, PianoHandledimensions);
+        righthandle.transform.localScale = new Vector3(PianoHandledimensions, PianoHandledimensions, PianoHandledimensions);
 
         //pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
 
@@ -43,6 +45,16 @@ public class ListeningBoard : PianoKeyboard
         talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay); //Not sure why the -1 is needed but it properly places the talking board
         talkingboard.transform.rotation = Quaternion.identity;
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
+
+        Vector3 noteboardspawnposition = transform.position + new Vector3(0, 0, notedelay / 2);
+        //noteboardspawnposition.z = (transform.position.z + talkingboard.transform.position.z);
+        noteboardspawnposition.y = transform.position.y + transform.lossyScale.y / 2 - noteboard.transform.lossyScale.y;
+
+        noteboard = Instantiate(noteboard, noteboardspawnposition, quaternion.identity);
+        noteboard.BuildBoard(transform.lossyScale.x, notedelay);
+        noteboard.transform.parent = this.transform;
+        noteboard.BuildFrets(fretlocations, spacing);
+        
     }
 
 
