@@ -23,6 +23,10 @@ public class ListeningBoard : PianoKeyboard
 
     void Awake()
     {
+        lefthandle.sethandleposition();
+        righthandle.sethandleposition();
+        KeyCount = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote")- PlayerPrefs.GetInt("PianoHandle1_RightmostNote");
+        
         notemanager.notedelay = notedelay;
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;

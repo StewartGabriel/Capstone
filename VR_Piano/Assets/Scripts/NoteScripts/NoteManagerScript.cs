@@ -17,40 +17,34 @@ public class NoteManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    
+       void Update()
     {
-        foreach (Note i in activenotes)
+    int chordCount = 0;
+    float lastStartTime = 0;
+    
+    // Loop through the active notes and handle deactivation and leader activation
+    foreach (Note i in activenotes)
+    {
+        // Deactivate notes based on endtime
+        if (i.endtime < Time.time - notebuffer)
         {
-            if (i.endtime < Time.time -notebuffer)
-            {
-                Debug.Log("Deactivating note: " + i.noteID + ", " + i.endtime);
-                i.deactivate();
-            }
+            Debug.Log("Deactivating note: " + i.noteID + ", " + i.endtime);
+            i.deactivate();
+            continue; // Move to the next note if this one is deactivated
         }
 
-        // Get the 3 notes closest to start time (future ones only)
-        List<Note> closestToEnd = activenotes
-            .Where(note => note.starttime > Time.time)
-            .OrderBy(note => note.starttime)
-            .ToList();
-
-        int chordCount = 0;
-        float lastStartTime = 0;
-
-        foreach (Note note in closestToEnd)
+        // Check if this note is in the future and is part of a chord
+        if (i.starttime > Time.time && chordCount < numberofactiveleaders)
         {
-            float currentStartTime = note.starttime;
-
-            if (chordCount >= numberofactiveleaders) break;
-
-            // Only increment chordCount if this note is not part of the previous chord
-            if (Mathf.Abs(currentStartTime - lastStartTime) > 0.1f)
+            if (Mathf.Abs(i.starttime - lastStartTime) > 0.1f)
             {
                 chordCount++;
-                lastStartTime = currentStartTime;
+                lastStartTime = i.starttime;
             }
-
-            note.activateleader();
+            i.activateleader();  // Activate leader only for notes that are part of the chord
         }
+    }
+
     }
 }

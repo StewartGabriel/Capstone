@@ -57,7 +57,7 @@ public class TalkingBoard : PianoKeyboard
     }
     public void InterpretMidi(int note, int velocity, bool hand)
     {
-        int t = note - 1 - FirstNoteID;
+        int t = note - FirstNoteID;
         Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
         
 

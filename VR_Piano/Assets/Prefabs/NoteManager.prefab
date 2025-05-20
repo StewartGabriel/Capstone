@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e49f605c9bb84ac183c39d9acb055a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notebuffer: 0.1
+  notebuffer: 1
   notedelay: 0
   activenotes: []
   pressednotes: []
