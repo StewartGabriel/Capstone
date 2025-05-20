@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 public class MidiMessages : MonoBehaviour
 {
+
+    public ScoreTextManager scoreTextManager;
+    private float cumulativeTime = 0f;
+    private Dictionary<int, float> noteOnTimestamps = new Dictionary<int, float>();
+
     [SerializeField] private TextAsset[] songFiles; // TextAsset songs array (extracted midi data)
 
     public TalkingBoard toNoteCallback; // create reference to NoteCallback
@@ -73,32 +78,48 @@ public class MidiMessages : MonoBehaviour
                 int velocity = int.Parse(index[2]);
                 int timeDelay = int.Parse(index[3]);
 
-                // Scale delay by tempo multiplier
                 float adjustedDelay = timeDelay / tempo_multiplier;
-                await Task.Delay((int)adjustedDelay); // This might be the cause of our sound delay issues?
+                await Task.Delay((int)adjustedDelay);
+                cumulativeTime += adjustedDelay / 1000f;
 
-                // Sends the extracted data to NoteCallback component
-                if (toNoteCallback != null)
+                if (onOff == "on")
                 {
-                    if (onOff == "on")
-                    {
-                        //await Task.Delay(adjustedDelay);
-                        toNoteCallback.InterpretMidi(note, velocity,hand); // KeyDown
-                    }
-
-                    else
-                    {
-                        //await Task.Delay(adjustedDelay);
-                        toNoteCallback.InterpretMidi(note, 0, hand); // KeyUp
-                    }
+                    toNoteCallback.InterpretMidi(note, velocity, hand);
+                    noteOnTimestamps[note] = cumulativeTime; // Track note on time
                 }
+                else
+                {
+                    toNoteCallback.InterpretMidi(note, 0, hand);
+                    float start = noteOnTimestamps.ContainsKey(note) ? noteOnTimestamps[note] : cumulativeTime;
+                    float duration = cumulativeTime - start;
 
-                // Debug Log string format
-                string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
-
-                Debug.Log(debugData);
+                    string symbol = GetSymbolForDuration(duration, isRest: false);
+                    scoreTextManager.AddNote(symbol, note, start, hand);
+                    noteOnTimestamps.Remove(note);
+                }
             }
         }
     }
 
+    private string GetSymbolForDuration(float duration, bool isRest = false)
+    {
+        if (isRest)
+        {
+            if (duration < 0.25f) return "\u0053"; // 16th note rest
+            if (duration < 0.5f)  return "\u0045"; // Eighth note rest
+            if (duration < 1.0f)  return "\u0051"; // Quarter note rest
+            if (duration < 2.0f)  return "\u0057"; // Half note rest
+            return "\u0048";                         // Whole rest
+        }
+        else
+        {
+            if (duration < 0.25f) return "\u0073"; // 16th note
+            if (duration < 0.5f)  return "\u0065"; // Eighth note
+            if (duration < 1.0f)  return "\u0071"; // Quarter note
+            if (duration < 2.0f)  return "\u0068"; // Half note
+            return "\u0077";                       // Whole note
+        }
+    }
+
+    
 }
