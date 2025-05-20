@@ -26,6 +26,7 @@ public class ListeningBoard : PianoKeyboard
         lefthandle.sethandleposition();
         righthandle.sethandleposition();
         KeyCount = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote")- PlayerPrefs.GetInt("PianoHandle1_RightmostNote");
+        FirstNoteID = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote");
         
         notemanager.notedelay = notedelay;
         talkingboard.FirstNoteID = FirstNoteID;
