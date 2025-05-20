@@ -18,6 +18,7 @@ public class Note : MonoBehaviour
     private float timer = 0f;
     //private Transform parentTransform;
     private Vector3 movementdirection;
+    public NoteLeader Leader;
     
     void Start()
     {
@@ -56,12 +57,23 @@ public class Note : MonoBehaviour
         thisnotesrenderer.material = notematerials[1];
     }
     public void deactivate(){
-        if(thisnotesrenderer != null){
+        if (thisnotesrenderer != null)
+        {
             thisnotesrenderer.material = notematerials[2];
+            deactivateleader();
         }
-
     }
-    public void correct(){
+
+    public void activateleader()
+    {
+        Leader.appear();
+    }
+    public void deactivateleader()
+    {
+        Leader.disappear();
+    }
+    public void correct()
+    {
         thisnotesrenderer.material = notematerials[3];
     }
 }

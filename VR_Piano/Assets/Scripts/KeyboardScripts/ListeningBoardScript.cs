@@ -40,7 +40,7 @@ public class ListeningBoard : PianoKeyboard
         base.Awake();
 
         talkingboard = Instantiate(talkingboard);
-        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay - 1); //Not sure why the -1 is needed but it properly places the talking board
+        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay); //Not sure why the -1 is needed but it properly places the talking board
         talkingboard.transform.rotation = Quaternion.identity;
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
     }

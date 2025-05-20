@@ -48,3 +48,4 @@ MonoBehaviour:
   notedelay: 0
   activenotes: []
   pressednotes: []
+  numberofactiveleaders: 3
