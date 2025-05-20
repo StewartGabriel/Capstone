@@ -7,8 +7,9 @@ using UnityEngine.InputSystem;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    [SerializeField] private GameObject startMenuPrefab; // Prefab of the Start Menu
-    private GameObject startMenuInstance; // The active instance of the Start Menu
+    [SerializeField] private GameObject startMenu; //start menu object
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button quitButton;
 
     [SerializeField] private string songSelectSceneName = "SongSelectV2";
 
@@ -18,9 +19,6 @@ public class SceneSwitcher : MonoBehaviour
     [SerializeField] private Transform leftHandTransform;
     [SerializeField] private Transform rightHandTransform;
     [SerializeField] private float selectionRadius = 0.05f;
-
-    private Button playButton;
-    private Button quitButton;
 
     private void OnEnable()
     {
@@ -54,32 +52,23 @@ public class SceneSwitcher : MonoBehaviour
 
     private void Start()
     {
-        // Destroy old instances if any (shouldn't happen but just in case)
-        if (startMenuInstance != null)
+        if (startMenu == null)
         {
-            Destroy(startMenuInstance);
-        }
-
-        // Instantiate Start Menu from prefab
-        if (startMenuPrefab != null)
-        {
-            startMenuInstance = Instantiate(startMenuPrefab, new Vector3(0f, 1.3f, 1.5f), Quaternion.identity);
-            startMenuInstance.transform.localScale = Vector3.one * 0.01f;
-            startMenuInstance.SetActive(true);
-            Debug.Log("Start Menu instantiated at: " + startMenuInstance.transform.position);
-        }
-        else
-        {
-            Debug.LogError("Start Menu Prefab is not assigned!");
+            Debug.LogError("Start Menu object is not assigned!");
             return;
         }
 
-        // Assign button references
-        playButton = startMenuInstance.transform.Find("PlayButton")?.GetComponent<Button>();
-        quitButton = startMenuInstance.transform.Find("QuitButton")?.GetComponent<Button>();
+        startMenu.SetActive(true);
 
-        if (playButton != null) playButton.onClick.AddListener(StartGame);
-        if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
+        if (playButton != null)
+            playButton.onClick.AddListener(StartGame);
+        else
+            Debug.LogError("Play Button not assigned!");
+
+        if (quitButton != null)
+            quitButton.onClick.AddListener(QuitGame);
+        else
+            Debug.LogError("Quit Button not assigned!");
     }
 
     private void OnLeftHandSelect(InputAction.CallbackContext context)
@@ -136,6 +125,11 @@ public class SceneSwitcher : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quitting Game...");
+    #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+    #else
         Application.Quit();
+    #endif
     }
+
 }

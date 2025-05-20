@@ -68,7 +68,7 @@ public class StartPauseMenuController : MonoBehaviour
             else
             {
                 Debug.Log("Initializer was successfully assigned.");
-                fMODCallbackHandler = audioHandler.oculusFMODCallbackHandler; // Correctly reference ScriptableObject
+                fMODCallbackHandler = audioHandler.oculusFMODCallbackHandler;
             }
         }
         else
