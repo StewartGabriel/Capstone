@@ -108,15 +108,14 @@ public class ListeningBoard : PianoKeyboard
     public void InterpretMidi(int note, int velocity, bool hand)
     {
         int index = note - 1 - FirstNoteID;
-        Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
+        // Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
         if (index >= 0 && index < KeySet.Length)
         {
             if (velocity > 0)
             {
                 KeySet[index].KeyDown(velocity, hand);
-                StartPianoEvent(index); // switch to 'note' if you want the original note to play
-                Debug.Log("Adjusted midi note (-1-28): " + index);
+                StartPianoEvent(note); // original note from MidiMessages playing
             }
 
             else

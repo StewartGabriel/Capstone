@@ -58,7 +58,7 @@ public class TalkingBoard : PianoKeyboard
     public void InterpretMidi(int note, int velocity, bool hand)
     {
         int t = note - 1 - FirstNoteID;
-        Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
+        // Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
         
 
 
@@ -66,8 +66,7 @@ public class TalkingBoard : PianoKeyboard
         {
             try{
                 KeySet[t].KeyDown(velocity, hand);
-                StartPianoEvent(t); // switch to 'note' if you want the original note to play 
-                Debug.Log("Adjusted midi note (-1-28): " + t);
+                StartPianoEvent(note); // original note from MidiMessages playing
             }
             catch (System.Exception e)
             {
