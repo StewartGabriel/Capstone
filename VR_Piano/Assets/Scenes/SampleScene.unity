@@ -1153,7 +1153,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: notebuffer
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: activenotes.Array.size

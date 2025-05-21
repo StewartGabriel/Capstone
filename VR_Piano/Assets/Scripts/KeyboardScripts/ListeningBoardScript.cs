@@ -17,10 +17,10 @@ public class ListeningBoard : PianoKeyboard
     public NoteBoard noteboard;
     public float notedelay;
     public TalkingBoard talkingboard;
-    
 
 
-    private string parameterName = "note"; // For laptop keyboard testing
+
+    private string parameterName = "note";
 
     void Awake()
     {
@@ -32,7 +32,7 @@ public class ListeningBoard : PianoKeyboard
         int rightmostNote = PlayerPrefs.GetInt("PianoHandle1_RightmostNote", 116);
 
         // Calculate KeyCount and FirstNoteID
-        KeyCount = leftmostNote - rightmostNote;
+        KeyCount = rightmostNote - leftmostNote;
         FirstNoteID = leftmostNote;
 
         notemanager.notedelay = notedelay;
