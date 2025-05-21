@@ -139,8 +139,8 @@ public class ListeningBoard : PianoKeyboard
         {
             if (velocity > 0)
             {
+                StartPianoEvent(index); // original note from MidiMessages playing
                 KeySet[index].KeyDown(velocity, hand);
-                StartPianoEvent(note);
             }
 
             else
@@ -161,6 +161,7 @@ public class ListeningBoard : PianoKeyboard
         EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
         pianoEvent.setParameterByName("note", note);
         pianoEvent.start();
+        //Debug.Log("/// Note playing: " + note);
         pianoEvent.release();
     }
 
