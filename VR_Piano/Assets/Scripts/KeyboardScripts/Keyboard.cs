@@ -64,7 +64,7 @@ public class PianoKeyboard : MonoBehaviour
                 );
                 newKey.Initiallize(false);
                 KeySet[i] = newKey;
-                if (octavetracker == 0)
+                if (octavetracker == 3)
                 fretlocations.Add(currentPosition - KeyPreFab.transform.lossyScale.x / 2 - spacing / 2);
    
             }

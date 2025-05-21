@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notebuffer: 1
-  notedelay: 0
+  notedelay: 10
+  correctnotes: 0
+  incorrectnotes: 0
   activenotes: []
   pressednotes: []
   numberofactiveleaders: 3
