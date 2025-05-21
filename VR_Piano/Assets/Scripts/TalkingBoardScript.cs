@@ -23,42 +23,42 @@ public class TalkingBoard : PianoKeyboard
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
             KeySet[0].KeyDown(Random.Range(0, 128), true);
-            StartPianoEvent(FirstNoteID);
+            // StartPianoEvent(0f);
         }
 
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
             KeySet[0].KeyUp();
-            StopPianoEvent();
+            // StopPianoEvent();
         }
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             KeySet[1].KeyDown(Random.Range(0, 128), false);
-            StartPianoEvent(FirstNoteID);
+            // StartPianoEvent(1f);
         }
 
         if (Keyboard.current.eKey.wasReleasedThisFrame)
         {
             KeySet[1].KeyUp();
-            StopPianoEvent();
+            // StopPianoEvent();
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
         {
             KeySet[2].KeyDown(Random.Range(0, 128), true);
-            StartPianoEvent(FirstNoteID);
+            // StartPianoEvent(2f);
         }
         if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
             KeySet[2].KeyUp();
-            StopPianoEvent();
+            // StopPianoEvent();
         }
     }
     public void InterpretMidi(int note, int velocity, bool hand)
     {
         int t = note - 1 - FirstNoteID;
-        Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
+        // Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
         
 
 
@@ -66,8 +66,7 @@ public class TalkingBoard : PianoKeyboard
         {
             try{
                 KeySet[t].KeyDown(velocity, hand);
-                StartPianoEvent(t);
-
+                StartPianoEvent(note); // original note from MidiMessages playing
             }
             catch (System.Exception e)
             {
@@ -85,6 +84,7 @@ public class TalkingBoard : PianoKeyboard
         EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
         pianoEvent.setParameterByName("note", note);
         pianoEvent.start();
+        Debug.Log("/// Note playing: " + note);
         pianoEvent.release();
     }
 
