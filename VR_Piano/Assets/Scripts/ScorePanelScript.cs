@@ -18,7 +18,7 @@ public class ScorePanelScript : MonoBehaviour
     {
         transform.position = playerboard.transform.position+ playerboard.transform.forward * 1;
         transform.rotation = playerboard.transform.rotation;
-        ScoreText.text = "Correct Notes: " + playerboard.notemanager.correctnotes.ToString() + "\nIncrrectNotes: " + playerboard.notemanager.incorrectnotes;
+        ScoreText.text = "Correct Notes: " + playerboard.notemanager.correctnotes.ToString() + "\nIncorrect Notes: " + playerboard.notemanager.incorrectnotes;
 
     }
 }
