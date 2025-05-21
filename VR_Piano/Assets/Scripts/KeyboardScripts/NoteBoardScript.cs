@@ -33,7 +33,7 @@ public class NoteBoard : MonoBehaviour
         foreach (float f in fretlocation)
         {
             Vector3 fretposition = transform.position +
-            new Vector3(f - transform.lossyScale.x/2, transform.lossyScale.y / 2 + OctaveFretPrefab.transform.lossyScale.y/2, 0);
+            new Vector3(f - transform.position.x, transform.lossyScale.y / 2 + OctaveFretPrefab.transform.lossyScale.y/2, 0);
             //It's shifted too far over in the x, not sure why
 
             // Instantiate a new OctaveFret, not reusing OctaveFretPrefab

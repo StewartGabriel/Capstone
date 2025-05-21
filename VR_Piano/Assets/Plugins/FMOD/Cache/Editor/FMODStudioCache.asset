@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD Audio/Piano/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638832548651869081
+  lastModified: 638833777829752632
   FileSizes:
   - Name: Desktop
     Value: 38073472
@@ -35,7 +35,7 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD Audio/Piano/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638832548651914615
+  lastModified: 638832815932805832
   FileSizes:
   - Name: Desktop
     Value: 820
@@ -91,7 +91,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -2544446956039890870}
   cacheVersion: 131847
-  cacheTime: 638832548651914615
+  cacheTime: 638833777829752632
   SerializableEventsDict:
   - key: event:/Piano Sounds
     index: 0

@@ -35,7 +35,8 @@ public class ListeningBoard : PianoKeyboard
         KeyCount = rightmostNote - leftmostNote;
         FirstNoteID = leftmostNote;
 
-        notemanager.notedelay = notedelay;
+        notedelay = notemanager.notedelay;
+
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;
         talkingboard.notemanager = notemanager;
