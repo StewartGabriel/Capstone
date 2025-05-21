@@ -58,15 +58,15 @@ public class TalkingBoard : PianoKeyboard
     public void InterpretMidi(int note, int velocity, bool hand)
     {
         int t = note - 1 - FirstNoteID;
-        // Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
+        Debug.Log("Note Received From Library: " + note + ", " + t + " Array Size:" + KeySet.Length + " FirstNoteID: " + FirstNoteID);
         
 
 
         if (velocity > 0)
         {
             try{
+                // StartPianoEvent(t); // original note from MidiMessages playing
                 KeySet[t].KeyDown(velocity, hand);
-                StartPianoEvent(note); // original note from MidiMessages playing
             }
             catch (System.Exception e)
             {
@@ -79,20 +79,20 @@ public class TalkingBoard : PianoKeyboard
             KeySet[t].KeyUp();
         }
     }
-    private void StartPianoEvent(float note)
-    {
-        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-        pianoEvent.setParameterByName("note", note);
-        pianoEvent.start();
-        Debug.Log("/// Note playing: " + note);
-        pianoEvent.release();
-    }
+    //private void StartPianoEvent(float note)
+    //{
+    //    EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+    //    pianoEvent.setParameterByName("note", note);
+    //    pianoEvent.start();
+    //    Debug.Log("/// Note playing: " + note);
+    //    pianoEvent.release();
+    //}
 
-    private void StopPianoEvent()
-    {
-        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-        pianoEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        pianoEvent.release();
-    }
+    //private void StopPianoEvent()
+    //{
+    //    EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+    //    pianoEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    //    pianoEvent.release();
+    //}
 
 }

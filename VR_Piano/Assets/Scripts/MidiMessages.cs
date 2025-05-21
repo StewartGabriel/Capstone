@@ -93,10 +93,10 @@ public class MidiMessages : MonoBehaviour
                     }
                 }
 
-                // Debug Log string format
-                string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
+                //// Debug Log string format
+                //string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
 
-                Debug.Log(debugData);
+                //Debug.Log(debugData);
             }
         }
     }

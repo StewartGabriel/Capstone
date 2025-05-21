@@ -108,14 +108,14 @@ public class ListeningBoard : PianoKeyboard
     public void InterpretMidi(int note, int velocity, bool hand)
     {
         int index = note - 1 - FirstNoteID;
-        // Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
+        Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
         if (index >= 0 && index < KeySet.Length)
         {
             if (velocity > 0)
             {
+                StartPianoEvent(index); // original note from MidiMessages playing
                 KeySet[index].KeyDown(velocity, hand);
-                StartPianoEvent(note); // original note from MidiMessages playing
             }
 
             else
@@ -136,7 +136,7 @@ public class ListeningBoard : PianoKeyboard
         EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
         pianoEvent.setParameterByName("note", note);
         pianoEvent.start();
-        Debug.Log("/// Note playing: " + note);
+        //Debug.Log("/// Note playing: " + note);
         pianoEvent.release();
     }
 
