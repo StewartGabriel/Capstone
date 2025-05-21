@@ -14,7 +14,7 @@ public class ListeningKeyScript : Key
         string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         int octave = (midiNote / 12) - 1;
         string note = noteNames[midiNote % 12];
-        Debug.Log(midiNote + " : " + note);
+        //Debug.Log(midiNote + " : " + note);
         return note + octave;
     }
     void Start()
