@@ -29,7 +29,7 @@ public class ListeningBoard : PianoKeyboard
         
         // Retrieve values from PlayerPrefs with default values to prevent issues if the keys don't exist
         int leftmostNote = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote", 28);
-        int rightmostNote = PlayerPrefs.GetInt("PianoHandle1_RightmostNote", 116);
+        int rightmostNote = PlayerPrefs.GetInt("PianoHandle2_RightmostNote", 116);
 
         // Calculate KeyCount and FirstNoteID
         KeyCount = rightmostNote - leftmostNote;
