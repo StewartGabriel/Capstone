@@ -34,7 +34,7 @@ public class NoteBoard : MonoBehaviour
         {
             Vector3 fretposition = transform.position +
             new Vector3(f - transform.lossyScale.x/2, transform.lossyScale.y / 2 + OctaveFretPrefab.transform.lossyScale.y/2, 0);
-            //It's sifted too far over in the x, not sure why
+            //It's shifted too far over in the x, not sure why
 
             // Instantiate a new OctaveFret, not reusing OctaveFretPrefab
             OctaveFret newFret = Instantiate(OctaveFretPrefab, fretposition, Quaternion.identity);

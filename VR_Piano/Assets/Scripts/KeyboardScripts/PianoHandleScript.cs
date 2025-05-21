@@ -19,9 +19,9 @@ public class PianoHandle : MonoBehaviour
     }
     public void sethandleposition()
     {
-        Vector3 position = new Vector3 (PlayerPrefs.GetFloat(gameObject.name + "_Pos_X"),
-        PlayerPrefs.GetFloat(gameObject.name + "_Pos_Y"),
-        PlayerPrefs.GetFloat(gameObject.name + "_Pos_z"));
+        Vector3 position = new Vector3 (PlayerPrefs.GetFloat(gameObject.name + "_Pos_X", Random.Range(0f,2f)),
+        PlayerPrefs.GetFloat(gameObject.name + "_Pos_Y", 0),
+        PlayerPrefs.GetFloat(gameObject.name + "_Pos_z", 0));
         transform.position = position;
     }
 }

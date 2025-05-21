@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -25,9 +26,15 @@ public class ListeningBoard : PianoKeyboard
     {
         lefthandle.sethandleposition();
         righthandle.sethandleposition();
-        KeyCount = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote")- PlayerPrefs.GetInt("PianoHandle1_RightmostNote");
-        FirstNoteID = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote");
         
+        // Retrieve values from PlayerPrefs with default values to prevent issues if the keys don't exist
+        int leftmostNote = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote", 28);
+        int rightmostNote = PlayerPrefs.GetInt("PianoHandle1_RightmostNote", 116);
+
+        // Calculate KeyCount and FirstNoteID
+        KeyCount = leftmostNote - rightmostNote;
+        FirstNoteID = leftmostNote;
+
         notemanager.notedelay = notedelay;
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;
