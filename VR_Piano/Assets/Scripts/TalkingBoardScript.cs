@@ -65,7 +65,7 @@ public class TalkingBoard : PianoKeyboard
         if (velocity > 0)
         {
             try{
-                // StartPianoEvent(note); // original note from MidiMessages playing
+                // StartPianoEvent(t); // original note from MidiMessages playing
                 KeySet[t].KeyDown(velocity, hand);
             }
             catch (System.Exception e)
