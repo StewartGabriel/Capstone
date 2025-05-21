@@ -18,9 +18,10 @@ public class NoteLeader : MonoBehaviour
     {
         float targetLength = (parentnote.endtime - Time.time);
         float globaltargetlength = targetLength / transform.parent.lossyScale.z;
-
+        if (targetLength < 0)
+            disappear();
         // Update local scale
-        Vector3 localScale = transform.localScale;
+            Vector3 localScale = transform.localScale;
         if(globaltargetlength < 1000)
         localScale.z = globaltargetlength;
         transform.localScale = localScale;

@@ -63,9 +63,10 @@ public class ListeningBoard : PianoKeyboard
         noteboardspawnposition.y = transform.position.y + transform.lossyScale.y / 2 - noteboard.transform.lossyScale.y;
 
         noteboard = Instantiate(noteboard, noteboardspawnposition, quaternion.identity);
+        noteboard.parentboard = this;
         noteboard.BuildBoard(transform.lossyScale.x, notedelay);
         noteboard.transform.parent = this.transform;
-        noteboard.BuildFrets(fretlocations, spacing);
+        noteboard.BuildFrets();
         
     }
 

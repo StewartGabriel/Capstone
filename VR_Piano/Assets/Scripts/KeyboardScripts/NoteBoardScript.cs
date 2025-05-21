@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class NoteBoard : MonoBehaviour
 {
     public float thiccness;
     public OctaveFret OctaveFretPrefab;
-
+    public PianoKeyboard parentboard;
     void Start()
     {
 
@@ -28,17 +29,24 @@ public class NoteBoard : MonoBehaviour
         newscale.y = thiccness;
         transform.localScale = newscale;
     }
-    public void BuildFrets(List<float> fretlocation, float spacing)
+    public void BuildFrets()
     {
+        List<float> fretlocation = new List<float>();
+        foreach (Key key in parentboard.KeySet)
+        {
+            if (key.keyID % 12 == 0) {
+                fretlocation.Add(key.transform.position.x - key.transform.lossyScale.x/2 - parentboard.spacing/2);
+            }   
+        }
+
         foreach (float f in fretlocation)
         {
             Vector3 fretposition = transform.position +
-            new Vector3(f - transform.lossyScale.x/2, transform.lossyScale.y / 2 + OctaveFretPrefab.transform.lossyScale.y/2, 0);
-            //It's shifted too far over in the x, not sure why
-
+            new Vector3(f-transform.position.x, transform.lossyScale.y / 2 + OctaveFretPrefab.transform.lossyScale.y / 2, 0);
+            //It's shifted too far over in the x, not sure why  - transform.lossyScale.x / 2
             // Instantiate a new OctaveFret, not reusing OctaveFretPrefab
             OctaveFret newFret = Instantiate(OctaveFretPrefab, fretposition, Quaternion.identity);
-            newFret.shapefret(spacing, transform.lossyScale.z);
+            newFret.shapefret(parentboard.spacing, transform.lossyScale.z);
             newFret.transform.parent = this.transform;
         }
     }
