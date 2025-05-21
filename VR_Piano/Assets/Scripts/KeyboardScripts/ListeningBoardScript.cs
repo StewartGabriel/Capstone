@@ -131,7 +131,7 @@ public class ListeningBoard : PianoKeyboard
 
     public void InterpretMidi(int note, int velocity, bool hand)
     {
-        int index = note - 1 - FirstNoteID;
+        int index = note - FirstNoteID;
         Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
         if (index >= 0 && index < KeySet.Length)
