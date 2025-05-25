@@ -83,7 +83,7 @@ public class MidiMessages : MonoBehaviour
                     if (onOff == "on")
                     {
                         //await Task.Delay(adjustedDelay);
-                        toNoteCallback.InterpretMidi(note, velocity,hand); // KeyDown
+                        toNoteCallback.InterpretMidi(note, velocity, hand); // KeyDown
                     }
 
                     else
@@ -99,6 +99,13 @@ public class MidiMessages : MonoBehaviour
                 //Debug.Log(debugData);
             }
         }
+
+        ListeningBoard noteCallback = GameObject.Find("Board Listening").GetComponent<ListeningBoard>();
+       
+        await Task.Delay((int)noteCallback.notedelay + 3000);
+        SongEndPanelController songEndPanel;
+        songEndPanel = GameObject.Find("SongEndPanelController").GetComponent<SongEndPanelController>();
+        songEndPanel.ToggleEndPanel();
     }
 
 }

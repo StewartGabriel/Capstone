@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
@@ -13,22 +14,36 @@ public class ListeningBoard : PianoKeyboard
 {
     public PianoHandle lefthandle;
     public PianoHandle righthandle;
+    public NoteBoard noteboard;
     public float notedelay;
     public TalkingBoard talkingboard;
 
 
-    private string parameterName = "note"; // For laptop keyboard testing
-    
+
+    private string parameterName = "note";
+
     void Awake()
     {
-        notemanager.notedelay = notedelay;
+        lefthandle.sethandleposition();
+        righthandle.sethandleposition();
+        
+        // Retrieve values from PlayerPrefs with default values to prevent issues if the keys don't exist
+        int leftmostNote = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote", 28);
+        int rightmostNote = PlayerPrefs.GetInt("PianoHandle2_RightmostNote", 103);
+
+        // Calculate KeyCount and FirstNoteID
+        KeyCount = rightmostNote - leftmostNote;
+        FirstNoteID = leftmostNote;
+
+        notedelay = notemanager.notedelay;
+
         talkingboard.FirstNoteID = FirstNoteID;
         talkingboard.KeyCount = KeyCount;
         talkingboard.notemanager = notemanager;
 
-        float PianoHandledimensions = KeyPreFab.transform.localScale.z/2;
-        lefthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
-        righthandle.transform.localScale = new Vector3(PianoHandledimensions,PianoHandledimensions,PianoHandledimensions);
+        float PianoHandledimensions = KeyPreFab.transform.localScale.z / 2;
+        lefthandle.transform.localScale = new Vector3(PianoHandledimensions, PianoHandledimensions, PianoHandledimensions);
+        righthandle.transform.localScale = new Vector3(PianoHandledimensions, PianoHandledimensions, PianoHandledimensions);
 
         //pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
 
@@ -40,9 +55,19 @@ public class ListeningBoard : PianoKeyboard
         base.Awake();
 
         talkingboard = Instantiate(talkingboard);
-        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay - 1); //Not sure why the -1 is needed but it properly places the talking board
+        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay); //Not sure why the -1 is needed but it properly places the talking board
         talkingboard.transform.rotation = Quaternion.identity;
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
+
+        Vector3 noteboardspawnposition = transform.position + new Vector3(0, 0, notedelay / 2);
+        //noteboardspawnposition.z = (transform.position.z + talkingboard.transform.position.z);
+        noteboardspawnposition.y = transform.position.y + transform.lossyScale.y / 2 - noteboard.transform.lossyScale.y;
+
+        noteboard = Instantiate(noteboard, noteboardspawnposition, quaternion.identity);
+        noteboard.BuildBoard(transform.lossyScale.x, notedelay);
+        noteboard.transform.parent = this.transform;
+        noteboard.BuildFrets(fretlocations, spacing);
+        
     }
 
 
@@ -107,7 +132,7 @@ public class ListeningBoard : PianoKeyboard
 
     public void InterpretMidi(int note, int velocity, bool hand)
     {
-        int index = note - 1 - FirstNoteID;
+        int index = note - FirstNoteID;
         Debug.Log($"Note Received From Library: {note}, {index} Array Size: {KeySet.Length}");
 
         if (index >= 0 && index < KeySet.Length)

@@ -14,7 +14,7 @@ public class ListeningKeyScript : Key
         string[] noteNames = { "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" };
         int octave = (midiNote / 12) - 1;
         string note = noteNames[midiNote % 12];
-        Debug.Log(midiNote + " : " + note);
+        //Debug.Log(midiNote + " : " + note);
         return note + octave;
     }
     void Start()
@@ -26,9 +26,13 @@ public class ListeningKeyScript : Key
     {
         //Debug.Log("KeyDown called: " + keyID);
         base.KeyDown(speed, hand);
-        if (checkKeyHit())
+        if (noteManager.checkKeyHit(keyID))
         {
             thisKeysRenderer.material = Materials[3];
+        }
+        else
+        {
+            thisKeysRenderer.material = Materials[2];
         }
 
         // SoundManager.PlaySound(pianoSound, keyID,speed / 127f); // old sound func
@@ -44,34 +48,10 @@ public class ListeningKeyScript : Key
             thisKeysRenderer.material = Materials[0]; 
         
         transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
-        checkKeyRelease();
-    }
-    private bool checkKeyHit(){
-        foreach (Note i in noteManager.activenotes){
-            if (i.starttime > Time.time - noteManager.notebuffer && i.starttime < Time.time + noteManager.notebuffer && i.noteID == keyID){
-                Debug.Log("Note hit: HIT: " + Time.time + " : " + i.starttime);
-                thisKeysRenderer.material = Materials[2];
-                i.activate();
-                noteManager.pressednotes.Add(i);
-                noteManager.activenotes.Remove(i);
-                return true;
-            }
+        if (noteManager.checkKeyRelease(keyID))
+        {
+            thisKeysRenderer.material = Materials[2];
         }
-        Debug.Log("Note hit: MISS "+ Time.time);
-        return false;
     }
-    private bool checkKeyRelease(){
-        foreach (Note i in noteManager.pressednotes){
-            if (i.endtime > Time.time - noteManager.notebuffer 
-             && i.endtime < Time.time + noteManager.notebuffer 
-             && i.noteID == keyID){
-                Debug.Log("Note Release: HIT " + Time.time + " : " + i.starttime);
-                i.correct();
-                noteManager.pressednotes.Remove(i);
-                return true;   
-            }
-        }
-        Debug.Log("Note Release: MISS "+ Time.time);
-        return false;
-    }
+    
 }
