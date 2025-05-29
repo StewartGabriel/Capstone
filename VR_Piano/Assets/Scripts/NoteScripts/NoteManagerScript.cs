@@ -5,7 +5,7 @@ using System.Linq;
 
 public class NoteManager : MonoBehaviour
 {
-    public float notebuffer = .1f;
+    public float notebuffer = .3f;
     public float notedelay = 0;
     public int correctnotes;
     public int incorrectnotes;

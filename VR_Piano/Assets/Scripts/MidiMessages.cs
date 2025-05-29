@@ -75,6 +75,10 @@ public class MidiMessages : MonoBehaviour
 
                 // Scale delay by tempo multiplier
                 float adjustedDelay = timeDelay / tempo_multiplier;
+                if (adjustedDelay <= 0)
+                {
+                    adjustedDelay = 1;
+                }
                 await Task.Delay((int)adjustedDelay); // This might be the cause of our sound delay issues?
 
                 // Sends the extracted data to NoteCallback component
@@ -101,8 +105,8 @@ public class MidiMessages : MonoBehaviour
         }
 
         ListeningBoard noteCallback = GameObject.Find("Board Listening").GetComponent<ListeningBoard>();
-       
-        await Task.Delay((int)noteCallback.notedelay + 3000);
+
+        await Task.Delay((int)noteCallback.notedelay + 15000);
         SongEndPanelController songEndPanel;
         songEndPanel = GameObject.Find("SongEndPanelController").GetComponent<SongEndPanelController>();
         songEndPanel.ToggleEndPanel();
