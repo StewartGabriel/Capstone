@@ -59,6 +59,7 @@ public class MidiMessages : MonoBehaviour
     public async Task ExtractMidiData(TextAsset midiMessages, bool hand, float tempo_multiplier)
     {
         // Reads all the lines of the file
+        Debug.Log("tempo_multiplier: " + tempo_multiplier);
         string[] lines = midiMessages.text.Split(new[] { "\r\n", "\n" }, System.StringSplitOptions.None);
         int i = 0;
         foreach (string line in lines)
@@ -74,6 +75,7 @@ public class MidiMessages : MonoBehaviour
                 int timeDelay = int.Parse(index[3]);
 
                 // Scale delay by tempo multiplier
+                Debug.Log("Time Delay: " + timeDelay);
                 float adjustedDelay = timeDelay / tempo_multiplier;
                 if (adjustedDelay <= 0)
                 {
@@ -98,9 +100,9 @@ public class MidiMessages : MonoBehaviour
                 }
 
                 //// Debug Log string format
-                //string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
-
-                //Debug.Log(debugData);
+                string debugData = $"Note on/off: {onOff}, Midi Number: {note}, Velocity: {velocity}, Time Delay: {adjustedDelay}, Line: {i}";
+                Debug.Log("Adjusted Delay: " + adjustedDelay);
+                Debug.Log(debugData);
             }
         }
 
