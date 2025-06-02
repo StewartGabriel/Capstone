@@ -31,7 +31,7 @@ public class SongSelectMenuController : MonoBehaviour
 
     // Keyboard Config
     [SerializeField] private Button keyboardConfigButton;
-    [SerializeField] private string keyboardConfigSceneName; 
+    [SerializeField] private string keyboardConfigSceneName;
 
     // Song Info Display 
     [SerializeField] private TMP_Text titleText;
@@ -81,11 +81,11 @@ public class SongSelectMenuController : MonoBehaviour
 
         songInfo[1] = new Song("Octave Test", "Composer A");
         songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven");
-        // SongInfo[3] = new Song("", "", "")
-        // SongInfo[4] = new Song("", "", "")
-        // SongInfo[5] = new Song("", "", "")
-        // SongInfo[6] = new Song("", "", "")
-        // SongInfo[7] = new Song("", "", "")
+        SongInfo[3] = new Song("Sonatina Opus 36", "Muzio Clementi");
+        SongInfo[4] = new Song("Fur Elise", "Ludwig Van Beethoven");
+        SongInfo[5] = new Song("Lost Woods", "Koji Kondo")
+        SongInfo[6] = new Song("Your Reality", "Dan Salvato")
+        SongInfo[7] = new Song("Nuclear Fusion", "ZUN")
         // SongInfo[8] = new Song("", "", "")
         // SongInfo[9] = new Song("", "", "")
         // SongInfo[10] = new Song("", "", "")
@@ -136,11 +136,11 @@ public class SongSelectMenuController : MonoBehaviour
         playButton.onClick.AddListener(PlaySelectedSong);
 
         backButton.onClick.AddListener(ReturnToMainMenu);
-        
+
         keyboardConfigButton.onClick.AddListener(OpenKeyboardConfig);
     }
 
-   private void UpdateTempoDisplay(float value)
+    private void UpdateTempoDisplay(float value)
     {
         if (TempoText != null)
         {
@@ -215,7 +215,7 @@ public class SongSelectMenuController : MonoBehaviour
         //Highlight the selected song for the user
         HighlightSelectedButton(songNumber);
 
-          if (songInfo.TryGetValue(songNumber, out Song song))
+        if (songInfo.TryGetValue(songNumber, out Song song))
         {
             titleText.text = song.title;
             composerText.text = song.composer;
