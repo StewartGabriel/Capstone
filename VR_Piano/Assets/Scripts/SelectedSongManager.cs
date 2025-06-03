@@ -20,7 +20,7 @@ public class PlaySceneManager : MonoBehaviour
         // Initialize the other parameters
         left_enabled = PlayerPrefs.GetInt("LeftEnabled", 1) == 1;
         right_enabled = PlayerPrefs.GetInt("RightEnabled", 1) == 1;
-        tempo_multiplier = PlayerPrefs.GetFloat("TempoMultiplier", 1);
+        tempo_multiplier = PlayerPrefs.GetFloat("TempoMultiplier", 1.0f);
 
         // Call function to play the selected song
         PlaySelectedSong();
