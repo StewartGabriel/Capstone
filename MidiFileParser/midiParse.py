@@ -3,8 +3,9 @@ import os
 
 def extractMidi(midi_file, song_name):    
     for i, track in enumerate(midi_file.tracks):        # some midi files have different 'tracks' which need to be played at once                                   
-        file_name = f'{song_name}{i}{track.name}.txt'        # I'll try to find songs that only have right and left hand tracks
-
+        file_name = repr(f'{song_name}{i}{track.name}.txt').replace("\\x00", "")
+        file_name = file_name.replace("\'\'", "")        # I'll try to find songs that only have right and left hand tracks
+        print(repr(f'./unprocessed_midi/{song_name}/{file_name}'))
         with open(f'./unprocessed_midi/{song_name}/{file_name}', 'w') as midi_messages:                               
             midi_messages.write(f'Track {i}: {track.name}\n')   
             for msg in track:
@@ -41,7 +42,7 @@ def processMidi(midi_file):
     print(f'On/Off messages have been written to {processed_file_name}.\n')
     
 if __name__ == '__main__':
-    song_name = 'FurElise' # Put the midi file into the folder ./midi_files and write the file name here without the extension
+    song_name = 'NuclearFusion' # Put the midi file into the folder ./midi_files and write the file name here without the extension
     if not os.path.exists(f'./processed_midi/{song_name}') or not os.path.exists(f'./unprocessed_midi/{song_name}'): # Creates a folder to store the data
         os.makedirs(f'./processed_midi/{song_name}', exist_ok=True)
         os.makedirs(f'./unprocessed_midi/{song_name}', exist_ok=True)
