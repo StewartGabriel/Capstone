@@ -1,7 +1,7 @@
 if __name__ == '__main__':
     # Change this to the name of the midi files you want to compare
-    left_hand = 'processed_midi\FurElise\processedFurElise2Piano left.txt' # Change this to the left hand file name
-    right_hand = 'processed_midi\FurElise\processedFurElise1Piano right.txt' # Change this to the right hand file name
+    left_hand = 'processed_midi\\YourReality\\processedYourReality1Piano.txt' # Change this to the left hand file name
+    right_hand = 'processed_midi\\YourReality\\processedYourReality0Piano.txt' # Change this to the right hand file name
 
     left_time = 0 # Keeps track of the time the left hand has been playing
     left_line = 0 # Keeps track of the line number of the left hand file
