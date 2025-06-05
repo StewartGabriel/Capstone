@@ -12,6 +12,8 @@ using Random = UnityEngine.Random;
 
 public class ListeningBoard : PianoKeyboard
 {
+    private Dictionary<float, EventInstance> pianoEvents = new Dictionary<float, EventInstance>(); // Stores event instances to be reused
+
     public PianoHandle lefthandle;
     public PianoHandle righthandle;
     public NoteBoard noteboard;
@@ -154,11 +156,20 @@ public class ListeningBoard : PianoKeyboard
 
     private void StartPianoEvent(float note)
     {
-        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-        pianoEvent.setParameterByName("note", note);
-        pianoEvent.start();
-        //Debug.Log("/// Note playing: " + note);
-        pianoEvent.release();
+        if (!pianoEvents.ContainsKey(note)) // Creates an instance if not already
+        {
+            EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+            pianoEvent.setParameterByName("note", note);
+            pianoEvent.start(); // starts instance 
+            // Debug.Log("/// Note playing: " + note);
+            pianoEvents[note] = pianoEvent; // stores the instance
+            // pianoEvent.release();
+        }
+        else
+        {
+            pianoEvents[note].start(); // starts stored instances
+        }
+
     }
 
 }

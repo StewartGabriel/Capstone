@@ -8,7 +8,8 @@ using FMODUnity;
 using FMOD.Studio;
 
 public class TalkingBoard : PianoKeyboard
-{    
+{
+    //private Dictionary<float, EventInstance> pianoEvents = new Dictionary<float, EventInstance>(); // Stores event insatnces to be reused
     void Awake()
     {
         base.Awake();
@@ -78,11 +79,20 @@ public class TalkingBoard : PianoKeyboard
     }
     //private void StartPianoEvent(float note)
     //{
-    //    EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-    //    pianoEvent.setParameterByName("note", note);
-    //    pianoEvent.start();
-    //    Debug.Log("/// Note playing: " + note);
-    //    pianoEvent.release();
+    //    if (!pianoEvents.ContainsKey(note))
+    //    {
+    //        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+    //        pianoEvent.setParameterByName("note", note);
+    //        pianoEvent.start();
+    //        // Debug.Log("/// Note playing: " + note);
+    //        pianoEvents[note] = pianoEvent;
+    //        // pianoEvent.release();
+    //    }
+    //    else
+    //    {
+    //        pianoEvents[note].start();
+    //    }
+            
     //}
 
 }
