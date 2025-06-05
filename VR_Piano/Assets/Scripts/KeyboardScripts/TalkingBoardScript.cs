@@ -8,7 +8,8 @@ using FMODUnity;
 using FMOD.Studio;
 
 public class TalkingBoard : PianoKeyboard
-{    
+{
+    //private Dictionary<float, EventInstance> pianoEvents = new Dictionary<float, EventInstance>(); // Stores event insatnces to be reused
     void Awake()
     {
         base.Awake();
@@ -29,7 +30,6 @@ public class TalkingBoard : PianoKeyboard
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
             KeySet[0].KeyUp();
-            // StopPianoEvent();
         }
 
         if (Keyboard.current.eKey.wasPressedThisFrame)
@@ -41,7 +41,6 @@ public class TalkingBoard : PianoKeyboard
         if (Keyboard.current.eKey.wasReleasedThisFrame)
         {
             KeySet[1].KeyUp();
-            // StopPianoEvent();
         }
 
         if (Keyboard.current.rKey.wasPressedThisFrame)
@@ -52,7 +51,6 @@ public class TalkingBoard : PianoKeyboard
         if (Keyboard.current.rKey.wasReleasedThisFrame)
         {
             KeySet[2].KeyUp();
-            // StopPianoEvent();
         }
     }
     public void InterpretMidi(int note, int velocity, bool hand)
@@ -65,7 +63,7 @@ public class TalkingBoard : PianoKeyboard
         if (velocity > 0)
         {
             try{
-                // StartPianoEvent(t); // original note from MidiMessages playing
+                //StartPianoEvent(t); // original note from MidiMessages playing
                 KeySet[t].KeyDown(velocity, hand);
             }
             catch (System.Exception e)
@@ -81,18 +79,20 @@ public class TalkingBoard : PianoKeyboard
     }
     //private void StartPianoEvent(float note)
     //{
-    //    EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-    //    pianoEvent.setParameterByName("note", note);
-    //    pianoEvent.start();
-    //    Debug.Log("/// Note playing: " + note);
-    //    pianoEvent.release();
-    //}
-
-    //private void StopPianoEvent()
-    //{
-    //    EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-    //    pianoEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    //    pianoEvent.release();
+    //    if (!pianoEvents.ContainsKey(note))
+    //    {
+    //        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
+    //        pianoEvent.setParameterByName("note", note);
+    //        pianoEvent.start();
+    //        // Debug.Log("/// Note playing: " + note);
+    //        pianoEvents[note] = pianoEvent;
+    //        // pianoEvent.release();
+    //    }
+    //    else
+    //    {
+    //        pianoEvents[note].start();
+    //    }
+            
     //}
 
 }
