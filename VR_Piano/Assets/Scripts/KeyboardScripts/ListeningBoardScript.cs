@@ -83,7 +83,6 @@ public class ListeningBoard : PianoKeyboard
         if (Keyboard.current.sKey.wasReleasedThisFrame)
         {
             KeySet[0].KeyUp();
-            StopPianoEvent();
         }
 
         if (Keyboard.current.dKey.wasPressedThisFrame)
@@ -95,7 +94,6 @@ public class ListeningBoard : PianoKeyboard
         if (Keyboard.current.dKey.wasReleasedThisFrame)
         {
             KeySet[1].KeyUp();
-            StopPianoEvent();
         }
 
         if (Keyboard.current.fKey.wasPressedThisFrame)
@@ -107,7 +105,6 @@ public class ListeningBoard : PianoKeyboard
         if (Keyboard.current.fKey.wasReleasedThisFrame)
         {
             KeySet[2].KeyUp();
-            StopPianoEvent();
         }
 
         // Position the board between the handles
@@ -146,7 +143,6 @@ public class ListeningBoard : PianoKeyboard
             else
             {
                 KeySet[index].KeyUp();
-                StopPianoEvent();
             }
 
         }
@@ -165,10 +161,4 @@ public class ListeningBoard : PianoKeyboard
         pianoEvent.release();
     }
 
-    private void StopPianoEvent()
-    {
-        EventInstance pianoEvent = RuntimeManager.CreateInstance("event:/Piano Sounds");
-        pianoEvent.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        pianoEvent.release();
-    }
 }
