@@ -17,6 +17,7 @@ public class ListeningBoard : PianoKeyboard
     public NoteBoard noteboard;
     public float notedelay;
     public TalkingBoard talkingboard;
+    public JudgementLine judgementLine;
 
 
 
@@ -24,9 +25,9 @@ public class ListeningBoard : PianoKeyboard
 
     void Awake()
     {
-        lefthandle.sethandleposition();
-        righthandle.sethandleposition();
-        
+        lefthandle.sethandleposition(0);
+        righthandle.sethandleposition(lefthandle.transform.position.x);
+
         // Retrieve values from PlayerPrefs with default values to prevent issues if the keys don't exist
         int leftmostNote = PlayerPrefs.GetInt("PianoHandle1_LeftmostNote", 28);
         int rightmostNote = PlayerPrefs.GetInt("PianoHandle2_RightmostNote", 103);
@@ -55,7 +56,7 @@ public class ListeningBoard : PianoKeyboard
         base.Awake();
 
         talkingboard = Instantiate(talkingboard);
-        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay); //Not sure why the -1 is needed but it properly places the talking board
+        talkingboard.transform.position = transform.position + new Vector3(0, 0, notedelay + transform.lossyScale.z / 2);
         talkingboard.transform.rotation = Quaternion.identity;
         talkingboard.transform.SetParent(transform, worldPositionStays: true); // retains correct world scale
 
@@ -67,8 +68,14 @@ public class ListeningBoard : PianoKeyboard
         noteboard.BuildBoard(transform.lossyScale.x, notedelay);
         noteboard.transform.parent = this.transform;
         noteboard.BuildFrets(fretlocations, spacing);
-        
-    }
+
+        judgementLine = Instantiate(judgementLine, transform.position + transform.forward * transform.lossyScale.z / 2 + transform.up*transform.lossyScale.y / 2 , quaternion.identity);
+        Vector3 newlinescale = judgementLine.transform.localScale;
+        newlinescale.x = transform.lossyScale.x;
+        judgementLine.transform.localScale = newlinescale;
+
+        judgementLine.transform.parent = transform;
+            }
 
 
     void Update()

@@ -16,9 +16,9 @@ public class NoteLeader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float targetLength = (parentnote.endtime - Time.time);
-        float globaltargetlength = targetLength / transform.parent.lossyScale.z;
-        if (globaltargetlength < 0)
+        float targetLength = (parentnote.starttime - Time.time);
+        float globaltargetlength = (targetLength / transform.parent.lossyScale.z);// + parentnote.transform.parent.;
+        if (globaltargetlength < 0.01)
             disappear();
             
         // Update local scale
@@ -29,7 +29,7 @@ public class NoteLeader : MonoBehaviour
 
         // Use the same direction as the note movement
         Vector3 direction = parentnote.transform.forward.normalized;
-        transform.position = parentnote.transform.position - direction * (targetLength / 2f - parentnote.transform.lossyScale.z / 2f);
+        transform.position = parentnote.transform.position - direction * (targetLength / 2f + parentnote.transform.lossyScale.z / 2f);
     }
     public void appear()
     {

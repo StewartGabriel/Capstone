@@ -113,8 +113,10 @@ MonoBehaviour:
   notemanager: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
   lefthandle: {fileID: 0}
   righthandle: {fileID: 0}
+  noteboard: {fileID: 0}
   notedelay: 10
   talkingboard: {fileID: -7034667149640535721, guid: f9f6da7251ed7438fb13df3df6cd6698, type: 3}
+  judgementLine: {fileID: 3320654487820488615, guid: 71a52c8a063814d6eb85c19055d4eed2, type: 3}
 --- !u!65 &6522101027117327228
 BoxCollider:
   m_ObjectHideFlags: 0

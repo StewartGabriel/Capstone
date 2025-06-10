@@ -8,7 +8,8 @@ public class TalkingKeyScript : Key
     public override void KeyDown(int speed, bool hand)
     {
         base.KeyDown(speed, hand);
-        Vector3 spawnPosition = transform.position + transform.forward * (transform.lossyScale.z / 2);
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.z = transform.parent.position.z;
 
 //        Debug.Log("Spawning new note");
         Note newNote = Instantiate(
