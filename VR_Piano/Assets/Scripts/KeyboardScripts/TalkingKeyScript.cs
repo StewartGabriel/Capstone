@@ -8,7 +8,8 @@ public class TalkingKeyScript : Key
     public override void KeyDown(int speed, bool hand)
     {
         base.KeyDown(speed, hand);
-        Vector3 spawnPosition = transform.position + transform.forward * (transform.lossyScale.z / 2);
+        Vector3 spawnPosition = transform.position;
+        spawnPosition.z = transform.parent.position.z;
 
 //        Debug.Log("Spawning new note");
         Note newNote = Instantiate(
@@ -30,18 +31,13 @@ public class TalkingKeyScript : Key
     }
     public override void KeyUp()
     {
-        //Debug.Log("KeyUp called: " + keyID);
-        if(black)
-            thisKeysRenderer.material = Materials[1];
-        else
-            thisKeysRenderer.material = Materials[0]; 
-        
+        base.KeyUp();
         if (currentnote != null)
         {
             currentnote.endtime = Time.time + noteManager.notedelay;
             currentnote.on = false;
             currentnote = null;
         }
-        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
+        
     }
 }

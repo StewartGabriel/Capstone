@@ -14,9 +14,15 @@ public class Key : MonoBehaviour
     protected Note currentnote;
     public bool black;
     public NoteManager noteManager;
+    // private float keyupheight;
+    // private float keydownheight;
+     
 
     public void Initiallize(bool isblack)
     {
+        // keydownheight = transform.position.y;
+        // keyupheight = keydownheight + transform.lossyScale.y;
+        
         black = isblack;
         if (isblack)
         {
@@ -43,20 +49,37 @@ public class Key : MonoBehaviour
         thisKeysRenderer.material = Materials[2];
 //        Debug.Log(speed);
         thisKeysRenderer.material.color = new Color(Mathf.Clamp01((1f / 381f) * speed + 0.5f), 0f, 0f);
-        transform.Translate(Vector3.down * transform.lossyScale.y, Space.Self);
+        Vector3 newheight = transform.position;
+        if (black)
+        {
+            newheight.y = transform.parent.position.y + transform.parent.lossyScale.y / 2 - transform.lossyScale.y / 2 + KeyDimensions[0].y;
+        }
+        else
+        {
+            newheight.y = transform.parent.position.y + transform.parent.lossyScale.y / 2 - transform.lossyScale.y / 2;
+        }
+            
+        transform.position = newheight;
         Debug.Log("KeyDown called: " + keyID + ", " + speed + ", " + hand);
     }
     public virtual void KeyUp()
     {
         Debug.Log("KeyUp called: " + keyID);
-        thisKeysRenderer.material = Materials[0];
+         if(black)
+            thisKeysRenderer.material = Materials[1];
+        else
+            thisKeysRenderer.material = Materials[0];
+
         
-        if (currentnote != null)
+        Vector3 newheight = transform.position;
+        if (black)
         {
-            currentnote.endtime = Time.time;
-            currentnote.on = false;
-            currentnote = null;
+            newheight.y = transform.parent.position.y + transform.parent.lossyScale.y / 2 + transform.lossyScale.y / 2 + KeyDimensions[0].y;
         }
-        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
+        else
+        {
+            newheight.y = transform.parent.position.y + transform.parent.lossyScale.y / 2 + transform.lossyScale.y / 2;
+        }
+        transform.position = newheight;
     }
 }
