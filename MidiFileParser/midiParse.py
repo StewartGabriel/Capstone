@@ -42,7 +42,7 @@ def processMidi(midi_file):
     print(f'On/Off messages have been written to {processed_file_name}.\n')
     
 if __name__ == '__main__':
-    song_name = 'NuclearFusion' # Put the midi file into the folder ./midi_files and write the file name here without the extension
+    song_name = 'HungarianDance' # Put the midi file into the folder ./midi_files and write the file name here without the extension
     if not os.path.exists(f'./processed_midi/{song_name}') or not os.path.exists(f'./unprocessed_midi/{song_name}'): # Creates a folder to store the data
         os.makedirs(f'./processed_midi/{song_name}', exist_ok=True)
         os.makedirs(f'./unprocessed_midi/{song_name}', exist_ok=True)

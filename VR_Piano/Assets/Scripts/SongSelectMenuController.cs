@@ -81,7 +81,7 @@ public class SongSelectMenuController : MonoBehaviour
         songInfo[1] = new Song("Octave Test", "Composer A");
         songInfo[2] = new Song("Ode to Joy", "Ludwig Van Beethoven");
         songInfo[3] = new Song("Sonatina Opus 36", "Muzio Clementi");
-        songInfo[4] = new Song("Fur Elise", "Ludwig Van Beethoven");
+        songInfo[4] = new Song("Hungarian Dance", "Johannes Brahms");
         songInfo[5] = new Song("Lost Woods", "Koji Kondo");
         songInfo[6] = new Song("Your Reality", "Dan Salvato");
         songInfo[7] = new Song("Nuclear Fusion", "ZUN");

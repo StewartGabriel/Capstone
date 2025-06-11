@@ -20,7 +20,7 @@ MonoBehaviour:
     Data4: -187888676
   Banks:
   - {fileID: 8451032182069635135}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters:
@@ -220,7 +220,8 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 3428622286616628539}
   cacheVersion: 131847
-  cacheTime: 638834185037075270
+  cacheTime: 638850688859145721
+
   SerializableEventsDict:
   - key: event:/Piano Sounds
     index: 0
@@ -239,7 +240,8 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD Audio/Piano/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638832815932805832
+  lastModified: 638846707457472721
+
   FileSizes:
   - Name: Desktop
     Value: 820
@@ -259,7 +261,8 @@ MonoBehaviour:
   Path: Assets/Audio/FMOD Audio/Piano/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638834185037075270
+  lastModified: 638850688859145721
+
   FileSizes:
   - Name: Desktop
     Value: 33164928
