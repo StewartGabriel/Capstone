@@ -8,24 +8,25 @@ public class Note : MonoBehaviour
 {
     public float starttime;
     public float endtime;
+    public float lifeTime; // Time after which the note gets destroyed
     public Material[] notematerials;
     public Renderer thisnotesrenderer;
     public float growRate; // Rate at which the object moves
     public bool on = true;
     public int noteID;
-    public float lifeTime; // Time after which the note gets destroyed
 
     private float timer = 0f;
     //private Transform parentTransform;
     private Vector3 movementdirection;
     public NoteLeader Leader;
-    
+    public NoteHeader Header;
+
     void Start()
     {
         Transform parentTransform = transform.parent; // Get the parent object
-        movementdirection  =  parentTransform.forward;
+        movementdirection = parentTransform.forward;
         transform.rotation = parentTransform.rotation;
-        Vector3 newscale = new Vector3 (parentTransform.lossyScale.x,parentTransform.lossyScale.x,.01f); 
+        Vector3 newscale = new Vector3(parentTransform.lossyScale.x, parentTransform.lossyScale.x, .01f);
         transform.SetParent(null);
         transform.localScale = newscale;
         thisnotesrenderer.material = notematerials[0];
@@ -39,8 +40,8 @@ public class Note : MonoBehaviour
         if (on)
         {
             transform.position -= movementdirection * growthAmount;
-            transform.localScale += new Vector3 (0,0,growthAmount * 2);
-            
+            transform.localScale += new Vector3(0, 0, growthAmount * 2);
+
         }
         else // If note is "off"
         {
@@ -53,15 +54,10 @@ public class Note : MonoBehaviour
             }
         }
     }
-    public void activate(){
+    public void activate()
+    {
         thisnotesrenderer.material = notematerials[1];
-    }
-    public void deactivate(){
-        if (thisnotesrenderer != null)
-        {
-            thisnotesrenderer.material = notematerials[2];
-            deactivateleader();
-        }
+        Header.transform.parent = null;
     }
 
     public void activateleader()
@@ -75,5 +71,15 @@ public class Note : MonoBehaviour
     public void correct()
     {
         thisnotesrenderer.material = notematerials[3];
+        Header.Hit();
+    }
+    public void incorrect()
+    {
+        if (thisnotesrenderer != null)
+        {
+            thisnotesrenderer.material = notematerials[2];
+            deactivateleader();
+        }
+        Header.Miss();
     }
 }

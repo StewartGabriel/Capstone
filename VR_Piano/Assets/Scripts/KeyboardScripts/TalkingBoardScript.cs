@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -6,6 +8,7 @@ using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 using FMODUnity;
 using FMOD.Studio;
+using Random = UnityEngine.Random;
 
 public class TalkingBoard : PianoKeyboard
 {    
@@ -20,14 +23,17 @@ public class TalkingBoard : PianoKeyboard
     }
     void Update()
     {
+        Debug.Log("test: " + Time.time);
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            KeySet[0].KeyDown(Random.Range(0, 128), true);
-            // StartPianoEvent(0f);
+            Debug.Log("W pressed");
+            KeySet[0].KeyDown(UnityEngine.Random.Range(0, 128), true);
+            //StartPianoEvent(0f);
         }
 
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
+            Debug.Log("W released");
             KeySet[0].KeyUp();
             // StopPianoEvent();
         }

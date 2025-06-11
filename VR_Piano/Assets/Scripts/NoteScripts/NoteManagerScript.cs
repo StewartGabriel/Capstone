@@ -5,7 +5,8 @@ using System.Linq;
 
 public class NoteManager : MonoBehaviour
 {
-    public float notebuffer = .6f;
+    public float earlywindow = .6f;
+    public float latewindow = .6f;
     public float notedelay = 0;
     public int correctnotes;
     public int incorrectnotes;
@@ -13,6 +14,7 @@ public class NoteManager : MonoBehaviour
     public List<Note> activenotes = new List<Note>();
     public List<Note> pressednotes = new List<Note>();
     public int numberofactiveleaders;
+    public ListeningBoard listeningBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +32,10 @@ public class NoteManager : MonoBehaviour
         foreach (Note i in activenotes)
         {
             // Deactivate notes based on endtime
-            if (i.endtime < Time.time - notebuffer)
+            if (i.endtime < Time.time - latewindow)
             {
                 Debug.Log("Deactivating note: " + i.noteID + ", " + i.endtime);
-                i.deactivate();
+                i.incorrect();
                 activenotes.Remove(i);
                 incorrectnotes++;
                 continue; // Move to the next note if this one is deactivated
@@ -53,30 +55,43 @@ public class NoteManager : MonoBehaviour
     }
     public bool checkKeyHit(int keyID){
         foreach (Note i in activenotes){
-            if (i.starttime > Time.time - notebuffer && i.starttime < Time.time + notebuffer && i.noteID == keyID){
+            if (i.starttime > Time.time - earlywindow && i.starttime < Time.time + latewindow && i.noteID == keyID){
                 Debug.Log("Note hit: HIT: " + Time.time + " : " + i.starttime);
                 i.activate();
                 pressednotes.Add(i);
                 activenotes.Remove(i);
+                Transform targetkeytransform = listeningBoard.KeySet[keyID - listeningBoard.FirstNoteID].transform; 
+                i.Header.transform.position += -1 * targetkeytransform.forward * targetkeytransform.lossyScale.y/2;
                 return true;
             }
         }
         Debug.Log("Note hit: MISS "+ Time.time);
         return false;
     }
-    public bool checkKeyRelease(int keyID){
-        foreach (Note i in pressednotes){
-            if (i.endtime > Time.time - notebuffer 
-             && i.endtime < Time.time + notebuffer 
-             && i.noteID == keyID){
-                Debug.Log("Note Release: HIT " + Time.time + " : " + i.starttime);
-                i.correct();
+    public bool checkKeyRelease(int keyID)
+    {
+        foreach (Note i in pressednotes)
+        {
+            if (i.noteID == keyID)
+            {
+                Debug.Log("Note Release: Note Found " + i);
+                if (i.endtime > Time.time - earlywindow
+                && i.endtime < Time.time + latewindow)
+                {
+                    Debug.Log("Note Release: HIT " + Time.time + " : " + i.endtime);
+                    i.correct();
+                    pressednotes.Remove(i);
+                    correctnotes++;
+                    return true;
+                }
+                Debug.Log("Note Release: MISS " + Time.time +" : " + i.endtime);
+                i.incorrect();
                 pressednotes.Remove(i);
-                correctnotes++;
-                return true;
+                incorrectnotes++;
+                return false;
             }
         }
-        Debug.Log("Note Release: MISS "+ Time.time);
+        Debug.Log("Note Release: Note Not Found ");
         return false;
     }
 }

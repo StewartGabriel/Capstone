@@ -1,33 +1,52 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.EnhancedTouch;
 
-public class KeepLossyScaleConstant : MonoBehaviour
+public class NoteHeader : MonoBehaviour
 {
+    public Renderer thisnotesrenderer;
     private Transform parentTransform;
-    private float targetZScale; // The desired Z world scale
+    private float targetZScale;
+    public bool moving = true;
+    public float deathdelay = 1f;
+    public Material[] materials;
 
     void Start()
     {
-        // Get the parent transform
         parentTransform = transform.parent;
-
-        // Store the desired target Z scale based on the initial world scale
         targetZScale = transform.lossyScale.z;
     }
 
     void Update()
     {
-        // Get the current parent's lossy scale
-        Vector3 parentLossyScale = parentTransform.lossyScale;
+        Vector3 ps = parentTransform.lossyScale;
+        transform.localScale = new Vector3(
+            transform.localScale.x,
+            transform.localScale.y,
+            targetZScale / ps.z
+        );
+    }
 
-        // Calculate the factor needed to maintain the global Z scale constant
-        float scaleFactor = parentLossyScale.z / transform.localScale.z;
+    private void maintaincourse()
+    {
+            
+    }
 
-        // Adjust the child's local scale while maintaining the target global Z scale
-        Vector3 newScale = new Vector3(
-            transform.localScale.x, 
-            transform.localScale.y, 
-            targetZScale / parentLossyScale.z);
+    public void Hit()
+    {
+        thisnotesrenderer.material = materials[1];
+        StartCoroutine(DestroyAfterDelay());
+    }
 
-        transform.localScale = newScale;
+    public void Miss()
+    {
+        thisnotesrenderer.material = materials[2];
+        StartCoroutine(DestroyAfterDelay());
+    }
+    
+    private IEnumerator DestroyAfterDelay()
+    {
+        yield return new WaitForSeconds(deathdelay);
+        Destroy(gameObject);
     }
 }

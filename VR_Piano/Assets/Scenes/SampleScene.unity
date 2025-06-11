@@ -1520,8 +1520,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
+      propertyPath: latewindow
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: notebuffer
-      value: 0.4
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
+      propertyPath: earlywindow
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: activenotes.Array.size

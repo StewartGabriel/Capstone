@@ -24,12 +24,6 @@ public class PianoKeyboard : MonoBehaviour
     {
         CreateBoard();
     }
-
-    void Update()
-    {
-       
-    }
-
   
     protected void CreateBoard()
     {

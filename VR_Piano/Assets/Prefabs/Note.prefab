@@ -118,6 +118,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469e076911db4477fb4017b0955631d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisnotesrenderer: {fileID: 416327327470111473}
+  moving: 1
+  deathdelay: 1
+  materials:
+  - {fileID: 2100000, guid: 1fcb1f67feb6e4bd3aaf4be678d0e9c6, type: 2}
+  - {fileID: 2100000, guid: 45fc74e09d28e48cab1df86e7c01878c, type: 2}
+  - {fileID: 2100000, guid: 7dec81ad5be854bc5b926cd0c96a6fa2, type: 2}
 --- !u!1 &2593188507662427493
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starttime: 0
   endtime: 0
+  lifeTime: 13
   notematerials:
   - {fileID: 2100000, guid: 70154675126c843bdb4b89ff9ab6992a, type: 2}
   - {fileID: 2100000, guid: 1fcb1f67feb6e4bd3aaf4be678d0e9c6, type: 2}
@@ -375,5 +383,5 @@ MonoBehaviour:
   growRate: 0.5
   on: 0
   noteID: 0
-  lifeTime: 13
   Leader: {fileID: 1338906844006490645}
+  Header: {fileID: 1598029066961234596}
