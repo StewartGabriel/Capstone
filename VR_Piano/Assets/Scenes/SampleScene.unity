@@ -1521,7 +1521,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: latewindow
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: notebuffer
@@ -1529,8 +1529,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: earlywindow
-      value: 0.1
+      value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
+      propertyPath: listeningBoard
+      value: 
+      objectReference: {fileID: 1363837518}
     - target: {fileID: 342994897659301640, guid: f6aef2b320aaa4befaee4a6f47866919, type: 3}
       propertyPath: activenotes.Array.size
       value: 0

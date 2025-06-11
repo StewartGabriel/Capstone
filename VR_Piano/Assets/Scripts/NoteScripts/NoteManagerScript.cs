@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using FMOD;
+using Debug = UnityEngine.Debug;
 
 public class NoteManager : MonoBehaviour
 {
@@ -56,12 +58,18 @@ public class NoteManager : MonoBehaviour
     public bool checkKeyHit(int keyID){
         foreach (Note i in activenotes){
             if (i.starttime > Time.time - earlywindow && i.starttime < Time.time + latewindow && i.noteID == keyID){
-                Debug.Log("Note hit: HIT: " + Time.time + " : " + i.starttime);
+                UnityEngine.Debug.Log("Note hit: HIT: " + Time.time + " : " + i.starttime);
                 i.activate();
                 pressednotes.Add(i);
                 activenotes.Remove(i);
-                Transform targetkeytransform = listeningBoard.transform; 
-                i.Header.transform.position += -1 * targetkeytransform.forward * targetkeytransform.lossyScale.z/2;
+                Vector3 newpos = i.Header.transform.position;
+                float judgez = listeningBoard.judgementLine.transform.position.z;
+                float prevz = newpos.z;
+                Debug.Log(judgez + " : " + prevz);
+                newpos.z = listeningBoard.judgementLine.transform.position.z;
+                //newpos.z = 12;
+                
+                i.Header.transform.position =newpos;
                 return true;
             }
         }

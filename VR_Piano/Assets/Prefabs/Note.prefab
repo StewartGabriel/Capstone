@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   thisnotesrenderer: {fileID: 416327327470111473}
   moving: 1
-  deathdelay: 1
+  deathdelay: 2
   materials:
   - {fileID: 2100000, guid: 1fcb1f67feb6e4bd3aaf4be678d0e9c6, type: 2}
   - {fileID: 2100000, guid: 45fc74e09d28e48cab1df86e7c01878c, type: 2}
