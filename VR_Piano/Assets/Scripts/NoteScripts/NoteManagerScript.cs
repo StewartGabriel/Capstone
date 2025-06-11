@@ -27,34 +27,47 @@ public class NoteManager : MonoBehaviour
 
     void Update()
     {
-        int chordCount = 0;
-        float lastStartTime = 0;
-
-        // Loop through the active notes and handle deactivation and leader activation
-        foreach (Note i in activenotes)
+        // 1) First, remove any notes that have expired
+        for (int idx = activenotes.Count - 1; idx >= 0; idx--)
         {
-            // Deactivate notes based on endtime
-            if (i.endtime < Time.time - latewindow)
+            var note = activenotes[idx];
+            if (note.endtime < Time.time - latewindow)
             {
-                Debug.Log("Deactivating note: " + i.noteID + ", " + i.endtime);
-                i.incorrect();
-                activenotes.Remove(i);
+                Debug.Log($"Deactivating note: {note.noteID}, {note.endtime}");
+                note.incorrect();
+                activenotes.RemoveAt(idx);
                 incorrectnotes++;
-                continue; // Move to the next note if this one is deactivated
-            }
-
-            // Check if this note is in the future and is part of a chord
-            if (i.starttime > Time.time && chordCount < numberofactiveleaders)
-            {
-                if (Mathf.Abs(i.starttime - lastStartTime) > 0.1f)
-                {
-                    chordCount++;
-                    lastStartTime = i.starttime;
-                }
-                i.activateleader();  // Activate leader only for notes that are part of the chord
             }
         }
+
+        // 2) Now, among the remaining future notes, pick out the next
+        //    `numberofactiveleaders` chords (by starttime), and activate all notes in them.
+        var futureNotes = activenotes
+            .Where(n => n.starttime > Time.time)
+            .OrderBy(n => n.starttime)
+            .ToList();
+
+        float lastStartTime = -Mathf.Infinity;
+        int chordCount    = 0;
+
+        foreach (var note in futureNotes)
+        {
+            // if this note’s starttime is “far enough” from the last chord, it’s a new chord
+            if (Mathf.Abs(note.starttime - lastStartTime) > 0.1f)
+            {
+                chordCount++;
+                lastStartTime = note.starttime;
+
+                // if we’ve already done N chords, stop entirely
+                if (chordCount > numberofactiveleaders)
+                    break;
+            }
+
+            // as long as chordCount ≤ numberofactiveleaders, activate every note in that chord
+            note.activateleader();
+        }
     }
+
     public bool checkKeyHit(int keyID){
         foreach (Note i in activenotes){
             if (i.starttime > Time.time - earlywindow && i.starttime < Time.time + latewindow && i.noteID == keyID){
