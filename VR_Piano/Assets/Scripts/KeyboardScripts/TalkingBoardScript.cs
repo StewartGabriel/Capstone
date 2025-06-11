@@ -9,7 +9,6 @@ using FMOD.Studio;
 
 public class TalkingBoard : PianoKeyboard
 {
-    //private Dictionary<float, EventInstance> pianoEvents = new Dictionary<float, EventInstance>(); // Stores event insatnces to be reused
     void Awake()
     {
         base.Awake();
@@ -63,7 +62,6 @@ public class TalkingBoard : PianoKeyboard
         if (velocity > 0)
         {
             try{
-                //StartPianoEvent(t); // original note from MidiMessages playing
                 KeySet[t].KeyDown(velocity, hand);
             }
             catch (System.Exception e)
@@ -74,6 +72,7 @@ public class TalkingBoard : PianoKeyboard
         }
         else
         {
+            // StopPianoEvent(t);
             KeySet[t].KeyUp();
         }
     }
@@ -92,7 +91,15 @@ public class TalkingBoard : PianoKeyboard
     //    {
     //        pianoEvents[note].start();
     //    }
-            
+
+    //}
+
+    //private void StopPianoEvent(float note)
+    //{
+    //    if (pianoEvents.ContainsKey(note))
+    //    {
+    //        pianoEvents[note].stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    //    }
     //}
 
 }
