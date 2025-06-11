@@ -6,7 +6,7 @@ public class PianoHandle : MonoBehaviour
 {
 
     // Start is called before the first frame update
-    
+
     void Start()
     {
 
@@ -19,9 +19,17 @@ public class PianoHandle : MonoBehaviour
     }
     public void sethandleposition(float reference)
     {
-        Vector3 position = new Vector3 (PlayerPrefs.GetFloat(gameObject.name + "_Pos_X", reference + Random.Range(1f,2f)),
-        PlayerPrefs.GetFloat(gameObject.name + "_Pos_Y", reference + Random.Range(1f,2f)),
+        Vector3 position = new Vector3(PlayerPrefs.GetFloat(gameObject.name + "_Pos_X", reference + Random.Range(1f, 2f)),
+        PlayerPrefs.GetFloat(gameObject.name + "_Pos_Y", reference + Random.Range(1f, 2f)),
         PlayerPrefs.GetFloat(gameObject.name + "_Pos_z", 0));
         transform.position = position;
     }
+    public void sethandleposition()
+    {
+        Vector3 position = new Vector3(PlayerPrefs.GetFloat(gameObject.name + "_Pos_X", Random.Range(1f, 2f)),
+        PlayerPrefs.GetFloat(gameObject.name + "_Pos_Y", Random.Range(1f, 2f)),
+        PlayerPrefs.GetFloat(gameObject.name + "_Pos_z", 0));
+        transform.position = position;
+    }
+
 }
