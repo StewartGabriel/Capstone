@@ -91,6 +91,7 @@ public class ListeningBoard : PianoKeyboard
 
         if (Keyboard.current.sKey.wasReleasedThisFrame)
         {
+            StopPianoEvent(0f);
             KeySet[0].KeyUp();
         }
 
@@ -102,6 +103,7 @@ public class ListeningBoard : PianoKeyboard
 
         if (Keyboard.current.dKey.wasReleasedThisFrame)
         {
+            StopPianoEvent(1f);
             KeySet[1].KeyUp();
         }
 
@@ -113,6 +115,7 @@ public class ListeningBoard : PianoKeyboard
 
         if (Keyboard.current.fKey.wasReleasedThisFrame)
         {
+            StopPianoEvent(2f);
             KeySet[2].KeyUp();
         }
 
@@ -151,6 +154,7 @@ public class ListeningBoard : PianoKeyboard
 
             else
             {
+                StopPianoEvent(index);
                 KeySet[index].KeyUp();
             }
 
@@ -177,6 +181,14 @@ public class ListeningBoard : PianoKeyboard
             pianoEvents[note].start(); // starts stored instances
         }
 
+    }
+
+    private void StopPianoEvent(float note)
+    {
+        if (pianoEvents.ContainsKey(note))
+        {
+            pianoEvents[note].stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
     }
 
 }
