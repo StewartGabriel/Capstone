@@ -1,7 +1,7 @@
 if __name__ == '__main__':
     # Change this to the name of the midi files you want to compare
-    left_hand = 'processed_midi\\YourReality\\processedYourReality1Piano.txt' # Change this to the left hand file name
-    right_hand = 'processed_midi\\YourReality\\processedYourReality0Piano.txt' # Change this to the right hand file name
+    left_hand = 'processed_midi\\HungarianDance\\processedHungarianDance1.txt' # Change this to the left hand file name
+    right_hand = 'processed_midi\\HungarianDance\\processedHungarianDance0.txt' # Change this to the right hand file name
 
     left_time = 0 # Keeps track of the time the left hand has been playing
     left_line = 0 # Keeps track of the line number of the left hand file
@@ -20,7 +20,7 @@ if __name__ == '__main__':
             current_left_note = left_message.split(' ')[1] # Gets the note number of the current left hand note
             current_left_note_status = left_message.split(' ')[0] # Gets the left note's on/off status
 
-            # print(f'Left hand note {current_left_note} is played at time {left_time} for {left_message_time}ms with status {current_left_note_status}.\tleft: {left_line}')
+            #print(f'Left hand note {current_left_note} is played at time {left_time} for {left_message_time}ms with status {current_left_note_status}.\tleft: {left_line}')
 
             while right_time < left_time and right_line < len(right_messages):
 
@@ -32,7 +32,7 @@ if __name__ == '__main__':
                 current_right_note = right_message.split(' ')[1]
                 current_right_note_status = right_message.split(' ')[0]
 
-                print(f'Right hand note {current_right_note} is played at time {right_time} for {right_message_time}ms with status {current_right_note_status}.\tright: {right_line}')
+            #    print(f'Right hand note {current_right_note} is played at time {right_time} for {right_message_time}ms with status {current_right_note_status}.\tright: {right_line}')
 
                 if left_time == right_time and current_left_note_status == current_right_note_status: # and current_left_note == current_right_note:
                     print(f'Left hand note {current_left_note} and right hand note {current_right_note} are played at the same time\tleft: {left_line} {left_time}ms, right: {right_line} {right_time}ms.')
