@@ -31,18 +31,13 @@ public class TalkingKeyScript : Key
     }
     public override void KeyUp()
     {
-        //Debug.Log("KeyUp called: " + keyID);
-        if(black)
-            thisKeysRenderer.material = Materials[1];
-        else
-            thisKeysRenderer.material = Materials[0]; 
-        
+        base.KeyUp();
         if (currentnote != null)
         {
             currentnote.endtime = Time.time + noteManager.notedelay;
             currentnote.on = false;
             currentnote = null;
         }
-        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
+        
     }
 }

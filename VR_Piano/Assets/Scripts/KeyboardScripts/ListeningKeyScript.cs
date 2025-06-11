@@ -40,14 +40,8 @@ public class ListeningKeyScript : Key
     }
     public override void KeyUp()
     {
-        //Debug.Log("KeyUp called: " + keyID);
-
-        if(black)
-            thisKeysRenderer.material = Materials[1];
-        else
-            thisKeysRenderer.material = Materials[0]; 
+        base.KeyUp();
         
-        transform.Translate(Vector3.up * transform.lossyScale.y, Space.Self);
         if (noteManager.checkKeyRelease(keyID))
         {
             thisKeysRenderer.material = Materials[2];
