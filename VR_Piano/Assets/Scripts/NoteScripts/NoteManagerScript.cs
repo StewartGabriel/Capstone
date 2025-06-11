@@ -60,8 +60,8 @@ public class NoteManager : MonoBehaviour
                 i.activate();
                 pressednotes.Add(i);
                 activenotes.Remove(i);
-                Transform targetkeytransform = listeningBoard.KeySet[keyID - listeningBoard.FirstNoteID].transform; 
-                i.Header.transform.position += -1 * targetkeytransform.forward * targetkeytransform.lossyScale.y/2;
+                Transform targetkeytransform = listeningBoard.transform; 
+                i.Header.transform.position += -1 * targetkeytransform.forward * targetkeytransform.lossyScale.z/2;
                 return true;
             }
         }

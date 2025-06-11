@@ -23,17 +23,14 @@ public class TalkingBoard : PianoKeyboard
     }
     void Update()
     {
-        Debug.Log("test: " + Time.time);
         if (Keyboard.current.wKey.wasPressedThisFrame)
         {
-            Debug.Log("W pressed");
             KeySet[0].KeyDown(UnityEngine.Random.Range(0, 128), true);
             //StartPianoEvent(0f);
         }
 
         if (Keyboard.current.wKey.wasReleasedThisFrame)
         {
-            Debug.Log("W released");
             KeySet[0].KeyUp();
             // StopPianoEvent();
         }

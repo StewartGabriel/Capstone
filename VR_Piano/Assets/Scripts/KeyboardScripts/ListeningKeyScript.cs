@@ -40,12 +40,13 @@ public class ListeningKeyScript : Key
     }
     public override void KeyUp()
     {
-        base.KeyUp();
-        
+
         if (noteManager.checkKeyRelease(keyID))
         {
             thisKeysRenderer.material = Materials[2];
         }
+        base.KeyUp();
+        
     }
     
 }
