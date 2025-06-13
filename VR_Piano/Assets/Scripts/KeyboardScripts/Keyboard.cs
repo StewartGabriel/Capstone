@@ -11,41 +11,44 @@ using UnityEngine.InputSystem.Layouts;
 public class PianoKeyboard : MonoBehaviour
 {
     //public GameObject KeyboardBase;
-    public Key[]KeySet;
+    public Key[] KeySet;
     public Key KeyPreFab;
-    public Key BlackKeyPreFab; 
+    public Key BlackKeyPreFab;
     public int KeyCount;
     public float spacing;
     public int FirstNoteID;
     public NoteManager notemanager;
     protected List<float> fretlocations = new List<float>();
-    
+
+    void Update()
+    {
+    }
     public void Awake()
     {
         CreateBoard();
     }
-  
+
     protected void CreateBoard()
     {
         KeySet = new Key[KeyCount];
 
-        transform.localScale = new Vector3(transform.localScale.x, KeyPreFab.transform.localScale.y *2, KeyPreFab.transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x, KeyPreFab.transform.localScale.y * 2, KeyPreFab.transform.localScale.z);
 
         float width = transform.lossyScale.x;
         float height = transform.lossyScale.y;
         float keyDepth = KeyPreFab.transform.lossyScale.z;
 
-        float keyWidth  = KeyPreFab.transform.lossyScale.x;
+        float keyWidth = KeyPreFab.transform.lossyScale.x;
 
         float currentPosition = transform.position.x - width / 2 - keyWidth / 2;
 
         float yPosition = transform.position.y + height / 2;
 
 
-        int[] blackwhitepattern = {1,0,1,1,0,1,0,1,1,0,1,0};
-        int octavetracker  = 7;
+        int[] blackwhitepattern = { 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0 };
+        int octavetracker = 7;
 
-        
+
         for (int i = 0; i < KeyCount; i++)
         {
             if (blackwhitepattern[octavetracker] == 1)
@@ -59,8 +62,8 @@ public class PianoKeyboard : MonoBehaviour
                 newKey.Initiallize(false);
                 KeySet[i] = newKey;
                 if (octavetracker == 3)
-                fretlocations.Add(currentPosition - KeyPreFab.transform.lossyScale.x / 2 - spacing / 2);
-   
+                    fretlocations.Add(currentPosition - KeyPreFab.transform.lossyScale.x / 2 - spacing / 2);
+
             }
             else
             {
@@ -73,21 +76,23 @@ public class PianoKeyboard : MonoBehaviour
                 blackKey.Initiallize(true);
                 KeySet[i] = blackKey;
             }
-            
+
             KeySet[i].keyID = i + FirstNoteID;
             KeySet[i].noteManager = notemanager;
 
-            if (octavetracker == 11){
+            if (octavetracker == 11)
+            {
                 octavetracker = 0;
             }
-            else{
+            else
+            {
                 octavetracker++;
             }
         }
         float firstKeyX = KeySet[0].transform.position.x;
         float lastKeyX = KeySet[KeySet.Length - 1].transform.position.x;
         float newboardsize = (lastKeyX - firstKeyX) + keyWidth; // Include last key's width
-        float newboardcenter = firstKeyX - keyWidth/2 + newboardsize / 2;
+        float newboardcenter = firstKeyX - keyWidth / 2 + newboardsize / 2;
 
         // Correct position centering
         this.transform.position = new Vector3(newboardcenter, transform.position.y, transform.position.z);
@@ -97,10 +102,11 @@ public class PianoKeyboard : MonoBehaviour
         scale.x = newboardsize / transform.lossyScale.x; // Scale relative to original size
         transform.localScale = scale;
 
-        for(int i  = 0; i< KeySet.Length; i++){
+        for (int i = 0; i < KeySet.Length; i++)
+        {
             KeySet[i].transform.SetParent(this.transform);
         }
     }
 
-    
+
 }
